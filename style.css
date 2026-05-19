@@ -85,7 +85,30 @@ nav {
 
 /* ── HOME ── */
 .home-section {
-  background: radial-gradient(ellipse at 60% 55%, #2a1a08 0%, #0d0905 45%, var(--dark) 75%);
+  background: var(--dark);
+}
+
+.home-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.45;
+  z-index: 0;
+}
+
+.home-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(8,8,8,0.3) 0%, rgba(8,8,8,0.55) 60%, rgba(8,8,8,0.85) 100%);
+  z-index: 1;
+}
+
+.home-section .content {
+  position: relative;
+  z-index: 2;
 }
 
 .eyebrow-en {
@@ -200,31 +223,32 @@ blockquote {
 /* ── SMALL ARTWORK OVERLAY ── */
 .small-artwork {
   position: absolute;
-  width: 220px;
+  width: 200px;
   height: auto;
-  opacity: 0.55;
-  filter: grayscale(100%) contrast(1.1);
+  opacity: 0.35;
+  filter: grayscale(100%) contrast(1.05) brightness(0.9);
   object-fit: cover;
   pointer-events: none;
-  border-radius: 2px;
+  border-radius: 1px;
+  transition: opacity 0.4s ease;
+}
+
+.small-artwork:hover {
+  opacity: 0.6;
 }
 
 .artwork-depression {
-  bottom: 10%;
-  left: 6%;
+  bottom: 12%;
+  left: 5%;
 }
 
 .artwork-madness {
-  top: 18%;
-  right: 6%;
-}
-
-.artwork-recovery {
-  bottom: 10%;
-  right: 6%;
+  top: 20%;
+  right: 5%;
+  width: 180px;
 }
 
 .artwork-photography {
-  top: 18%;
-  left: 6%;
+  bottom: 12%;
+  right: 5%;
 }
