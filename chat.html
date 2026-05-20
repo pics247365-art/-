@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>לב — חבר שמקשיב</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="chat.css">
+</head>
+<body>
+
+  <!-- ── מסך הגדרות (מיועד לבן משפחה בלבד) ── -->
+  <div id="setup-screen" class="screen hidden">
+    <div class="setup-container">
+
+      <div class="setup-logo" aria-hidden="true">💚</div>
+      <h1 class="setup-title">לב</h1>
+      <p class="setup-subtitle">חבר שמקשיב</p>
+
+      <div class="setup-card">
+        <p class="setup-card-title">👋 שלום, בן משפחה יקר</p>
+        <p class="setup-card-text">
+          מסך זה מופיע <strong>פעם אחת בלבד</strong> — רק בפעם הראשונה.<br>
+          לאחר שתכניס את הקוד ותלחץ "שמור",<br>
+          הקרוב שלך יפתח את לב ישירות לשיחה.
+        </p>
+      </div>
+
+      <div class="setup-form">
+        <label for="api-key-input" class="setup-label">הכנס כאן את הקוד שקיבלת:</label>
+        <input
+          type="password"
+          id="api-key-input"
+          class="setup-input"
+          placeholder="sk-ant-..."
+          autocomplete="off"
+          aria-describedby="setup-error"
+          dir="ltr"
+        >
+        <button id="setup-btn" class="setup-button">שמור והפעל את לב ▶</button>
+      </div>
+
+      <p class="setup-error hidden" id="setup-error" role="alert">
+        הקוד לא נראה תקין — בדוק שהעתקת את כולו ונסה שוב
+      </p>
+
+      <p class="setup-footer">
+        רוצה לעדכן את הקוד בעתיד? הוסף <code>?reset</code> לסוף הכתובת
+      </p>
+
+    </div>
+  </div>
+
+  <!-- ── מסך השיחה ── -->
+  <div id="chat-screen" class="screen hidden">
+
+    <!-- כותרת עליונה -->
+    <header class="chat-header">
+      <button id="settings-btn" class="icon-btn" title="הגדרות" aria-label="הגדרות">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+          <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </button>
+
+      <div class="header-center">
+        <div class="header-avatar" aria-hidden="true">💚</div>
+        <div class="header-text">
+          <div class="header-name">לב</div>
+          <div class="header-status">כאן בשבילך</div>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <div class="font-size-controls" aria-label="גודל גופן">
+          <button id="font-down-btn" class="font-btn" title="הקטן טקסט" aria-label="הקטן טקסט">א–</button>
+          <button id="font-up-btn" class="font-btn" title="הגדל טקסט" aria-label="הגדל טקסט">א+</button>
+        </div>
+        <button id="clear-btn" class="icon-btn" title="שיחה חדשה" aria-label="שיחה חדשה">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+            <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.13"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- אזור ההודעות -->
+    <main id="messages" class="messages-container" role="log" aria-live="polite" aria-label="שיחה עם לב"></main>
+
+    <!-- אינדיקטור הקלדה -->
+    <div id="typing-indicator" class="typing-indicator hidden" aria-label="לב מקשיב" aria-live="polite">
+      <div class="typing-bubble" aria-hidden="true">
+        <span class="typing-dot"></span>
+        <span class="typing-dot"></span>
+        <span class="typing-dot"></span>
+      </div>
+      <span class="typing-text">לב מקשיב...</span>
+    </div>
+
+    <!-- אזור הקלט -->
+    <footer class="chat-footer">
+      <div class="input-wrapper">
+        <textarea
+          id="message-input"
+          class="message-input"
+          placeholder="שתף מה על לבך..."
+          rows="1"
+          dir="rtl"
+          aria-label="הודעה"
+          aria-multiline="true"
+        ></textarea>
+        <button id="send-btn" class="send-btn" title="שלח" aria-label="שלח הודעה">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+            <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+        </button>
+      </div>
+      <p class="footer-disclaimer">
+        לב הוא חבר וירטואלי, לא מטפל מקצועי &nbsp;|&nbsp; מצב חירום: ער"ן <strong>1201</strong>
+      </p>
+    </footer>
+
+  </div>
+
+  <!-- דיאלוג אישור -->
+  <div id="confirm-dialog" class="confirm-dialog hidden" role="dialog" aria-modal="true">
+    <div class="confirm-box">
+      <p id="confirm-text" class="confirm-text"></p>
+      <div class="confirm-buttons">
+        <button id="confirm-yes" class="confirm-btn confirm-btn-yes">כן</button>
+        <button id="confirm-no" class="confirm-btn confirm-btn-no">לא</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="chat.js"></script>
+</body>
+</html>

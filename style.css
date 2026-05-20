@@ -22,7 +22,6 @@ body {
   direction: rtl;
 }
 
-/* ── NAV ── */
 nav {
   position: fixed;
   top: 0;
@@ -66,7 +65,6 @@ nav {
   letter-spacing: 0.02em;
 }
 
-/* ── SECTIONS ── */
 .section {
   position: relative;
   min-height: 100vh;
@@ -83,7 +81,6 @@ nav {
   width: 100%;
 }
 
-/* ── HOME ── */
 .home-section {
   background: var(--dark);
 }
@@ -150,32 +147,68 @@ blockquote {
   line-height: 1.8;
 }
 
-/* ── DEPRESSION ── */
 .depression-section {
   background: var(--dark);
 }
 
-/* ── MADNESS ── */
 .madness-section {
   background: #06060a;
 }
 
-/* ── RECOVERY ── */
 .recovery-section {
   background: #070a07;
 }
 
-/* ── PHOTOGRAPHY ── */
 .photography-section {
   background: var(--dark);
 }
 
-/* ── HELP ── */
 .help-section {
   background: #070508;
 }
 
-/* ── TYPOGRAPHY ── */
+.chat-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 2.5rem;
+  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 50px;
+  color: #ffffff;
+  text-decoration: none;
+  font-family: 'Heebo', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: background 0.25s, border-color 0.25s, transform 0.15s;
+}
+
+.chat-cta:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px);
+}
+
+.chat-cta-icon {
+  font-size: 1.3rem;
+}
+
+.emergency-line {
+  margin-top: 1.5rem;
+  font-family: 'Heebo', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.04em;
+}
+
+.emergency-line strong {
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+}
+
 .eyebrow {
   font-family: 'Heebo', sans-serif;
   font-size: 0.7rem;
@@ -220,7 +253,6 @@ blockquote {
   margin: 0 auto;
 }
 
-/* ── SMALL ARTWORK OVERLAY ── */
 .small-artwork {
   position: absolute;
   width: 200px;
