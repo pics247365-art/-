@@ -10,33 +10,45 @@
 </head>
 <body>
 
-  <!-- ── מסך הגדרות ── -->
+  <!-- ── מסך הגדרות (מיועד לבן משפחה בלבד) ── -->
   <div id="setup-screen" class="screen hidden">
     <div class="setup-container">
+
       <div class="setup-logo" aria-hidden="true">💚</div>
       <h1 class="setup-title">לב</h1>
       <p class="setup-subtitle">חבר שמקשיב</p>
-      <p class="setup-desc">
-        ברוכים הבאים.<br>
-        כדי שלב יוכל לדבר איתך,<br>
-        יש להכניס מפתח גישה.<br>
-        <small>אם לא קיבלת, שאל בני משפחה או מי שעזר לך להגיע לכאן.</small>
-      </p>
+
+      <div class="setup-card">
+        <p class="setup-card-title">👋 שלום, בן משפחה יקר</p>
+        <p class="setup-card-text">
+          מסך זה מופיע <strong>פעם אחת בלבד</strong> — רק בפעם הראשונה.<br>
+          לאחר שתכניס את הקוד ותלחץ "שמור",<br>
+          הקרוב שלך יפתח את לב ישירות לשיחה.
+        </p>
+      </div>
+
       <div class="setup-form">
-        <label for="api-key-input" class="setup-label">מפתח גישה:</label>
+        <label for="api-key-input" class="setup-label">הכנס כאן את הקוד שקיבלת:</label>
         <input
           type="password"
           id="api-key-input"
           class="setup-input"
-          placeholder="הכנס מפתח גישה כאן"
+          placeholder="sk-ant-..."
           autocomplete="off"
           aria-describedby="setup-error"
+          dir="ltr"
         >
-        <button id="setup-btn" class="setup-button">כניסה לשיחה עם לב</button>
+        <button id="setup-btn" class="setup-button">שמור והפעל את לב ▶</button>
       </div>
+
       <p class="setup-error hidden" id="setup-error" role="alert">
-        המפתח אינו תקין, אנא נסה שוב
+        הקוד לא נראה תקין — בדוק שהעתקת את כולו ונסה שוב
       </p>
+
+      <p class="setup-footer">
+        רוצה לעדכן את הקוד בעתיד? הוסף <code>?reset</code> לסוף הכתובת
+      </p>
+
     </div>
   </div>
 

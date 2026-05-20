@@ -84,6 +84,13 @@ const confirmNo     = $('confirm-no');
 
 /* ── INIT ── */
 function init() {
+  // ?reset בכתובת מאפשר לבן משפחה לעדכן את הקוד
+  const params = new URLSearchParams(window.location.search);
+  if (params.has('reset')) {
+    localStorage.removeItem('lev_api_key');
+    window.history.replaceState({}, '', window.location.pathname);
+  }
+
   const saved = localStorage.getItem('lev_api_key');
   const savedFont = parseInt(localStorage.getItem('lev_font_size'), 10);
   if (savedFont && savedFont >= 15 && savedFont <= 28) {
