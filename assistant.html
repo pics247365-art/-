@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0e1117">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="עוזר חכם">
+  <meta name="description" content="עוזר קולי חכם בעברית">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <title>עוזר חכם 🧠</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assistant.css">
+</head>
+<body>
+  <div class="app">
+
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-inner">
+        <div class="logo">
+          <div class="logo-icon">
+            <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 4C10.268 4 4 10.268 4 18s6.268 14 14 14 14-6.268 14-14S25.732 4 18 4z" fill="url(#grad)"/>
+              <path d="M13 14a2 2 0 100-4 2 2 0 000 4zM23 14a2 2 0 100-4 2 2 0 000 4z" fill="white"/>
+              <path d="M10 20c0 4.418 3.582 8 8 8s8-3.582 8-8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+              <defs>
+                <linearGradient id="grad" x1="4" y1="4" x2="32" y2="32">
+                  <stop offset="0%" stop-color="#7c3aed"/>
+                  <stop offset="100%" stop-color="#3b82f6"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <span class="logo-text">עוזר חכם</span>
+        </div>
+        <div class="header-stats" id="headerStats">
+          <span class="stat-pill" id="statPill">0 פריטים</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Voice Input Section -->
+    <section class="voice-section" id="voiceSection">
+
+      <!-- Status message -->
+      <div class="status-area">
+        <p class="status-text" id="statusText">לחץ על הכפתור ודבר בעברית</p>
+      </div>
+
+      <!-- Waveform visualizer -->
+      <div class="waveform-wrap" id="waveformWrap">
+        <div class="waveform" id="waveform">
+          <div class="wave-bar" style="--i:1"></div>
+          <div class="wave-bar" style="--i:2"></div>
+          <div class="wave-bar" style="--i:3"></div>
+          <div class="wave-bar" style="--i:4"></div>
+          <div class="wave-bar" style="--i:5"></div>
+          <div class="wave-bar" style="--i:6"></div>
+          <div class="wave-bar" style="--i:7"></div>
+          <div class="wave-bar" style="--i:8"></div>
+          <div class="wave-bar" style="--i:9"></div>
+          <div class="wave-bar" style="--i:10"></div>
+          <div class="wave-bar" style="--i:11"></div>
+          <div class="wave-bar" style="--i:12"></div>
+          <div class="wave-bar" style="--i:13"></div>
+          <div class="wave-bar" style="--i:14"></div>
+          <div class="wave-bar" style="--i:15"></div>
+          <div class="wave-bar" style="--i:16"></div>
+          <div class="wave-bar" style="--i:17"></div>
+          <div class="wave-bar" style="--i:18"></div>
+          <div class="wave-bar" style="--i:19"></div>
+          <div class="wave-bar" style="--i:20"></div>
+        </div>
+      </div>
+
+      <!-- Transcript display -->
+      <div class="transcript-wrap" id="transcriptWrap">
+        <div class="transcript-box" id="transcriptBox">
+          <span class="transcript-final" id="transcriptFinal"></span>
+          <span class="transcript-interim" id="transcriptInterim"></span>
+          <span class="cursor-blink" id="cursor">|</span>
+        </div>
+      </div>
+
+      <!-- Record button -->
+      <div class="record-area">
+        <div class="record-btn-wrap">
+          <div class="record-ripple" id="recordRipple"></div>
+          <button class="record-btn" id="recordBtn" aria-label="התחל הקלטה" title="לחץ להקלטה">
+            <svg class="mic-icon" viewBox="0 0 24 24" fill="none">
+              <rect x="9" y="2" width="6" height="12" rx="3" fill="currentColor"/>
+              <path d="M5 11a7 7 0 0014 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="12" y1="18" x2="12" y2="22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="8" y1="22" x2="16" y2="22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <svg class="stop-icon" viewBox="0 0 24 24" fill="none" style="display:none">
+              <rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor"/>
+            </svg>
+          </button>
+        </div>
+        <p class="record-label" id="recordLabel">לחץ להקלטה</p>
+      </div>
+
+      <!-- Save area – appears after speech -->
+      <div class="save-area hidden" id="saveArea">
+        <div class="type-detection" id="typeDetection">
+          <span class="detected-label">זוהה כ:</span>
+          <div class="type-badges" id="typeBadges">
+            <button class="type-btn" data-type="task">📋 משימה</button>
+            <button class="type-btn" data-type="reminder">🔔 תזכורת</button>
+            <button class="type-btn" data-type="idea">💡 רעיון</button>
+          </div>
+        </div>
+        <div class="save-actions">
+          <button class="btn-save" id="saveBtn">שמור</button>
+          <button class="btn-discard" id="discardBtn">מחק</button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Dashboard -->
+    <section class="dashboard" id="dashboard">
+      <div class="dashboard-header">
+        <h2 class="dashboard-title">הלוח שלי</h2>
+        <button class="clear-all-btn" id="clearAllBtn" aria-label="נקה הכל" title="נקה הכל">
+          <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm4 0a1 1 0 012 0v6a1 1 0 11-2 0V8z" clip-rule="evenodd"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Filter tabs -->
+      <div class="filter-tabs" id="filterTabs" role="tablist">
+        <button class="filter-tab active" data-filter="all" role="tab" aria-selected="true">הכל</button>
+        <button class="filter-tab" data-filter="task" role="tab" aria-selected="false">📋 משימות</button>
+        <button class="filter-tab" data-filter="reminder" role="tab" aria-selected="false">🔔 תזכורות</button>
+        <button class="filter-tab" data-filter="idea" role="tab" aria-selected="false">💡 רעיונות</button>
+      </div>
+
+      <!-- Summary row -->
+      <div class="summary-row" id="summaryRow">
+        <div class="summary-chip task-chip" id="taskCount">📋 <span>0</span></div>
+        <div class="summary-chip reminder-chip" id="reminderCount">🔔 <span>0</span></div>
+        <div class="summary-chip idea-chip" id="ideaCount">💡 <span>0</span></div>
+      </div>
+
+      <!-- Cards list -->
+      <div class="cards-list" id="cardsList" role="list">
+        <div class="empty-state" id="emptyState">
+          <div class="empty-icon">🎤</div>
+          <p class="empty-title">עוד אין פריטים</p>
+          <p class="empty-sub">הקלט כדי להוסיף משימות, תזכורות ורעיונות</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Toast notification -->
+  <div class="toast" id="toast" role="alert" aria-live="polite"></div>
+
+  <!-- No support overlay -->
+  <div class="no-support-overlay hidden" id="noSupportOverlay">
+    <div class="no-support-card">
+      <div class="no-support-icon">🎤</div>
+      <h2>הדפדפן לא תומך בזיהוי קולי</h2>
+      <p>נא להשתמש ב-Chrome, Edge, או Safari כדי להשתמש בתכונת ההקלטה</p>
+    </div>
+  </div>
+
+  <script src="assistant.js"></script>
+</body>
+</html>
