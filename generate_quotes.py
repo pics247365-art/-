@@ -3,7 +3,6 @@ import os
 import math
 import random
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
-from bidi.algorithm import get_display
 
 OUTPUT_DIR = "quote_images"
 FONT_PATH = "/tmp/Heebo.ttf"
@@ -119,12 +118,9 @@ def draw_hebrew_text_centered(draw, text, font, img_width, y_start, fill, line_s
     lines = text.split("\n")
     line_heights = []
     line_widths = []
-    bidi_lines = []
 
     for line in lines:
-        bidi_line = get_display(line)
-        bidi_lines.append(bidi_line)
-        bbox = font.getbbox(bidi_line)
+        bbox = font.getbbox(line)
         w = bbox[2] - bbox[0]
         h = bbox[3] - bbox[1]
         line_widths.append(w)
@@ -134,11 +130,10 @@ def draw_hebrew_text_centered(draw, text, font, img_width, y_start, fill, line_s
     step = int(max_h * line_spacing)
     y = y_start
 
-    for bidi_line, w in zip(bidi_lines, line_widths):
+    for line, w in zip(lines, line_widths):
         x = (img_width - w) // 2
-        # Shadow
-        draw.text((x + 3, y + 3), bidi_line, font=font, fill=(0, 0, 0, 180))
-        draw.text((x, y), bidi_line, font=font, fill=fill)
+        draw.text((x + 3, y + 3), line, font=font, fill=(0, 0, 0, 180))
+        draw.text((x, y), line, font=font, fill=fill)
         y += step
 
     return y
@@ -165,11 +160,10 @@ def make_quote_image(quote_data, index):
     draw_hebrew_text_centered(draw, quote_data["text"], font, W, y_start, text_color)
 
     # Watermark bottom-center
-    wm_bidi = get_display(WATERMARK)
-    wm_bbox = watermark_font.getbbox(wm_bidi)
+    wm_bbox = watermark_font.getbbox(WATERMARK)
     wm_w = wm_bbox[2] - wm_bbox[0]
     wm_x = (W - wm_w) // 2
-    draw.text((wm_x, H - 90), wm_bidi, font=watermark_font, fill=(255, 255, 255, 200))
+    draw.text((wm_x, H - 90), WATERMARK, font=watermark_font, fill=(255, 255, 255, 200))
 
     out_path = os.path.join(OUTPUT_DIR, f"quote_{index + 1:02d}.jpg")
     img.save(out_path, "JPEG", quality=92)
