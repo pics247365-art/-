@@ -235,13 +235,20 @@ def make_quote_image(quote_data, index):
 
     draw_hebrew_text_centered(draw, quote_data["text"], font, W, y_start, text_color)
 
-    # "שגאון" bottom-center
-    tag = "שגאון"
-    tag_font = ImageFont.truetype(FONT_PATH, 36)
-    tag_bbox = tag_font.getbbox(tag)
-    tag_w = tag_bbox[2] - tag_bbox[0]
-    tag_x = (W - tag_w) // 2
-    draw.text((tag_x, H - 80), tag, font=tag_font, fill=(255, 255, 255, 200))
+    # Bottom branding — "שגאון" + tagline
+    brand_font = ImageFont.truetype(FONT_PATH, 40)
+    tag_font = ImageFont.truetype(FONT_PATH, 28)
+
+    brand = "שגאון"
+    tagline = "המרחב בין דכאון לשגעון"
+
+    b_bbox = brand_font.getbbox(brand)
+    b_w = b_bbox[2] - b_bbox[0]
+    draw.text(((W - b_w) // 2, H - 105), brand, font=brand_font, fill=(255, 255, 255, 220))
+
+    t_bbox = tag_font.getbbox(tagline)
+    t_w = t_bbox[2] - t_bbox[0]
+    draw.text(((W - t_w) // 2, H - 55), tagline, font=tag_font, fill=(255, 255, 255, 170))
 
     out_path = os.path.join(OUTPUT_DIR, f"quote_{index + 1:02d}.jpg")
     img.save(out_path, "JPEG", quality=92)
