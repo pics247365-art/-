@@ -114,77 +114,31 @@ QUOTES = [
 ]
 
 
-def make_gradient_bg(style, size=(1080, 1080)):
-    """Create a cinematic gradient background."""
-    W, H = size
-    img = Image.new("RGB", size)
-    draw = ImageDraw.Draw(img)
+BACKGROUNDS_DIR = "backgrounds"
 
-    palettes = {
-        "night_sky":  [(5, 5, 20), (15, 15, 60), (5, 5, 20)],
-        "sunset":     [(10, 5, 5), (80, 30, 10), (180, 80, 20), (80, 30, 10)],
-        "forest":     [(5, 15, 5), (10, 40, 20), (5, 20, 10)],
-        "ocean":      [(5, 10, 30), (10, 40, 80), (5, 20, 50)],
-        "deep_blue":  [(5, 5, 30), (10, 20, 80), (30, 60, 120), (10, 20, 60)],
-        "dawn":       [(5, 5, 20), (60, 40, 80), (160, 100, 60), (60, 30, 20)],
-        "storm":      [(10, 10, 10), (30, 30, 35), (10, 10, 15)],
-        "mountain":   [(10, 10, 20), (30, 30, 50), (15, 15, 30)],
-        "desert":     [(20, 10, 5), (80, 50, 20), (40, 25, 10)],
-        "fog":        [(20, 20, 25), (50, 55, 65), (25, 25, 30)],
-        "wine":       [(20, 5, 10), (80, 10, 30), (40, 5, 15)],
-        "teal":       [(5, 20, 20), (10, 70, 70), (5, 35, 35)],
-        "midnight":   [(5, 5, 15), (10, 10, 40), (20, 20, 60), (10, 10, 35)],
-        "ember":      [(15, 5, 5), (100, 40, 5), (200, 100, 10), (100, 40, 5)],
-        "slate":      [(15, 20, 25), (35, 45, 55), (20, 28, 35)],
-        "copper":     [(25, 12, 5), (100, 55, 20), (55, 28, 10)],
-        "aurora":     [(5, 15, 25), (20, 80, 80), (60, 120, 80), (20, 60, 60)],
-        "charcoal":   [(12, 12, 12), (28, 28, 32), (15, 15, 18)],
-        "crimson":    [(15, 5, 5), (90, 10, 20), (50, 5, 10)],
-        "sage":       [(10, 20, 12), (30, 60, 35), (15, 35, 18)],
-        "navy":       [(5, 8, 25), (10, 20, 70), (5, 12, 40)],
-        "rose":       [(25, 8, 15), (90, 30, 55), (50, 15, 28)],
-        "gold":       [(20, 15, 5), (90, 65, 10), (45, 32, 5)],
-        "indigo":     [(10, 5, 30), (40, 20, 100), (20, 10, 55)],
-        "pine":       [(5, 18, 10), (12, 50, 28), (6, 28, 14)],
-    }
 
-    colors = palettes.get(style, [(5, 5, 20), (20, 20, 50), (5, 5, 20)])
+def load_backgrounds():
+    exts = ('.jpg', '.jpeg', '.png', '.webp')
+    files = sorted([
+        os.path.join(BACKGROUNDS_DIR, f)
+        for f in os.listdir(BACKGROUNDS_DIR)
+        if f.lower().endswith(exts)
+    ])
+    return files
 
-    for y in range(H):
-        t = y / H
-        # Interpolate across color stops
-        n = len(colors) - 1
-        seg = min(int(t * n), n - 1)
-        local_t = (t * n) - seg
-        c0 = colors[seg]
-        c1 = colors[seg + 1]
-        r = int(c0[0] + (c1[0] - c0[0]) * local_t)
-        g = int(c0[1] + (c1[1] - c0[1]) * local_t)
-        b = int(c0[2] + (c1[2] - c0[2]) * local_t)
-        draw.line([(0, y), (W, y)], fill=(r, g, b))
 
-    # Add subtle noise/texture
-    import random
-    random.seed(42)
-    for _ in range(8000):
-        x = random.randint(0, W - 1)
-        y = random.randint(0, H - 1)
-        v = random.randint(0, 25)
-        px = img.getpixel((x, y))
-        img.putpixel((x, y), (min(255, px[0]+v), min(255, px[1]+v), min(255, px[2]+v)))
-
-    # Slight blur to smooth noise
-    img = img.filter(ImageFilter.GaussianBlur(1))
-
-    # Add a soft radial vignette (brighter center)
-    vignette = Image.new("RGBA", size, (0, 0, 0, 0))
-    vd = ImageDraw.Draw(vignette)
-    for i in range(60, 0, -1):
-        alpha = int((60 - i) * 2.5)
-        margin = int((60 - i) * 9)
-        vd.ellipse([margin, margin, W - margin, H - margin], fill=(255, 255, 255, alpha // 8))
-    img = Image.alpha_composite(img.convert("RGBA"), vignette).convert("RGB")
-
+def prepare_background(path, size=(1080, 1080)):
+    img = Image.open(path).convert("RGB")
+    # Crop to square from center
+    w, h = img.size
+    side = min(w, h)
+    left = (w - side) // 2
+    top = (h - side) // 2
+    img = img.crop((left, top, left + side, top + side))
+    img = img.resize(size, Image.LANCZOS)
+    # Dark overlay so text is always readable
+    overlay = Image.new("RGBA", size, (0, 0, 0, 150))
+    img = Image.alpha_composite(img.convert("RGBA"), overlay).convert("RGB")
     return img
 
 
@@ -215,9 +169,10 @@ def draw_hebrew_text_centered(draw, text, font, img_width, y_start, fill, line_s
     return y
 
 
-def make_quote_image(quote_data, index):
+def make_quote_image(quote_data, index, bg_paths):
     print(f"  Generating image {index + 1}...")
-    img = make_gradient_bg(quote_data["bg"])
+    bg_path = bg_paths[index % len(bg_paths)]
+    img = prepare_background(bg_path)
 
     draw = ImageDraw.Draw(img)
     W, H = img.size
@@ -258,12 +213,14 @@ def make_quote_image(quote_data, index):
 
 def main(start=0):
     os.makedirs(OUTPUT_DIR, exist_ok=True)
+    bg_paths = load_backgrounds()
+    print(f"Loaded {len(bg_paths)} background images")
     results = []
     for i, q in enumerate(QUOTES):
         if i < start:
             continue
         try:
-            path = make_quote_image(q, i)
+            path = make_quote_image(q, i, bg_paths)
             results.append(path)
         except Exception as e:
             print(f"  ERROR on image {i + 1}: {e}")
