@@ -129,22 +129,32 @@ def load_backgrounds():
 
 def prepare_background(path, size=(1080, 1080)):
     img = Image.open(path).convert("RGB")
-    # Crop to square from center
     w, h = img.size
     side = min(w, h)
     left = (w - side) // 2
     top = (h - side) // 2
     img = img.crop((left, top, left + side, top + side))
     img = img.resize(size, Image.LANCZOS)
-    # Dark overlay so text is always readable
-    overlay = Image.new("RGBA", size, (0, 0, 0, 150))
+    # Very light overlay — just enough to unify the photo slightly
+    overlay = Image.new("RGBA", size, (0, 0, 0, 60))
     img = Image.alpha_composite(img.convert("RGBA"), overlay).convert("RGB")
     return img
 
 
+def draw_text_with_shadow(draw, text, font, x, y, fill=(255, 255, 255)):
+    """Draw text with a strong multi-directional shadow for readability on any bg."""
+    shadow_color = (0, 0, 0)
+    # Thick shadow: draw 8 directions + center offset
+    for dx, dy in [(-3,-3),(-3,0),(-3,3),(0,-3),(0,3),(3,-3),(3,0),(3,3)]:
+        draw.text((x + dx, y + dy), text, font=font, fill=shadow_color)
+    # Slightly lighter inner shadow
+    for dx, dy in [(-1,-1),(-1,1),(1,-1),(1,1)]:
+        draw.text((x + dx, y + dy), text, font=font, fill=(0, 0, 0, 200))
+    # Main text
+    draw.text((x, y), text, font=font, fill=fill)
 
 
-def draw_hebrew_text_centered(draw, text, font, img_width, y_start, fill, line_spacing=1.35):
+def draw_hebrew_text_centered(draw, text, font, img_width, y_start, fill=(255,255,255), line_spacing=1.45):
     lines = text.split("\n")
     line_heights = []
     line_widths = []
@@ -162,8 +172,7 @@ def draw_hebrew_text_centered(draw, text, font, img_width, y_start, fill, line_s
 
     for line, w in zip(lines, line_widths):
         x = (img_width - w) // 2
-        draw.text((x + 3, y + 3), line, font=font, fill=(0, 0, 0, 180))
-        draw.text((x, y), line, font=font, fill=fill)
+        draw_text_with_shadow(draw, line, font, x, y, fill)
         y += step
 
     return y
@@ -177,33 +186,29 @@ def make_quote_image(quote_data, index, bg_paths):
     draw = ImageDraw.Draw(img)
     W, H = img.size
 
-    font_size = 72
+    font_size = 70
     font = ImageFont.truetype(FONT_PATH, font_size)
-    watermark_font = ImageFont.truetype(FONT_PATH, 36)
-    text_color = (255, 255, 255)
+    brand_font = ImageFont.truetype(FONT_PATH, 42)
+    tag_font = ImageFont.truetype(FONT_PATH, 28)
 
     lines = quote_data["text"].split("\n")
     line_height = int(font_size * 1.45)
     total_text_height = len(lines) * line_height
+    y_start = (H - total_text_height) // 2 - 40
 
-    y_start = (H - total_text_height) // 2 - 30
+    draw_hebrew_text_centered(draw, quote_data["text"], font, W, y_start)
 
-    draw_hebrew_text_centered(draw, quote_data["text"], font, W, y_start, text_color)
-
-    # Bottom branding — "שגאון" + tagline
-    brand_font = ImageFont.truetype(FONT_PATH, 40)
-    tag_font = ImageFont.truetype(FONT_PATH, 28)
-
+    # Branding bottom
     brand = "שגאון"
     tagline = "המרחב בין דכאון לשגעון"
 
     b_bbox = brand_font.getbbox(brand)
     b_w = b_bbox[2] - b_bbox[0]
-    draw.text(((W - b_w) // 2, H - 105), brand, font=brand_font, fill=(255, 255, 255, 220))
+    draw_text_with_shadow(draw, brand, brand_font, (W - b_w) // 2, H - 110)
 
     t_bbox = tag_font.getbbox(tagline)
     t_w = t_bbox[2] - t_bbox[0]
-    draw.text(((W - t_w) // 2, H - 55), tagline, font=tag_font, fill=(255, 255, 255, 170))
+    draw_text_with_shadow(draw, tagline, tag_font, (W - t_w) // 2, H - 58, fill=(220, 220, 220))
 
     out_path = os.path.join(OUTPUT_DIR, f"quote_{index + 1:02d}.jpg")
     img.save(out_path, "JPEG", quality=92)
