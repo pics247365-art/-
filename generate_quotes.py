@@ -235,19 +235,13 @@ def make_quote_image(quote_data, index):
 
     draw_hebrew_text_centered(draw, quote_data["text"], font, W, y_start, text_color)
 
-    # Watermark bottom-center
-    wm_bbox = watermark_font.getbbox(WATERMARK)
-    wm_w = wm_bbox[2] - wm_bbox[0]
-    wm_x = (W - wm_w) // 2
-    draw.text((wm_x, H - 110), WATERMARK, font=watermark_font, fill=(255, 255, 255, 200))
-
-    # "שגאון" below watermark
+    # "שגאון" bottom-center
     tag = "שגאון"
-    tag_font = ImageFont.truetype(FONT_PATH, 32)
+    tag_font = ImageFont.truetype(FONT_PATH, 36)
     tag_bbox = tag_font.getbbox(tag)
     tag_w = tag_bbox[2] - tag_bbox[0]
     tag_x = (W - tag_w) // 2
-    draw.text((tag_x, H - 62), tag, font=tag_font, fill=(255, 255, 255, 180))
+    draw.text((tag_x, H - 80), tag, font=tag_font, fill=(255, 255, 255, 200))
 
     out_path = os.path.join(OUTPUT_DIR, f"quote_{index + 1:02d}.jpg")
     img.save(out_path, "JPEG", quality=92)
