@@ -472,13 +472,28 @@ tick();setInterval(tick,60000);
 function detect(t){const l=t.toLowerCase(),sc={task:0,reminder:0,idea:0};for(const[tp,c]of Object.entries(PT)){for(const k of c.kw)if(l.includes(k))sc[tp]++;for(const p of c.ph)if(l.includes(p))sc[tp]+=2}const b=Object.entries(sc).reduce((a,x)=>x[1]>a[1]?x:a);return b[1]>0?b[0]:'idea'}
 
 function initRec(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){E.nosup.classList.remove('off');return null}const r=new SR();r.lang='he-IL';r.continuous=true;r.interimResults=true;
+let sessionBase=''; // text confirmed from previous sessions
 r.onstart=()=>{S.rec=true;setUI(true)};
-r.onresult=ev=>{let im='',fn=S.final;for(let i=ev.resultIndex;i<ev.results.length;i++){const t=ev.results[i][0].transcript;ev.results[i].isFinal?fn+=(fn?' ':'')+t:im=t}S.final=fn;S.interim=im;upT()};
+r.onresult=ev=>{
+  // Rebuild from ALL results in current session (avoids index drift bugs)
+  let sessionFinal='',im='';
+  for(let i=0;i<ev.results.length;i++){
+    const t=ev.results[i][0].transcript;
+    ev.results[i].isFinal?sessionFinal+=(sessionFinal?' ':'')+t:im=t;
+  }
+  S.final=(sessionBase&&sessionFinal?sessionBase+' ':sessionBase)+sessionFinal;
+  S.interim=im;upT();
+};
 r.onerror=ev=>{if(['no-speech','aborted'].includes(ev.error))return;stop();toast('שגיאה: '+ev.error)};
-r.onend=()=>{if(S.rec)try{r.start()}catch(_){stop()}};
+r.onend=()=>{
+  if(S.rec){
+    sessionBase=S.final; // save what we have before restarting
+    try{r.start()}catch(_){stop()}
+  }
+};
 return r}
 
-function start(){S.final='';S.interim='';upT();E.spanel.classList.add('off');if(!S.recog){S.recog=initRec();if(!S.recog)return}try{S.recog.start()}catch(_){}}
+function start(){S.final='';S.interim='';upT();E.spanel.classList.add('off');S.recog=initRec();if(!S.recog)return;try{S.recog.start()}catch(_){}}
 function stop(){S.rec=false;setUI(false);if(S.recog)try{S.recog.stop()}catch(_){}const t=(S.final+' '+S.interim).trim();S.final=t;S.interim='';upT();if(t.length>1)showSave(t)}
 function toggle(){S.rec?stop():start()}
 
