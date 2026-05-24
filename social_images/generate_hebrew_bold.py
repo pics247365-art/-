@@ -6,7 +6,6 @@ Backgrounds: raw concrete, glitch lines, brutal geometry, fire gradient.
 
 import os, random, math
 from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageChops
-from bidi.algorithm import get_display
 
 OUTPUT_DIR = "/home/user/-/social_images/output_hebrew"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -24,8 +23,6 @@ def hfont(path, size):
     except Exception:
         return ImageFont.truetype(HEB_BOLD, size)
 
-def bidi(text):
-    return get_display(text)
 
 # ── 7 quotes ──────────────────────────────────────────────────────────────────
 QUOTES = [
@@ -224,7 +221,7 @@ def rtl_wrap(text, font, max_w, draw):
     lines, cur = [], []
     for word in words:
         test = " ".join(cur + [word])
-        bb = draw.textbbox((0,0), bidi(test), font=font)
+        bb = draw.textbbox((0,0), test, font=font)
         if cur and (bb[2]-bb[0]) > max_w:
             lines.append(" ".join(cur))
             cur = [word]
@@ -236,7 +233,7 @@ def rtl_wrap(text, font, max_w, draw):
 
 def draw_rtl_line(draw, text, x_right, y, font, fill):
     """Draw one RTL line right-aligned at x_right."""
-    vis = bidi(text)
+    vis = text
     bb = draw.textbbox((0, 0), vis, font=font)
     tw = bb[2] - bb[0]
     draw.text((x_right - tw, y), vis, font=font, fill=fill)
@@ -259,7 +256,7 @@ def layout_full_bleed(draw, quote, is_dark_bg=True):
     size = 195
     while size > 60:
         f = hfont(font_path, size)
-        max_w = max(draw.textbbox((0,0), bidi(l), font=f)[2] for l in lines_raw)
+        max_w = max(draw.textbbox((0,0), l, font=f)[2] for l in lines_raw)
         if max_w <= W - margin * 2:
             break
         size -= 5
@@ -294,7 +291,7 @@ def layout_split_bottom(draw, quote, is_dark_bg=True):
     size = 185
     while size > 55:
         f = hfont(font_path, size)
-        max_w = max(draw.textbbox((0,0), bidi(l), font=f)[2] for l in lines_raw)
+        max_w = max(draw.textbbox((0,0), l, font=f)[2] for l in lines_raw)
         if max_w <= W - margin*2:
             break
         size -= 5
@@ -330,7 +327,7 @@ def layout_center_punch(draw, quote, is_dark_bg=True):
     size = 175
     while size > 55:
         f = hfont(font_path, size)
-        max_w = max(draw.textbbox((0,0), bidi(l), font=f)[2] for l in lines_raw)
+        max_w = max(draw.textbbox((0,0), l, font=f)[2] for l in lines_raw)
         if max_w <= W - margin*2:
             break
         size -= 5
@@ -372,7 +369,7 @@ def layout_light_punch(draw, quote, is_dark_bg=False):
     size = 190
     while size > 55:
         f = hfont(font_path, size)
-        max_w = max(draw.textbbox((0,0), bidi(l), font=f)[2] for l in lines_raw)
+        max_w = max(draw.textbbox((0,0), l, font=f)[2] for l in lines_raw)
         if max_w <= W - margin*2:
             break
         size -= 5
