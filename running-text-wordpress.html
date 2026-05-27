@@ -1,0 +1,250 @@
+<style>
+.milim-wrap * { box-sizing: border-box; margin: 0; padding: 0; }
+
+.milim-wrap {
+  background: #000;
+  overflow-x: hidden;
+  font-family: 'Segoe UI', Arial, 'Arial Hebrew', sans-serif;
+  direction: rtl;
+}
+
+.milim-wrap .hero {
+  text-align: center;
+  padding: 50px 20px 30px;
+}
+.milim-wrap .hero h1 {
+  font-size: clamp(2.2rem, 7vw, 5rem);
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -2px;
+  text-shadow: 0 0 20px #fff, 0 0 60px rgba(180,100,255,0.9), 0 0 120px rgba(180,100,255,0.5);
+  animation: milim-pulse 2s ease-in-out infinite;
+}
+@keyframes milim-pulse {
+  0%,100% { text-shadow: 0 0 20px #fff, 0 0 60px rgba(180,100,255,0.9), 0 0 120px rgba(180,100,255,0.5); }
+  50%      { text-shadow: 0 0 30px #fff, 0 0 90px rgba(180,100,255,1),   0 0 180px rgba(180,100,255,0.8); }
+}
+.milim-wrap .hero p {
+  margin-top: 8px;
+  color: #555;
+  font-size: 0.8rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+}
+
+.milim-wrap .ticker-wrap {
+  width: 100%;
+  overflow: hidden;
+  padding: 14px 0;
+  position: relative;
+}
+.milim-wrap .ticker-wrap::before,
+.milim-wrap .ticker-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 60px;
+  z-index: 2;
+  pointer-events: none;
+}
+.milim-wrap .ticker-wrap::before { right: 0; background: linear-gradient(to left,  var(--bg,#000), transparent); }
+.milim-wrap .ticker-wrap::after  { left:  0; background: linear-gradient(to right, var(--bg,#000), transparent); }
+
+.milim-wrap .ticker-inner {
+  display: flex;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+@keyframes milim-scrollRTL {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes milim-scrollLTR {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.milim-wrap .scroll-rtl .ticker-inner { animation: milim-scrollRTL linear infinite; }
+.milim-wrap .scroll-ltr .ticker-inner { animation: milim-scrollLTR linear infinite; }
+
+.milim-wrap .ticker-item {
+  display: inline-block;
+  padding: 0 30px;
+  white-space: nowrap;
+  font-weight: 800;
+}
+.milim-wrap .sep { margin: 0 12px; opacity: 0.4; }
+
+.milim-wrap .s4  .ticker-inner { animation-duration: 4s;  }
+.milim-wrap .s5  .ticker-inner { animation-duration: 5s;  }
+.milim-wrap .s6  .ticker-inner { animation-duration: 6s;  }
+.milim-wrap .s7  .ticker-inner { animation-duration: 7s;  }
+.milim-wrap .s8  .ticker-inner { animation-duration: 8s;  }
+
+.milim-wrap .xl  .ticker-item { font-size: 3.5rem; padding: 0 50px; }
+.milim-wrap .lg  .ticker-item { font-size: 2.2rem; }
+.milim-wrap .md  .ticker-item { font-size: 1.5rem; }
+.milim-wrap .sm  .ticker-item { font-size: 1rem; font-weight: 600; }
+
+.milim-wrap .xl  { padding: 22px 0; }
+.milim-wrap .lg  { padding: 16px 0; }
+
+.milim-wrap .n-purple .ticker-item { color: #d946ef; text-shadow: 0 0 8px #d946ef, 0 0 25px #d946ef, 0 0 50px #a21caf; }
+.milim-wrap .n-cyan   .ticker-item { color: #22d3ee; text-shadow: 0 0 8px #22d3ee, 0 0 25px #22d3ee, 0 0 50px #0891b2; }
+.milim-wrap .n-green  .ticker-item { color: #4ade80; text-shadow: 0 0 8px #4ade80, 0 0 25px #4ade80, 0 0 50px #16a34a; }
+.milim-wrap .n-red    .ticker-item { color: #f87171; text-shadow: 0 0 8px #f87171, 0 0 25px #f87171, 0 0 50px #dc2626; }
+.milim-wrap .n-gold   .ticker-item { color: #fbbf24; text-shadow: 0 0 8px #fbbf24, 0 0 25px #fbbf24, 0 0 50px #d97706; }
+.milim-wrap .n-white  .ticker-item { color: #fff;    text-shadow: 0 0 8px #fff, 0 0 20px #fff, 0 0 40px rgba(255,255,255,0.5); }
+.milim-wrap .n-pink   .ticker-item { color: #fb7185; text-shadow: 0 0 8px #fb7185, 0 0 25px #fb7185, 0 0 50px #e11d48; }
+.milim-wrap .n-blue   .ticker-item { color: #60a5fa; text-shadow: 0 0 8px #60a5fa, 0 0 25px #60a5fa, 0 0 50px #2563eb; }
+
+.milim-wrap .div      { height: 1px; background: #111; }
+.milim-wrap .div-glow { height: 1px; background: linear-gradient(to right, transparent, #333, transparent); }
+
+.milim-wrap footer {
+  text-align: center;
+  padding: 40px;
+  color: #222;
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+}
+</style>
+
+<div class="milim-wrap">
+
+<div class="hero">
+  <h1>מילים שלא אמרתי</h1>
+  <p>שירה · ראפ · חיים</p>
+</div>
+
+<div class="ticker-wrap n-white xl scroll-rtl s5">
+  <div class="ticker-inner">
+    <span class="ticker-item">גיל 20 הדלקתי גוינט ופתאום זה 50 <span class="sep">✦</span></span>
+    <span class="ticker-item">גיל 20 הדלקתי גוינט ופתאום זה 50 <span class="sep">✦</span></span>
+  </div>
+</div>
+<div class="div"></div>
+
+<div class="ticker-wrap n-purple md scroll-ltr s4">
+  <div class="ticker-inner">
+    <span class="ticker-item">השעון לא מאט והזמן מתמעט <span class="sep">·</span> מה עכשיו <span class="sep">·</span> עוד שאלות <span class="sep">·</span> ואיך יודעים לאן לפנות <span class="sep">·</span> לא ממש מבין ולא מאמין <span class="sep">·</span></span>
+    <span class="ticker-item">השעון לא מאט והזמן מתמעט <span class="sep">·</span> מה עכשיו <span class="sep">·</span> עוד שאלות <span class="sep">·</span> ואיך יודעים לאן לפנות <span class="sep">·</span> לא ממש מבין ולא מאמין <span class="sep">·</span></span>
+  </div>
+</div>
+<div class="div-glow"></div>
+
+<div class="ticker-wrap n-cyan lg scroll-rtl s5">
+  <div class="ticker-inner">
+    <span class="ticker-item">מסיבות חברים כדורים טיולים <span class="sep">—</span> איפה השנים שהיינו עוד תמימים <span class="sep">—</span></span>
+    <span class="ticker-item">מסיבות חברים כדורים טיולים <span class="sep">—</span> איפה השנים שהיינו עוד תמימים <span class="sep">—</span></span>
+  </div>
+</div>
+<div class="div"></div>
+
+<div class="ticker-wrap n-red sm scroll-ltr s4">
+  <div class="ticker-inner">
+    <span class="ticker-item">והקול שנמצא שם תמיד לא עוזר רק מטריד · לוחש לי תמשיך ואל תעצור · אבל אין לי מנוח ואין לי מזור · דאגה אהבה ואושר · ומרגיש שוב לא בכושר ·</span>
+    <span class="ticker-item">והקול שנמצא שם תמיד לא עוזר רק מטריד · לוחש לי תמשיך ואל תעצור · אבל אין לי מנוח ואין לי מזור · דאגה אהבה ואושר · ומרגיש שוב לא בכושר ·</span>
+  </div>
+</div>
+<div class="div-glow"></div>
+
+<div class="ticker-wrap n-gold xl scroll-rtl s6">
+  <div class="ticker-inner">
+    <span class="ticker-item">החברים בצבא ואני מאחור <span class="sep">✦</span></span>
+    <span class="ticker-item">החברים בצבא ואני מאחור <span class="sep">✦</span></span>
+  </div>
+</div>
+<div class="div"></div>
+
+<div class="ticker-wrap n-green md scroll-ltr s5">
+  <div class="ticker-inner">
+    <span class="ticker-item">הפקק לא נפסק <span class="sep">❋</span> והבוס שוב צועק <span class="sep">❋</span> מרגיש שאני שוב מתרסק <span class="sep">❋</span> אבל אין לי ברירה ושוב בדירה <span class="sep">❋</span></span>
+    <span class="ticker-item">הפקק לא נפסק <span class="sep">❋</span> והבוס שוב צועק <span class="sep">❋</span> מרגיש שאני שוב מתרסק <span class="sep">❋</span> אבל אין לי ברירה ושוב בדירה <span class="sep">❋</span></span>
+  </div>
+</div>
+<div class="div-glow"></div>
+
+<div class="ticker-wrap n-pink lg scroll-rtl s4">
+  <div class="ticker-inner">
+    <span class="ticker-item">הייאוש כמו כיבוש <span class="sep">·</span> מפר שוב את הסדר <span class="sep">·</span> נגעת לי בלב <span class="sep">·</span></span>
+    <span class="ticker-item">הייאוש כמו כיבוש <span class="sep">·</span> מפר שוב את הסדר <span class="sep">·</span> נגעת לי בלב <span class="sep">·</span></span>
+  </div>
+</div>
+<div class="div"></div>
+
+<div class="ticker-wrap n-white sm scroll-ltr s5">
+  <div class="ticker-inner">
+    <span class="ticker-item">יצאנו שוב לבר · אלון חונה אדום לבן · רחוב מלא עשן · והיידה באלגן · הערב רץ שורות פסים · הדי גיי שוב מוזג שירים · מחפש לי מטרה · רוצה למצוא לי בחורה ·</span>
+    <span class="ticker-item">יצאנו שוב לבר · אלון חונה אדום לבן · רחוב מלא עשן · והיידה באלגן · הערב רץ שורות פסים · הדי גיי שוב מוזג שירים · מחפש לי מטרה · רוצה למצוא לי בחורה ·</span>
+  </div>
+</div>
+<div class="div-glow"></div>
+
+<div class="ticker-wrap n-cyan xl scroll-rtl s7">
+  <div class="ticker-inner">
+    <span class="ticker-item">ילד מבוגר שמתהלך ללא כיוון <span class="sep">✦</span></span>
+    <span class="ticker-item">ילד מבוגר שמתהלך ללא כיוון <span class="sep">✦</span></span>
+  </div>
+</div>
+<div class="div"></div>
+
+<div class="ticker-wrap n-blue md scroll-ltr s4">
+  <div class="ticker-inner">
+    <span class="ticker-item">יש לו חברים <span class="sep">—</span> אבל מרגיש בדכאון <span class="sep">—</span> שוחה בשגעון <span class="sep">—</span> אוכל כדור הולך לישון <span class="sep">—</span> מוצף רק בפחדים <span class="sep">—</span></span>
+    <span class="ticker-item">יש לו חברים <span class="sep">—</span> אבל מרגיש בדכאון <span class="sep">—</span> שוחה בשגעון <span class="sep">—</span> אוכל כדור הולך לישון <span class="sep">—</span> מוצף רק בפחדים <span class="sep">—</span></span>
+  </div>
+</div>
+<div class="div-glow"></div>
+
+<div class="ticker-wrap n-red xl scroll-rtl s5">
+  <div class="ticker-inner">
+    <span class="ticker-item">החיים זה תחרות <span class="sep">✦</span> ואם אין לך כסף אז לא נורא <span class="sep">✦</span></span>
+    <span class="ticker-item">החיים זה תחרות <span class="sep">✦</span> ואם אין לך כסף אז לא נורא <span class="sep">✦</span></span>
+  </div>
+</div>
+<div class="div"></div>
+
+<div class="ticker-wrap n-gold sm scroll-ltr s4">
+  <div class="ticker-inner">
+    <span class="ticker-item">קנתה לה נייק עשו לה לייק · מחפשת עוד סיפוק · הכל זה כאן עכשיו כרגע · הדילר ממהר כי היאוש יוצר ביקוש · רוצה לעוף רוצה טשטוש · כל הדור הזה עשן ·</span>
+    <span class="ticker-item">קנתה לה נייק עשו לה לייק · מחפשת עוד סיפוק · הכל זה כאן עכשיו כרגע · הדילר ממהר כי היאוש יוצר ביקוש · רוצה לעוף רוצה טשטוש · כל הדור הזה עשן ·</span>
+  </div>
+</div>
+<div class="div-glow"></div>
+
+<div class="ticker-wrap n-purple xl scroll-ltr s6">
+  <div class="ticker-inner">
+    <span class="ticker-item">מה נשמע יא גבר <span class="sep">·</span> תמיד הכל בסדר <span class="sep">·</span></span>
+    <span class="ticker-item">מה נשמע יא גבר <span class="sep">·</span> תמיד הכל בסדר <span class="sep">·</span></span>
+  </div>
+</div>
+<div class="div"></div>
+
+<div class="ticker-wrap n-white md scroll-rtl s5">
+  <div class="ticker-inner">
+    <span class="ticker-item">מחייך זיוף רחב מוריד את העינים <span class="sep">✦</span> הלכתי לאיבוד <span class="sep">✦</span> אחזור בעוד שבועיים <span class="sep">✦</span> הערך שוב נמוך <span class="sep">✦</span> צריך עזרה דחוף <span class="sep">✦</span></span>
+    <span class="ticker-item">מחייך זיוף רחב מוריד את העינים <span class="sep">✦</span> הלכתי לאיבוד <span class="sep">✦</span> אחזור בעוד שבועיים <span class="sep">✦</span> הערך שוב נמוך <span class="sep">✦</span> צריך עזרה דחוף <span class="sep">✦</span></span>
+  </div>
+</div>
+<div class="div-glow"></div>
+
+<div class="ticker-wrap n-green xl scroll-ltr s6">
+  <div class="ticker-inner">
+    <span class="ticker-item">בסוף זה רק אני והעתיד הלא ידוע <span class="sep">✦</span></span>
+    <span class="ticker-item">בסוף זה רק אני והעתיד הלא ידוע <span class="sep">✦</span></span>
+  </div>
+</div>
+<div class="div"></div>
+
+<div class="ticker-wrap n-pink sm scroll-rtl s4">
+  <div class="ticker-inner">
+    <span class="ticker-item">בורח שנים מעצמי בלי כיוון · מתמלא בעשן וחוסר איזון · שורף את הראש והריאות · עייף מהמירוץ ומבין שזה תירוץ · מרגיש סחוט חבוט ללא תקווה ללא ניווט ·</span>
+    <span class="ticker-item">בורח שנים מעצמי בלי כיוון · מתמלא בעשן וחוסר איזון · שורף את הראש והריאות · עייף מהמירוץ ומבין שזה תירוץ · מרגיש סחוט חבוט ללא תקווה ללא ניווט ·</span>
+  </div>
+</div>
+
+<footer>© מילים שלא אמרתי</footer>
+
+</div>
