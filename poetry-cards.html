@@ -1,156 +1,115 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>מילים שלא אמרתי</title>
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700;900&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מילים שלא אמרתי</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    body {
-      background: #07070f;
-      font-family: 'Heebo', sans-serif;
-      color: #e2e2e8;
-      min-height: 100vh;
-      padding: 60px 24px 80px;
-    }
+  body {
+    background: #111827;
+    font-family: 'Segoe UI', Arial, 'Arial Hebrew', sans-serif;
+    color: #f1f5f9;
+    padding: 48px 20px 80px;
+    direction: rtl;
+  }
 
-    /* ───── Hero title ───── */
-    .hero {
-      text-align: center;
-      margin-bottom: 70px;
-    }
-    .hero h1 {
-      font-size: clamp(2rem, 6vw, 4rem);
-      font-weight: 900;
-      letter-spacing: -1px;
-      background: linear-gradient(135deg, #ff6b6b 0%, #feca57 35%, #48dbfb 65%, #ff9ff3 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .hero p {
-      margin-top: 12px;
-      font-size: 0.95rem;
-      opacity: 0.35;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-    }
+  /* ── Hero ── */
+  .hero {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .hero h1 {
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: #f8fafc;
+    text-shadow: 0 0 40px rgba(139,92,246,0.6);
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+  }
+  .hero p {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
 
-    /* ───── Grid ───── */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 28px;
-      max-width: 1360px;
-      margin: 0 auto;
-    }
+  /* ── Grid ── */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
 
-    /* ───── Card base ───── */
-    .card {
-      background: linear-gradient(145deg, #0d0d1c 0%, #13132a 100%);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 20px;
-      padding: 32px 28px 28px;
-      position: relative;
-      overflow: hidden;
-      transition: transform .3s ease, box-shadow .3s ease;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 24px 60px rgba(0,0,0,0.6);
-    }
+  /* ── Card ── */
+  .card {
+    border-radius: 16px;
+    padding: 28px 24px 24px;
+    position: relative;
+    overflow: hidden;
+    transition: transform .25s, box-shadow .25s;
+  }
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  }
 
-    /* top accent stripe */
-    .card::before {
-      content: '';
-      position: absolute;
-      inset: 0 0 auto 0;
-      height: 3px;
-      border-radius: 20px 20px 0 0;
-    }
+  /* number badge */
+  .num {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 30px;
+    margin-bottom: 14px;
+  }
 
-    /* background glow blob */
-    .card::after {
-      content: '';
-      position: absolute;
-      top: -60px;
-      left: -60px;
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      opacity: 0.04;
-      pointer-events: none;
-    }
+  .card-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
 
-    /* ───── Color themes ───── */
-    .c-red    { border-color: rgba(255,107,107,.18); }
-    .c-red::before  { background: linear-gradient(90deg,#ff6b6b,#ee5a24); }
-    .c-red::after   { background: #ff6b6b; }
+  .card-body {
+    font-size: 1rem;
+    line-height: 1.85;
+    color: rgba(255,255,255,0.88);
+    white-space: pre-line;
+  }
 
-    .c-gold   { border-color: rgba(254,202,87,.18); }
-    .c-gold::before { background: linear-gradient(90deg,#feca57,#ff9f43); }
-    .c-gold::after  { background: #feca57; }
+  /* ── Color palettes ── */
+  .col-1 { background: linear-gradient(135deg, #1e1b4b, #312e81); border: 1px solid #4338ca; }
+  .col-2 { background: linear-gradient(135deg, #1e3a5f, #1e40af); border: 1px solid #3b82f6; }
+  .col-3 { background: linear-gradient(135deg, #3b1a5e, #6d28d9); border: 1px solid #8b5cf6; }
+  .col-4 { background: linear-gradient(135deg, #7c1d1d, #991b1b); border: 1px solid #ef4444; }
+  .col-5 { background: linear-gradient(135deg, #064e3b, #065f46); border: 1px solid #10b981; }
+  .col-6 { background: linear-gradient(135deg, #4a1942, #831843); border: 1px solid #ec4899; }
+  .col-7 { background: linear-gradient(135deg, #431407, #92400e); border: 1px solid #f59e0b; }
+  .col-8 { background: linear-gradient(135deg, #134e4a, #0f766e); border: 1px solid #14b8a6; }
 
-    .c-blue   { border-color: rgba(72,219,251,.18); }
-    .c-blue::before { background: linear-gradient(90deg,#48dbfb,#0abde3); }
-    .c-blue::after  { background: #48dbfb; }
+  /* ── Responsive ── */
+  @media (max-width: 640px) {
+    .grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 2rem; }
+  }
 
-    .c-purple { border-color: rgba(255,159,243,.18); }
-    .c-purple::before { background: linear-gradient(90deg,#ff9ff3,#f368e0); }
-    .c-purple::after  { background: #ff9ff3; }
-
-    .c-green  { border-color: rgba(85,239,196,.18); }
-    .c-green::before  { background: linear-gradient(90deg,#55efc4,#00b894); }
-    .c-green::after   { background: #55efc4; }
-
-    .c-pink   { border-color: rgba(253,121,168,.18); }
-    .c-pink::before   { background: linear-gradient(90deg,#fd79a8,#e84393); }
-    .c-pink::after    { background: #fd79a8; }
-
-    /* ───── Card internals ───── */
-    .card-label {
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 3.5px;
-      text-transform: uppercase;
-      opacity: 0.38;
-    }
-
-    .card-quote {
-      font-size: 4.5rem;
-      line-height: 0.4;
-      opacity: 0.08;
-      font-weight: 900;
-      user-select: none;
-    }
-
-    .card-body {
-      font-size: 1.08rem;
-      line-height: 1.9;
-      font-weight: 300;
-      white-space: pre-line;
-      flex: 1;
-    }
-
-    /* ───── Responsive ───── */
-    @media (max-width: 600px) {
-      .grid { grid-template-columns: 1fr; }
-    }
-
-    /* ───── Footer ───── */
-    footer {
-      text-align: center;
-      margin-top: 70px;
-      opacity: 0.22;
-      font-size: 0.8rem;
-      letter-spacing: 2px;
-    }
-  </style>
+  footer {
+    text-align: center;
+    margin-top: 60px;
+    color: #475569;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+  }
+</style>
 </head>
 <body>
 
@@ -161,60 +120,56 @@
 
 <div class="grid">
 
-  <!-- 01 -->
-  <div class="card c-gold">
-    <span class="card-label">01 · זמן</span>
-    <div class="card-quote">"</div>
-    <p class="card-body">גיל 20 הדלקתי גוינט
+<div class="card col-7">
+  <span class="num">01 · זמן</span>
+  <div class="card-title">גיל 20 ופתאום זה 50</div>
+  <p class="card-body">גיל 20 הדלקתי גוינט
 ופתאום זה 50
 לא ממש מבין ולא מאמין
 
 השעון לא מאט והזמן מתמעט
 מה עכשיו, עוד שאלות
 ואיך יודעים לאן לפנות</p>
-  </div>
+</div>
 
-  <!-- 02 -->
-  <div class="card c-blue">
-    <span class="card-label">02 · נוסטלגיה</span>
-    <div class="card-quote">"</div>
-    <p class="card-body">מסיבות חברים כדורים טיולים
+<div class="card col-2">
+  <span class="num">02 · נוסטלגיה</span>
+  <div class="card-title">איפה השנים שהיינו תמימים</div>
+  <p class="card-body">מסיבות חברים כדורים טיולים
 איפה השנים שהיינו עוד תמימים
 
 חברות חתונה ופתאום זה ילדים
 מי אני ומי זו את
 בוא נקח את זה לאט</p>
-  </div>
+</div>
 
-  <!-- 03 -->
-  <div class="card c-purple">
-    <span class="card-label">03 · הקול</span>
-    <div class="card-quote">"</div>
-    <p class="card-body">דאגה אהבה ואושר
+<div class="card col-3">
+  <span class="num">03 · הקול</span>
+  <div class="card-title">הקול שתמיד שם</div>
+  <p class="card-body">דאגה אהבה ואושר
 ומרגיש שוב לא בכושר
 
 והקול שנמצא שם תמיד
 לא עוזר רק מטריד
 לוחש לי תמשיך ואל תעצור
 אבל אין לי מנוח ואין לי מזור</p>
-  </div>
+</div>
 
-  <!-- 04 -->
-  <div class="card c-red">
-    <span class="card-label">04 · יום שחור</span>
-    <div class="card-quote">"</div>
-    <p class="card-body">מנסה לאסוף את עצמי לעוד יום שחור
+<div class="card col-4">
+  <span class="num">04 · יום שחור</span>
+  <div class="card-title">החברים בצבא ואני מאחור</div>
+  <p class="card-body">מנסה לאסוף את עצמי
+לעוד יום שחור
 החברים בצבא ואני מאחור
 
 הפקק לא נפסק והבוס שוב צועק
 מרגיש שאני שוב מתרסק</p>
-  </div>
+</div>
 
-  <!-- 05 -->
-  <div class="card c-green">
-    <span class="card-label">05 · בדירה</span>
-    <div class="card-quote">"</div>
-    <p class="card-body">אבל אין לי ברירה ושוב בדירה
+<div class="card col-1">
+  <span class="num">05 · בדירה</span>
+  <div class="card-title">הולך לאיבוד במרפסת</div>
+  <p class="card-body">אבל אין לי ברירה ושוב בדירה
 הקול שוב לוחש לי
 הורס את השקט
 הולך לאיבוד בדירה במרפסת
@@ -222,13 +177,12 @@
 מבקש מנוחה רק לנשום לעצור
 אבל שוב כמו תמיד
 נותר לי רק לבחור</p>
-  </div>
+</div>
 
-  <!-- 06 -->
-  <div class="card c-pink">
-    <span class="card-label">06 · ייאוש</span>
-    <div class="card-quote">"</div>
-    <p class="card-body">הייאוש כמו כיבוש מפר שוב את הסדר
+<div class="card col-6">
+  <span class="num">06 · ייאוש</span>
+  <div class="card-title">הראש מתעייף</div>
+  <p class="card-body">הייאוש כמו כיבוש מפר שוב את הסדר
 נגעת לי בלב
 אני חושב הכל בסדר
 
@@ -238,13 +192,12 @@
 הלחץ נמצא שם תמיד מרחף
 רוצה רק לצעוק
 הראש מתעייף</p>
-  </div>
+</div>
 
-  <!-- 07 -->
-  <div class="card c-gold">
-    <span class="card-label">07 · הבר</span>
-    <div class="card-quote">"</div>
-    <p class="card-body">יצאנו שוב לבר
+<div class="card col-7">
+  <span class="num">07 · הבר</span>
+  <div class="card-title">רחוב מלא עשן, והיידה באלגן</div>
+  <p class="card-body">יצאנו שוב לבר
 אלון חונה אדום לבן
 רחוב מלא עשן
 והיידה באלגן
@@ -253,13 +206,12 @@
 ומי תתחיל לחשוש
 מחפש לי מטרה
 רוצה למצוא לי בחורה</p>
-  </div>
+</div>
 
-  <!-- 08 -->
-  <div class="card c-blue">
-    <span class="card-label">08 · לילה</span>
-    <div class="card-quote">"</div>
-    <p class="card-body">הערב רץ שורות פסים
+<div class="card col-8">
+  <span class="num">08 · לילה</span>
+  <div class="card-title">הדי גיי שוב מוזג שירים</div>
+  <p class="card-body">הערב רץ שורות פסים
 הדי גיי שוב מוזג שירים
 
 מחפש את ההיא שנגעה בי חזק
@@ -267,65 +219,60 @@
 
 זה מתחיל בקטנה ברחוב בשכונה
 מתגלגל עוד סיפור שהופך לאגדה</p>
-  </div>
+</div>
 
-  <!-- 09 -->
-  <div class="card c-purple">
-    <span class="card-label">09 · ילד</span>
-    <div class="card-quote">"</div>
-    <p class="card-body">ההורים לא יודעים
+<div class="card col-3">
+  <span class="num">09 · ילד</span>
+  <div class="card-title">ההורים לא יודעים</div>
+  <p class="card-body">ההורים לא יודעים
 והילד לא ברור
 שוב שותה ומעשן
 אולי היום יקח כדור
 
 חושב על דופ וגם על מין
 הפסיכולוג שלי מזמן כבר לא זמין</p>
-  </div>
+</div>
 
-  <!-- 10 -->
-  <div class="card c-red">
-    <span class="card-label">10 · רעש בראש</span>
-    <div class="card-quote">"</div>
-    <p class="card-body">איך מוציאים את הרעש מהראש
+<div class="card col-4">
+  <span class="num">10 · רעש בראש</span>
+  <div class="card-title">לפעמים למטה לפעמים אחשוורוש</div>
+  <p class="card-body">איך מוציאים את הרעש מהראש
 לפעמים אתה למטה
 לפעמים אחשוורוש
 
 לפעמים זה מלמטה לפעמים גם מלמעלה
 אבל אין כל כך ברירה
 וצריך ללכת הלאה</p>
-  </div>
+</div>
 
-  <!-- 11 -->
-  <div class="card c-green">
-    <span class="card-label">11 · מכון</span>
-    <div class="card-quote">"</div>
-    <p class="card-body">מגיע למכון
+<div class="card col-5">
+  <span class="num">11 · מכון</span>
+  <div class="card-title">מדוכדך ועצוב עם חיוך</div>
+  <p class="card-body">מגיע למכון
 בחורות על המזרון
 משקולות של 15
 איזה שגעון
 
 מדוכדך ועצוב
 עם חיוך תמיד חשוב</p>
-  </div>
+</div>
 
-  <!-- 12 -->
-  <div class="card c-pink">
-    <span class="card-label">12 · צו ראשון</span>
-    <div class="card-quote">"</div>
-    <p class="card-body">מתחיל שבוע וזה הגיע
+<div class="card col-1">
+  <span class="num">12 · צו ראשון</span>
+  <div class="card-title">והזמן מחליק לי בידים</div>
+  <p class="card-body">מתחיל שבוע וזה הגיע
 צו ראשון ביום שלישי
 פעמים כי טוב
 
 תסכול בלבול רגשות כמו מבול
 טיפות של רגש נוזלות מהעינים
 והזמן מחליק לי בידים</p>
-  </div>
+</div>
 
-  <!-- 13 -->
-  <div class="card c-gold">
-    <span class="card-label">13 · אין מטרה</span>
-    <div class="card-quote">"</div>
-    <p class="card-body">אין כאן מטרה וכלום כבר לא קרה
+<div class="card col-7">
+  <span class="num">13 · אין מטרה</span>
+  <div class="card-title">האור שלי נכבה</div>
+  <p class="card-body">אין כאן מטרה וכלום כבר לא קרה
 עוד כדור ועוד כוסית
 הראש נדלק לי כמו מצית
 
@@ -333,13 +280,12 @@
 והילד שבראש צועק לי מטומטם
 מחפש לי דרך כי האור שלי נכבה
 תקווה ייאוש הכל כאן כבר קרה</p>
-  </div>
+</div>
 
-  <!-- 14 -->
-  <div class="card c-blue">
-    <span class="card-label">14 · ילד מבוגר</span>
-    <div class="card-quote">"</div>
-    <p class="card-body">ילד מבוגר שמתהלך ללא כיוון
+<div class="card col-6">
+  <span class="num">14 · ילד מבוגר</span>
+  <div class="card-title">יש לו חברים אבל מרגיש בדכאון</div>
+  <p class="card-body">ילד מבוגר שמתהלך ללא כיוון
 דקות שעות ימים
 מוצף רק בפחדים
 
@@ -347,13 +293,12 @@
 אוכל כדור הולך לישון
 יש לו חברים
 אבל מרגיש בדכאון</p>
-  </div>
+</div>
 
-  <!-- 15 -->
-  <div class="card c-purple">
-    <span class="card-label">15 · תחרות</span>
-    <div class="card-quote">"</div>
-    <p class="card-body">יש אנשים ברחוב וכולם בתנועה
+<div class="card col-2">
+  <span class="num">15 · תחרות</span>
+  <div class="card-title">ואם אין לך כסף, אז לא נורא</div>
+  <p class="card-body">יש אנשים ברחוב וכולם בתנועה
 לא עוצרים לא רואים
 למה מי ומה בכלל קרה
 
@@ -364,38 +309,35 @@
 ובבגדים זה תחרה
 ואם אין לך כסף
 אז לא נורא</p>
-  </div>
+</div>
 
-  <!-- 16 -->
-  <div class="card c-red">
-    <span class="card-label">16 · טיקטוק</span>
-    <div class="card-quote">"</div>
-    <p class="card-body">קנתה לה נייק עשו לה לייק
+<div class="card col-8">
+  <span class="num">16 · טיקטוק</span>
+  <div class="card-title">קנתה לה נייק עשו לה לייק</div>
+  <p class="card-body">קנתה לה נייק עשו לה לייק
 מחפשת עוד סיפוק
 ואוכלת בלי איפוק
 
 הכל זה כאן עכשיו כרגע
 אצלי רגוע זה בטבע</p>
-  </div>
+</div>
 
-  <!-- 17 -->
-  <div class="card c-green">
-    <span class="card-label">17 · מחנק</span>
-    <div class="card-quote">"</div>
-    <p class="card-body">אין לי כסף בארנק
+<div class="card col-4">
+  <span class="num">17 · מחנק</span>
+  <div class="card-title">זה לא משחק, זה די ברדק</div>
+  <p class="card-body">אין לי כסף בארנק
 מרגיש מהר את המחנק
 זה לא משחק, זה די ברדק
 מאד מתיש, אני נטרק
 
 חייב להרגע ולהרגיש נינוח
 כל השיט הזה עלה לי כבר למוח</p>
-  </div>
+</div>
 
-  <!-- 18 -->
-  <div class="card c-pink">
-    <span class="card-label">18 · ביקוש</span>
-    <div class="card-quote">"</div>
-    <p class="card-body">מרגיש מפוספס, אז מריץ לי תכף פס
+<div class="card col-3">
+  <span class="num">18 · ביקוש</span>
+  <div class="card-title">היאוש יוצר ביקוש</div>
+  <p class="card-body">מרגיש מפוספס, אז מריץ לי תכף פס
 שואל שוב מה נהיה ואוכל עוד עוגיה
 
 הדילר ממהר כי היאוש יוצר ביקוש
@@ -405,26 +347,24 @@
 כל הדור הזה עשן
 מריחים מעשנים
 ויאללה באלגן</p>
-  </div>
+</div>
 
-  <!-- 19 -->
-  <div class="card c-gold">
-    <span class="card-label">19 · דמויות</span>
-    <div class="card-quote">"</div>
-    <p class="card-body">שירי מפסקת, שרון שוב רק צועקת
+<div class="card col-7">
+  <span class="num">19 · דמויות</span>
+  <div class="card-title">רק יוסי מאחר</div>
+  <p class="card-body">שירי מפסקת, שרון שוב רק צועקת
 אומר נודר גומר
 רק יוסי מאחר
 
 יש לו רישיון, אבל אין לו מלווה
 יושב בחדר משפשף
 ורק חושב מה יהיה</p>
-  </div>
+</div>
 
-  <!-- 20 -->
-  <div class="card c-blue">
-    <span class="card-label">20 · זיוף</span>
-    <div class="card-quote">"</div>
-    <p class="card-body">מה נשמע יא גבר
+<div class="card col-1">
+  <span class="num">20 · זיוף</span>
+  <div class="card-title">מחייך זיוף רחב מוריד את העינים</div>
+  <p class="card-body">מה נשמע יא גבר
 תמיד הכל בסדר
 ממשיך להסתובב
 והלב נשפך בחדר
@@ -436,26 +376,24 @@
 הערך שוב נמוך, צריך עזרה דחוף
 כולם בחדר אומרים יהיה בסדר
 מרגיש לי כמו זיוף</p>
-  </div>
+</div>
 
-  <!-- 21 -->
-  <div class="card c-purple">
-    <span class="card-label">21 · צבא</span>
-    <div class="card-quote">"</div>
-    <p class="card-body">הנה תם לי התיכון ומיד זה צו ראשון
+<div class="card col-5">
+  <span class="num">21 · צבא</span>
+  <div class="card-title">פרופיל נמוך דפר שפוף</div>
+  <p class="card-body">הנה תם לי התיכון ומיד זה צו ראשון
 פרופיל נמוך דפר שפוף
 ואין שום פתרון
 
 הלכתי לקרבי ופגשתי ערבי
 אז עשיתי יומיות
 מצאתי שם הרבה בנות</p>
-  </div>
+</div>
 
-  <!-- 22 -->
-  <div class="card c-red">
-    <span class="card-label">22 · מחשב</span>
-    <div class="card-quote">"</div>
-    <p class="card-body">נכנס ישר לחדר
+<div class="card col-2">
+  <span class="num">22 · מחשב</span>
+  <div class="card-title">פותח שוב מחשב אפילו לא חושב</div>
+  <p class="card-body">נכנס ישר לחדר
 כי שם הכל בסדר
 פותח שוב מחשב
 אפילו לא חושב
@@ -463,13 +401,12 @@
 שרון שוב מאחרת ודנה מתאפרת
 רוצות לצאת רוצות לשתות
 והבנים סתם בני זונות</p>
-  </div>
+</div>
 
-  <!-- 23 -->
-  <div class="card c-green">
-    <span class="card-label">23 · פרח</span>
-    <div class="card-quote">"</div>
-    <p class="card-body">פתאום מצאתי פרח
+<div class="card col-6">
+  <span class="num">23 · פרח</span>
+  <div class="card-title">שגרה בירושלים</div>
+  <p class="card-body">פתאום מצאתי פרח
 אבל אין לי ניירות
 אמרה לי בוא תחזור
 אבל שוב היא במחזור
@@ -477,26 +414,24 @@
 חבר הכיר לי חברה לפני שבועיים
 רק האידיוט שכח לומר
 שהיא גרה בירושלים</p>
-  </div>
+</div>
 
-  <!-- 24 -->
-  <div class="card c-pink">
-    <span class="card-label">24 · ירושלים</span>
-    <div class="card-quote">"</div>
-    <p class="card-body">אמרה שהיא נוסעת קניתי לה טבעת
+<div class="card col-8">
+  <span class="num">24 · ירושלים</span>
+  <div class="card-title">התחלתי עם אחרת</div>
+  <p class="card-body">אמרה שהיא נוסעת קניתי לה טבעת
 אמרה שהיא חוזרת
 התחלתי עם אחרת
 
 אמרה לי בוא מהר ואני כמו מפגר
 רוצה לנשום שורף אדום
 ולא מגיע לשום מקום</p>
-  </div>
+</div>
 
-  <!-- 25 -->
-  <div class="card c-gold">
-    <span class="card-label">25 · בבסיס</span>
-    <div class="card-quote">"</div>
-    <p class="card-body">הכרנו בבסיס עשיתי לה תכסיס
+<div class="card col-7">
+  <span class="num">25 · בבסיס</span>
+  <div class="card-title">שיער גולש עינים אש</div>
+  <p class="card-body">הכרנו בבסיס עשיתי לה תכסיס
 סמלת מבצעים
 פזמ שנה ורבע
 אני פזמ 5, שנתיים כבר בקבע
@@ -506,13 +441,12 @@
 היא גרה בצפון
 אפילו רישיון
 אבל קצת מיואשת</p>
-  </div>
+</div>
 
-  <!-- 26 -->
-  <div class="card c-blue">
-    <span class="card-label">26 · ורדה</span>
-    <div class="card-quote">"</div>
-    <p class="card-body">יש לו מניות וגם הולך לו עם בנות
+<div class="card col-3">
+  <span class="num">26 · ורדה</span>
+  <div class="card-title">אמרה קוראים לה ורדה – עוזב</div>
+  <p class="card-body">יש לו מניות וגם הולך לו עם בנות
 הפסיק עם הירוק אבל עבר מיד לקוק
 
 היא שמה לי עוקב התחלתי להתלהב
@@ -521,13 +455,12 @@
 
 הגוף מתוח חזה שטוח
 זה מבלבל ואני כבר לא בטוח</p>
-  </div>
+</div>
 
-  <!-- 27 -->
-  <div class="card c-purple">
-    <span class="card-label">27 · מטרה</span>
-    <div class="card-quote">"</div>
-    <p class="card-body">חבר אמר שיש בכפר ילדה שדי זורמת
+<div class="card col-1">
+  <span class="num">27 · מטרה</span>
+  <div class="card-title">זה לא כזה מתאים, אבל אלו החיים</div>
+  <p class="card-body">חבר אמר שיש בכפר ילדה שדי זורמת
 אז מה עושים
 ואיך יודעים לאן היא מתקדמת
 
@@ -538,13 +471,12 @@
 הצבתי מטרה אז אין לי כבר ברירה
 יוצא לרחוב רוצה לאהוב
 ואפילו נראה לא רע</p>
-  </div>
+</div>
 
-  <!-- 28 -->
-  <div class="card c-red">
-    <span class="card-label">28 · שעה שעתיים</span>
-    <div class="card-quote">"</div>
-    <p class="card-body">יצאתי לבר כבר היה מאוחר
+<div class="card col-4">
+  <span class="num">28 · שעה שעתיים</span>
+  <div class="card-title">רוצה לטשטש את הזמן</div>
+  <p class="card-body">יצאתי לבר כבר היה מאוחר
 קניתי נייר אבל החומר נגמר
 אז הזמנתי לי שוט להוריד את הלחץ
 
@@ -556,13 +488,12 @@
 רוצה לעשן לי עלה של מרגוע
 לטשטש את הזמן
 ולתת לראש לנסוע</p>
-  </div>
+</div>
 
-  <!-- 29 -->
-  <div class="card c-green">
-    <span class="card-label">29 · עשן</span>
-    <div class="card-quote">"</div>
-    <p class="card-body">בורח שנים מעצמי בלי כיוון
+<div class="card col-5">
+  <span class="num">29 · עשן</span>
+  <div class="card-title">בורח שנים מעצמי</div>
+  <p class="card-body">בורח שנים מעצמי בלי כיוון
 מתמלא בעשן וחוסר איזון
 שורף את הראש והריאות
 בלי להבין מתמלא חרדות
@@ -570,13 +501,12 @@
 יש ימים שמחים שממלאים אותי בחשק
 ויש ימים קשים
 מרגיש טעון, דרוך כמו נשק</p>
-  </div>
+</div>
 
-  <!-- 30 -->
-  <div class="card c-pink">
-    <span class="card-label">30 · פרידה</span>
-    <div class="card-quote">"</div>
-    <p class="card-body">אין כאן אגדה ולא סיפור
+<div class="card col-6">
+  <span class="num">30 · פרידה</span>
+  <div class="card-title">נשארתי רק בפחד</div>
+  <p class="card-body">אין כאן אגדה ולא סיפור
 רק עוד פרידה
 היינו זוג היינו יחד
 עכשיו נשארתי רק בפחד
@@ -585,13 +515,12 @@
 לא תמיד ממש יודעת
 לאן זה הולך ומתי זה יגמר
 רציתי לאהוב רציתי רק חבר</p>
-  </div>
+</div>
 
-  <!-- 31 -->
-  <div class="card c-gold">
-    <span class="card-label">31 · חיים</span>
-    <div class="card-quote">"</div>
-    <p class="card-body">היא קוראת לי חיים
+<div class="card col-2">
+  <span class="num">31 · חיים</span>
+  <div class="card-title">חיבור מתוק כמו סוג של טופי</div>
+  <p class="card-body">היא קוראת לי חיים
 זה לא מרגיש נעים
 קנתה לי פרחים
 זה לא מרגיש תמים
@@ -603,13 +532,12 @@
 
 ואז משבר וגם ויכוח
 ושוב רבים רוצה לנוח</p>
-  </div>
+</div>
 
-  <!-- 32 -->
-  <div class="card c-blue">
-    <span class="card-label">32 · אושר</span>
-    <div class="card-quote">"</div>
-    <p class="card-body">אוכל בריא שומר על כושר
+<div class="card col-8">
+  <span class="num">32 · אושר</span>
+  <div class="card-title">מחפשים טיפה של אושר</div>
+  <p class="card-body">אוכל בריא שומר על כושר
 כולם כאן נלחמים
 ומחפשים טיפה של אושר
 
@@ -619,23 +547,21 @@
 
 תקח כדור תקרא תלמד
 עוד ילדות של ילד מיוחד</p>
-  </div>
+</div>
 
-  <!-- 33 -->
-  <div class="card c-purple">
-    <span class="card-label">33 · תואר בדואר</span>
-    <div class="card-quote">"</div>
-    <p class="card-body">המורה לא ממש הבינה
+<div class="card col-3">
+  <span class="num">33 · תואר</span>
+  <div class="card-title">ושלחו אותו בדואר</div>
+  <p class="card-body">המורה לא ממש הבינה
 והמנהלת לא הפנימה
 אבל בסוף עשיתי תואר
 ושלחו אותו בדואר</p>
-  </div>
+</div>
 
-  <!-- 34 · Finale -->
-  <div class="card c-red">
-    <span class="card-label">34 · עתיד לא ידוע</span>
-    <div class="card-quote">"</div>
-    <p class="card-body">עושה מה שידוע
+<div class="card col-4">
+  <span class="num">34 · עתיד</span>
+  <div class="card-title">בסוף זה רק אני והעתיד הלא ידוע</div>
+  <p class="card-body">עושה מה שידוע
 זה מתסכל אותי שבוע
 בסוף זה רק אני
 והעתיד הלא ידוע
@@ -643,7 +569,7 @@
 עייף מהמירוץ ומבין שזה תירוץ
 מרגיש סחוט חבוט
 ללא תקווה ללא ניווט</p>
-  </div>
+</div>
 
 </div>
 
