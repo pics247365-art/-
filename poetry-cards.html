@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>מילים שלא אמרתי</title>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #07070f;
+      font-family: 'Heebo', sans-serif;
+      color: #e2e2e8;
+      min-height: 100vh;
+      padding: 60px 24px 80px;
+    }
+
+    /* ───── Hero title ───── */
+    .hero {
+      text-align: center;
+      margin-bottom: 70px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 6vw, 4rem);
+      font-weight: 900;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, #ff6b6b 0%, #feca57 35%, #48dbfb 65%, #ff9ff3 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      margin-top: 12px;
+      font-size: 0.95rem;
+      opacity: 0.35;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    /* ───── Grid ───── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 28px;
+      max-width: 1360px;
+      margin: 0 auto;
+    }
+
+    /* ───── Card base ───── */
+    .card {
+      background: linear-gradient(145deg, #0d0d1c 0%, #13132a 100%);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 20px;
+      padding: 32px 28px 28px;
+      position: relative;
+      overflow: hidden;
+      transition: transform .3s ease, box-shadow .3s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+    }
+
+    /* top accent stripe */
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 3px;
+      border-radius: 20px 20px 0 0;
+    }
+
+    /* background glow blob */
+    .card::after {
+      content: '';
+      position: absolute;
+      top: -60px;
+      left: -60px;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      opacity: 0.04;
+      pointer-events: none;
+    }
+
+    /* ───── Color themes ───── */
+    .c-red    { border-color: rgba(255,107,107,.18); }
+    .c-red::before  { background: linear-gradient(90deg,#ff6b6b,#ee5a24); }
+    .c-red::after   { background: #ff6b6b; }
+
+    .c-gold   { border-color: rgba(254,202,87,.18); }
+    .c-gold::before { background: linear-gradient(90deg,#feca57,#ff9f43); }
+    .c-gold::after  { background: #feca57; }
+
+    .c-blue   { border-color: rgba(72,219,251,.18); }
+    .c-blue::before { background: linear-gradient(90deg,#48dbfb,#0abde3); }
+    .c-blue::after  { background: #48dbfb; }
+
+    .c-purple { border-color: rgba(255,159,243,.18); }
+    .c-purple::before { background: linear-gradient(90deg,#ff9ff3,#f368e0); }
+    .c-purple::after  { background: #ff9ff3; }
+
+    .c-green  { border-color: rgba(85,239,196,.18); }
+    .c-green::before  { background: linear-gradient(90deg,#55efc4,#00b894); }
+    .c-green::after   { background: #55efc4; }
+
+    .c-pink   { border-color: rgba(253,121,168,.18); }
+    .c-pink::before   { background: linear-gradient(90deg,#fd79a8,#e84393); }
+    .c-pink::after    { background: #fd79a8; }
+
+    /* ───── Card internals ───── */
+    .card-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      opacity: 0.38;
+    }
+
+    .card-quote {
+      font-size: 4.5rem;
+      line-height: 0.4;
+      opacity: 0.08;
+      font-weight: 900;
+      user-select: none;
+    }
+
+    .card-body {
+      font-size: 1.08rem;
+      line-height: 1.9;
+      font-weight: 300;
+      white-space: pre-line;
+      flex: 1;
+    }
+
+    /* ───── Responsive ───── */
+    @media (max-width: 600px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    /* ───── Footer ───── */
+    footer {
+      text-align: center;
+      margin-top: 70px;
+      opacity: 0.22;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>מילים שלא אמרתי</h1>
+  <p>שירה · ראפ · חיים</p>
+</div>
+
+<div class="grid">
+
+  <!-- 01 -->
+  <div class="card c-gold">
+    <span class="card-label">01 · זמן</span>
+    <div class="card-quote">"</div>
+    <p class="card-body">גיל 20 הדלקתי גוינט
+ופתאום זה 50
+לא ממש מבין ולא מאמין
+
+השעון לא מאט והזמן מתמעט
+מה עכשיו, עוד שאלות
+ואיך יודעים לאן לפנות</p>
+  </div>
+
+  <!-- 02 -->
+  <div class="card c-blue">
+    <span class="card-label">02 · נוסטלגיה</span>
+    <div class="card-quote">"</div>
+    <p class="card-body">מסיבות חברים כדורים טיולים
+איפה השנים שהיינו עוד תמימים
+
+חברות חתונה ופתאום זה ילדים
+מי אני ומי זו את
+בוא נקח את זה לאט</p>
+  </div>
+
+  <!-- 03 -->
+  <div class="card c-purple">
+    <span class="card-label">03 · הקול</span>
+    <div class="card-quote">"</div>
+    <p class="card-body">דאגה אהבה ואושר
+ומרגיש שוב לא בכושר
+
+והקול שנמצא שם תמיד
+לא עוזר רק מטריד
+לוחש לי תמשיך ואל תעצור
+אבל אין לי מנוח ואין לי מזור</p>
+  </div>
+
+  <!-- 04 -->
+  <div class="card c-red">
+    <span class="card-label">04 · יום שחור</span>
+    <div class="card-quote">"</div>
+    <p class="card-body">מנסה לאסוף את עצמי לעוד יום שחור
+החברים בצבא ואני מאחור
+
+הפקק לא נפסק והבוס שוב צועק
+מרגיש שאני שוב מתרסק</p>
+  </div>
+
+  <!-- 05 -->
+  <div class="card c-green">
+    <span class="card-label">05 · בדירה</span>
+    <div class="card-quote">"</div>
+    <p class="card-body">אבל אין לי ברירה ושוב בדירה
+הקול שוב לוחש לי
+הורס את השקט
+הולך לאיבוד בדירה במרפסת
+
+מבקש מנוחה רק לנשום לעצור
+אבל שוב כמו תמיד
+נותר לי רק לבחור</p>
+  </div>
+
+  <!-- 06 -->
+  <div class="card c-pink">
+    <span class="card-label">06 · ייאוש</span>
+    <div class="card-quote">"</div>
+    <p class="card-body">הייאוש כמו כיבוש מפר שוב את הסדר
+נגעת לי בלב
+אני חושב הכל בסדר
+
+כמה אפשר להכיל את הסבל
+רוצה להרגיש קצת בנח בסדר
+
+הלחץ נמצא שם תמיד מרחף
+רוצה רק לצעוק
+הראש מתעייף</p>
+  </div>
+
+  <!-- 07 -->
+  <div class="card c-gold">
+    <span class="card-label">07 · הבר</span>
+    <div class="card-quote">"</div>
+    <p class="card-body">יצאנו שוב לבר
+אלון חונה אדום לבן
+רחוב מלא עשן
+והיידה באלגן
+
+את מי היום נפגוש
+ומי תתחיל לחשוש
+מחפש לי מטרה
+רוצה למצוא לי בחורה</p>
+  </div>
+
+  <!-- 08 -->
+  <div class="card c-blue">
+    <span class="card-label">08 · לילה</span>
+    <div class="card-quote">"</div>
+    <p class="card-body">הערב רץ שורות פסים
+הדי גיי שוב מוזג שירים
+
+מחפש את ההיא שנגעה בי חזק
+אולי גם היום נשחק ת'משחק
+
+זה מתחיל בקטנה ברחוב בשכונה
+מתגלגל עוד סיפור שהופך לאגדה</p>
+  </div>
+
+  <!-- 09 -->
+  <div class="card c-purple">
+    <span class="card-label">09 · ילד</span>
+    <div class="card-quote">"</div>
+    <p class="card-body">ההורים לא יודעים
+והילד לא ברור
+שוב שותה ומעשן
+אולי היום יקח כדור
+
+חושב על דופ וגם על מין
+הפסיכולוג שלי מזמן כבר לא זמין</p>
+  </div>
+
+  <!-- 10 -->
+  <div class="card c-red">
+    <span class="card-label">10 · רעש בראש</span>
+    <div class="card-quote">"</div>
+    <p class="card-body">איך מוציאים את הרעש מהראש
+לפעמים אתה למטה
+לפעמים אחשוורוש
+
+לפעמים זה מלמטה לפעמים גם מלמעלה
+אבל אין כל כך ברירה
+וצריך ללכת הלאה</p>
+  </div>
+
+  <!-- 11 -->
+  <div class="card c-green">
+    <span class="card-label">11 · מכון</span>
+    <div class="card-quote">"</div>
+    <p class="card-body">מגיע למכון
+בחורות על המזרון
+משקולות של 15
+איזה שגעון
+
+מדוכדך ועצוב
+עם חיוך תמיד חשוב</p>
+  </div>
+
+  <!-- 12 -->
+  <div class="card c-pink">
+    <span class="card-label">12 · צו ראשון</span>
+    <div class="card-quote">"</div>
+    <p class="card-body">מתחיל שבוע וזה הגיע
+צו ראשון ביום שלישי
+פעמים כי טוב
+
+תסכול בלבול רגשות כמו מבול
+טיפות של רגש נוזלות מהעינים
+והזמן מחליק לי בידים</p>
+  </div>
+
+  <!-- 13 -->
+  <div class="card c-gold">
+    <span class="card-label">13 · אין מטרה</span>
+    <div class="card-quote">"</div>
+    <p class="card-body">אין כאן מטרה וכלום כבר לא קרה
+עוד כדור ועוד כוסית
+הראש נדלק לי כמו מצית
+
+קם שוב מוקדם ליום חדש ישן
+והילד שבראש צועק לי מטומטם
+מחפש לי דרך כי האור שלי נכבה
+תקווה ייאוש הכל כאן כבר קרה</p>
+  </div>
+
+  <!-- 14 -->
+  <div class="card c-blue">
+    <span class="card-label">14 · ילד מבוגר</span>
+    <div class="card-quote">"</div>
+    <p class="card-body">ילד מבוגר שמתהלך ללא כיוון
+דקות שעות ימים
+מוצף רק בפחדים
+
+שוחה בשגעון
+אוכל כדור הולך לישון
+יש לו חברים
+אבל מרגיש בדכאון</p>
+  </div>
+
+  <!-- 15 -->
+  <div class="card c-purple">
+    <span class="card-label">15 · תחרות</span>
+    <div class="card-quote">"</div>
+    <p class="card-body">יש אנשים ברחוב וכולם בתנועה
+לא עוצרים לא רואים
+למה מי ומה בכלל קרה
+
+הזרם דוחף את הקצב
+הרוח שוברת עוד רצף
+
+החיים זה תחרות
+ובבגדים זה תחרה
+ואם אין לך כסף
+אז לא נורא</p>
+  </div>
+
+  <!-- 16 -->
+  <div class="card c-red">
+    <span class="card-label">16 · טיקטוק</span>
+    <div class="card-quote">"</div>
+    <p class="card-body">קנתה לה נייק עשו לה לייק
+מחפשת עוד סיפוק
+ואוכלת בלי איפוק
+
+הכל זה כאן עכשיו כרגע
+אצלי רגוע זה בטבע</p>
+  </div>
+
+  <!-- 17 -->
+  <div class="card c-green">
+    <span class="card-label">17 · מחנק</span>
+    <div class="card-quote">"</div>
+    <p class="card-body">אין לי כסף בארנק
+מרגיש מהר את המחנק
+זה לא משחק, זה די ברדק
+מאד מתיש, אני נטרק
+
+חייב להרגע ולהרגיש נינוח
+כל השיט הזה עלה לי כבר למוח</p>
+  </div>
+
+  <!-- 18 -->
+  <div class="card c-pink">
+    <span class="card-label">18 · ביקוש</span>
+    <div class="card-quote">"</div>
+    <p class="card-body">מרגיש מפוספס, אז מריץ לי תכף פס
+שואל שוב מה נהיה ואוכל עוד עוגיה
+
+הדילר ממהר כי היאוש יוצר ביקוש
+מחכה לו גם שעה
+רוצה לעוף, רוצה טשטוש
+
+כל הדור הזה עשן
+מריחים מעשנים
+ויאללה באלגן</p>
+  </div>
+
+  <!-- 19 -->
+  <div class="card c-gold">
+    <span class="card-label">19 · דמויות</span>
+    <div class="card-quote">"</div>
+    <p class="card-body">שירי מפסקת, שרון שוב רק צועקת
+אומר נודר גומר
+רק יוסי מאחר
+
+יש לו רישיון, אבל אין לו מלווה
+יושב בחדר משפשף
+ורק חושב מה יהיה</p>
+  </div>
+
+  <!-- 20 -->
+  <div class="card c-blue">
+    <span class="card-label">20 · זיוף</span>
+    <div class="card-quote">"</div>
+    <p class="card-body">מה נשמע יא גבר
+תמיד הכל בסדר
+ממשיך להסתובב
+והלב נשפך בחדר
+
+מחייך זיוף רחב מוריד את העינים
+הלכתי לאיבוד
+אחזור בעוד שבועיים
+
+הערך שוב נמוך, צריך עזרה דחוף
+כולם בחדר אומרים יהיה בסדר
+מרגיש לי כמו זיוף</p>
+  </div>
+
+  <!-- 21 -->
+  <div class="card c-purple">
+    <span class="card-label">21 · צבא</span>
+    <div class="card-quote">"</div>
+    <p class="card-body">הנה תם לי התיכון ומיד זה צו ראשון
+פרופיל נמוך דפר שפוף
+ואין שום פתרון
+
+הלכתי לקרבי ופגשתי ערבי
+אז עשיתי יומיות
+מצאתי שם הרבה בנות</p>
+  </div>
+
+  <!-- 22 -->
+  <div class="card c-red">
+    <span class="card-label">22 · מחשב</span>
+    <div class="card-quote">"</div>
+    <p class="card-body">נכנס ישר לחדר
+כי שם הכל בסדר
+פותח שוב מחשב
+אפילו לא חושב
+
+שרון שוב מאחרת ודנה מתאפרת
+רוצות לצאת רוצות לשתות
+והבנים סתם בני זונות</p>
+  </div>
+
+  <!-- 23 -->
+  <div class="card c-green">
+    <span class="card-label">23 · פרח</span>
+    <div class="card-quote">"</div>
+    <p class="card-body">פתאום מצאתי פרח
+אבל אין לי ניירות
+אמרה לי בוא תחזור
+אבל שוב היא במחזור
+
+חבר הכיר לי חברה לפני שבועיים
+רק האידיוט שכח לומר
+שהיא גרה בירושלים</p>
+  </div>
+
+  <!-- 24 -->
+  <div class="card c-pink">
+    <span class="card-label">24 · ירושלים</span>
+    <div class="card-quote">"</div>
+    <p class="card-body">אמרה שהיא נוסעת קניתי לה טבעת
+אמרה שהיא חוזרת
+התחלתי עם אחרת
+
+אמרה לי בוא מהר ואני כמו מפגר
+רוצה לנשום שורף אדום
+ולא מגיע לשום מקום</p>
+  </div>
+
+  <!-- 25 -->
+  <div class="card c-gold">
+    <span class="card-label">25 · בבסיס</span>
+    <div class="card-quote">"</div>
+    <p class="card-body">הכרנו בבסיס עשיתי לה תכסיס
+סמלת מבצעים
+פזמ שנה ורבע
+אני פזמ 5, שנתיים כבר בקבע
+
+שיער גולש עינים אש
+וגוף כמו של גולשת
+היא גרה בצפון
+אפילו רישיון
+אבל קצת מיואשת</p>
+  </div>
+
+  <!-- 26 -->
+  <div class="card c-blue">
+    <span class="card-label">26 · ורדה</span>
+    <div class="card-quote">"</div>
+    <p class="card-body">יש לו מניות וגם הולך לו עם בנות
+הפסיק עם הירוק אבל עבר מיד לקוק
+
+היא שמה לי עוקב התחלתי להתלהב
+אמרה קוראים לה ורדה
+החלטתי אני עוזב
+
+הגוף מתוח חזה שטוח
+זה מבלבל ואני כבר לא בטוח</p>
+  </div>
+
+  <!-- 27 -->
+  <div class="card c-purple">
+    <span class="card-label">27 · מטרה</span>
+    <div class="card-quote">"</div>
+    <p class="card-body">חבר אמר שיש בכפר ילדה שדי זורמת
+אז מה עושים
+ואיך יודעים לאן היא מתקדמת
+
+היא התחילה תיכון ואני בצו ראשון
+זה לא כזה מתאים
+אבל אלו החיים
+
+הצבתי מטרה אז אין לי כבר ברירה
+יוצא לרחוב רוצה לאהוב
+ואפילו נראה לא רע</p>
+  </div>
+
+  <!-- 28 -->
+  <div class="card c-red">
+    <span class="card-label">28 · שעה שעתיים</span>
+    <div class="card-quote">"</div>
+    <p class="card-body">יצאתי לבר כבר היה מאוחר
+קניתי נייר אבל החומר נגמר
+אז הזמנתי לי שוט להוריד את הלחץ
+
+מחכה לשליח כי יוסי הבטיח
+החומר יגיע תוך שעה שעתיים
+
+הדחף עולה והצורך גואה
+מה כבר ביקשתי ולמה קשה
+רוצה לעשן לי עלה של מרגוע
+לטשטש את הזמן
+ולתת לראש לנסוע</p>
+  </div>
+
+  <!-- 29 -->
+  <div class="card c-green">
+    <span class="card-label">29 · עשן</span>
+    <div class="card-quote">"</div>
+    <p class="card-body">בורח שנים מעצמי בלי כיוון
+מתמלא בעשן וחוסר איזון
+שורף את הראש והריאות
+בלי להבין מתמלא חרדות
+
+יש ימים שמחים שממלאים אותי בחשק
+ויש ימים קשים
+מרגיש טעון, דרוך כמו נשק</p>
+  </div>
+
+  <!-- 30 -->
+  <div class="card c-pink">
+    <span class="card-label">30 · פרידה</span>
+    <div class="card-quote">"</div>
+    <p class="card-body">אין כאן אגדה ולא סיפור
+רק עוד פרידה
+היינו זוג היינו יחד
+עכשיו נשארתי רק בפחד
+
+שזה נוגע זה גם פוגע
+לא תמיד ממש יודעת
+לאן זה הולך ומתי זה יגמר
+רציתי לאהוב רציתי רק חבר</p>
+  </div>
+
+  <!-- 31 -->
+  <div class="card c-gold">
+    <span class="card-label">31 · חיים</span>
+    <div class="card-quote">"</div>
+    <p class="card-body">היא קוראת לי חיים
+זה לא מרגיש נעים
+קנתה לי פרחים
+זה לא מרגיש תמים
+
+שזה נוגע בלב
+אתה מתחיל להתאהב
+יש גם יופי ואפילו אופי
+חיבור מתוק כמו סוג של טופי
+
+ואז משבר וגם ויכוח
+ושוב רבים רוצה לנוח</p>
+  </div>
+
+  <!-- 32 -->
+  <div class="card c-blue">
+    <span class="card-label">32 · אושר</span>
+    <div class="card-quote">"</div>
+    <p class="card-body">אוכל בריא שומר על כושר
+כולם כאן נלחמים
+ומחפשים טיפה של אושר
+
+טיפול בהליכה או שהולכים שוב לטיפול
+פורקים את התסכול
+ולפעמים את הטרלול
+
+תקח כדור תקרא תלמד
+עוד ילדות של ילד מיוחד</p>
+  </div>
+
+  <!-- 33 -->
+  <div class="card c-purple">
+    <span class="card-label">33 · תואר בדואר</span>
+    <div class="card-quote">"</div>
+    <p class="card-body">המורה לא ממש הבינה
+והמנהלת לא הפנימה
+אבל בסוף עשיתי תואר
+ושלחו אותו בדואר</p>
+  </div>
+
+  <!-- 34 · Finale -->
+  <div class="card c-red">
+    <span class="card-label">34 · עתיד לא ידוע</span>
+    <div class="card-quote">"</div>
+    <p class="card-body">עושה מה שידוע
+זה מתסכל אותי שבוע
+בסוף זה רק אני
+והעתיד הלא ידוע
+
+עייף מהמירוץ ומבין שזה תירוץ
+מרגיש סחוט חבוט
+ללא תקווה ללא ניווט</p>
+  </div>
+
+</div>
+
+<footer>© מילים שלא אמרתי &nbsp;·&nbsp; כל הזכויות שמורות</footer>
+
+</body>
+</html>
