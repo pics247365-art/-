@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מילים שלא אמרתי – גלריה</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0a0a0f;
+    overflow-x: hidden;
+    font-family: 'Segoe UI', Arial, 'Arial Hebrew', sans-serif;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    text-align: center;
+    padding: 60px 20px 40px;
+    color: #fff;
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 6vw, 4.5rem);
+    font-weight: 900;
+    letter-spacing: -1px;
+    color: #fff;
+    text-shadow: 0 0 60px rgba(139,92,246,0.8);
+  }
+  .hero p {
+    margin-top: 10px;
+    color: #64748b;
+    font-size: 0.85rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+
+  /* ── Ticker track ── */
+  .ticker-wrap {
+    width: 100%;
+    overflow: hidden;
+    padding: 20px 0;
+    position: relative;
+  }
+
+  /* fade edges */
+  .ticker-wrap::before,
+  .ticker-wrap::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 80px;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .ticker-wrap::before { right: 0; background: linear-gradient(to left, var(--bg, #0a0a0f), transparent); }
+  .ticker-wrap::after  { left:  0; background: linear-gradient(to right, var(--bg, #0a0a0f), transparent); }
+
+  .ticker-inner {
+    display: flex;
+    white-space: nowrap;
+    will-change: transform;
+  }
+
+  /* RTL scroll → moves right-to-left = positive direction for RTL marquee */
+  @keyframes scrollRTL {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  @keyframes scrollLTR {
+    0%   { transform: translateX(-50%); }
+    100% { transform: translateX(0); }
+  }
+
+  .scroll-rtl .ticker-inner { animation: scrollRTL linear infinite; }
+  .scroll-ltr .ticker-inner { animation: scrollLTR linear infinite; }
+
+  .ticker-item {
+    display: inline-block;
+    padding: 0 40px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .ticker-item .sep {
+    margin: 0 18px;
+    opacity: 0.35;
+  }
+
+  /* ── Strip colour themes ── */
+  .strip-1  { --bg: #0a0a0f; }
+  .strip-1  .ticker-item { color: #a78bfa; }
+
+  .strip-2  { background: #18122b; --bg: #18122b; }
+  .strip-2  .ticker-item { color: #f9fafb; }
+
+  .strip-3  { --bg: #0a0a0f; }
+  .strip-3  .ticker-item { color: #34d399; }
+
+  .strip-4  { background: #0f1f3d; --bg: #0f1f3d; }
+  .strip-4  .ticker-item { color: #93c5fd; }
+
+  .strip-5  { --bg: #0a0a0f; }
+  .strip-5  .ticker-item { color: #f472b6; }
+
+  .strip-6  { background: #1c1100; --bg: #1c1100; }
+  .strip-6  .ticker-item { color: #fbbf24; }
+
+  .strip-7  { --bg: #0a0a0f; }
+  .strip-7  .ticker-item { color: #67e8f9; }
+
+  .strip-8  { background: #1a0a1a; --bg: #1a0a1a; }
+  .strip-8  .ticker-item { color: #e879f9; }
+
+  .strip-9  { --bg: #0a0a0f; }
+  .strip-9  .ticker-item { color: #fb923c; }
+
+  .strip-10 { background: #0a1a0f; --bg: #0a1a0f; }
+  .strip-10 .ticker-item { color: #86efac; }
+
+  /* speeds */
+  .spd-20 .ticker-inner { animation-duration: 20s; }
+  .spd-25 .ticker-inner { animation-duration: 25s; }
+  .spd-30 .ticker-inner { animation-duration: 30s; }
+  .spd-35 .ticker-inner { animation-duration: 35s; }
+  .spd-40 .ticker-inner { animation-duration: 40s; }
+  .spd-50 .ticker-inner { animation-duration: 50s; }
+
+  /* big text strips */
+  .big .ticker-item { font-size: 2.5rem; padding: 0 60px; }
+  .big { padding: 30px 0; }
+
+  /* small */
+  .sm .ticker-item { font-size: 1.1rem; font-weight: 400; }
+
+  /* divider */
+  .divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, #333, transparent);
+    margin: 4px 0;
+  }
+
+  footer {
+    text-align: center;
+    padding: 50px 20px;
+    color: #1e293b;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>מילים שלא אמרתי</h1>
+  <p>שירה · ראפ · חיים</p>
+</div>
+
+<!-- Strip 1 – big purple opener -->
+<div class="ticker-wrap strip-1 big scroll-rtl spd-35">
+  <div class="ticker-inner">
+    <span class="ticker-item">גיל 20 הדלקתי גוינט ופתאום זה 50 <span class="sep">✦</span> לא ממש מבין ולא מאמין <span class="sep">✦</span> השעון לא מאט והזמן מתמעט <span class="sep">✦</span></span>
+    <span class="ticker-item">גיל 20 הדלקתי גוינט ופתאום זה 50 <span class="sep">✦</span> לא ממש מבין ולא מאמין <span class="sep">✦</span> השעון לא מאט והזמן מתמעט <span class="sep">✦</span></span>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Strip 2 – white on dark, LTR -->
+<div class="ticker-wrap strip-2 scroll-ltr spd-25">
+  <div class="ticker-inner">
+    <span class="ticker-item">מסיבות חברים כדורים טיולים <span class="sep">·</span> איפה השנים שהיינו עוד תמימים <span class="sep">·</span> חברות חתונה ופתאום זה ילדים <span class="sep">·</span></span>
+    <span class="ticker-item">מסיבות חברים כדורים טיולים <span class="sep">·</span> איפה השנים שהיינו עוד תמימים <span class="sep">·</span> חברות חתונה ופתאום זה ילדים <span class="sep">·</span></span>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Strip 3 – green -->
+<div class="ticker-wrap strip-3 scroll-rtl spd-30">
+  <div class="ticker-inner">
+    <span class="ticker-item">והקול שנמצא שם תמיד לא עוזר רק מטריד <span class="sep">❋</span> לוחש לי תמשיך ואל תעצור <span class="sep">❋</span> אבל אין לי מנוח ואין לי מזור <span class="sep">❋</span></span>
+    <span class="ticker-item">והקול שנמצא שם תמיד לא עוזר רק מטריד <span class="sep">❋</span> לוחש לי תמשיך ואל תעצור <span class="sep">❋</span> אבל אין לי מנוח ואין לי מזור <span class="sep">❋</span></span>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Strip 4 – blue, LTR, big -->
+<div class="ticker-wrap strip-4 big scroll-ltr spd-40">
+  <div class="ticker-inner">
+    <span class="ticker-item">החברים בצבא ואני מאחור <span class="sep">—</span> הפקק לא נפסק והבוס שוב צועק <span class="sep">—</span> מרגיש שאני שוב מתרסק <span class="sep">—</span></span>
+    <span class="ticker-item">החברים בצבא ואני מאחור <span class="sep">—</span> הפקק לא נפסק והבוס שוב צועק <span class="sep">—</span> מרגיש שאני שוב מתרסק <span class="sep">—</span></span>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Strip 5 – pink -->
+<div class="ticker-wrap strip-5 scroll-rtl spd-20">
+  <div class="ticker-inner">
+    <span class="ticker-item">הייאוש כמו כיבוש מפר שוב את הסדר <span class="sep">♦</span> נגעת לי בלב אני חושב הכל בסדר <span class="sep">♦</span> כמה אפשר להכיל את הסבל <span class="sep">♦</span></span>
+    <span class="ticker-item">הייאוש כמו כיבוש מפר שוב את הסדר <span class="sep">♦</span> נגעת לי בלב אני חושב הכל בסדר <span class="sep">♦</span> כמה אפשר להכיל את הסבל <span class="sep">♦</span></span>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Strip 6 – gold, LTR, small -->
+<div class="ticker-wrap strip-6 sm scroll-ltr spd-22">
+  <div class="ticker-inner">
+    <span class="ticker-item">יצאנו שוב לבר · אלון חונה אדום לבן · רחוב מלא עשן · והיידה באלגן · מחפש לי מטרה · רוצה למצוא לי בחורה ·</span>
+    <span class="ticker-item">יצאנו שוב לבר · אלון חונה אדום לבן · רחוב מלא עשן · והיידה באלגן · מחפש לי מטרה · רוצה למצוא לי בחורה ·</span>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Strip 7 – cyan -->
+<div class="ticker-wrap strip-7 scroll-rtl spd-30">
+  <div class="ticker-inner">
+    <span class="ticker-item">הערב רץ שורות פסים <span class="sep">〜</span> הדי גיי שוב מוזג שירים <span class="sep">〜</span> מחפש את ההיא שנגעה בי חזק <span class="sep">〜</span> זה מתחיל בקטנה ברחוב בשכונה <span class="sep">〜</span></span>
+    <span class="ticker-item">הערב רץ שורות פסים <span class="sep">〜</span> הדי גיי שוב מוזג שירים <span class="sep">〜</span> מחפש את ההיא שנגעה בי חזק <span class="sep">〜</span> זה מתחיל בקטנה ברחוב בשכונה <span class="sep">〜</span></span>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Strip 8 – magenta, big, LTR -->
+<div class="ticker-wrap strip-8 big scroll-ltr spd-45">
+  <div class="ticker-inner">
+    <span class="ticker-item">ילד מבוגר שמתהלך ללא כיוון <span class="sep">✧</span> יש לו חברים אבל מרגיש בדכאון <span class="sep">✧</span></span>
+    <span class="ticker-item">ילד מבוגר שמתהלך ללא כיוון <span class="sep">✧</span> יש לו חברים אבל מרגיש בדכאון <span class="sep">✧</span></span>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Strip 9 – orange -->
+<div class="ticker-wrap strip-9 scroll-rtl spd-25">
+  <div class="ticker-inner">
+    <span class="ticker-item">החיים זה תחרות ובבגדים זה תחרה <span class="sep">·</span> ואם אין לך כסף אז לא נורא <span class="sep">·</span> קנתה לה נייק עשו לה לייק <span class="sep">·</span> הכל זה כאן עכשיו כרגע <span class="sep">·</span></span>
+    <span class="ticker-item">החיים זה תחרות ובבגדים זה תחרה <span class="sep">·</span> ואם אין לך כסף אז לא נורא <span class="sep">·</span> קנתה לה נייק עשו לה לייק <span class="sep">·</span> הכל זה כאן עכשיו כרגע <span class="sep">·</span></span>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Strip 10 – soft green, LTR, small -->
+<div class="ticker-wrap strip-10 sm scroll-ltr spd-28">
+  <div class="ticker-inner">
+    <span class="ticker-item">מה נשמע יא גבר תמיד הכל בסדר · מחייך זיוף רחב מוריד את העינים · הלכתי לאיבוד אחזור בעוד שבועיים · הערך שוב נמוך צריך עזרה דחוף ·</span>
+    <span class="ticker-item">מה נשמע יא גבר תמיד הכל בסדר · מחייך זיוף רחב מוריד את העינים · הלכתי לאיבוד אחזור בעוד שבועיים · הערך שוב נמוך צריך עזרה דחוף ·</span>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Strip 11 – purple, big, final -->
+<div class="ticker-wrap strip-1 big scroll-rtl spd-50">
+  <div class="ticker-inner">
+    <span class="ticker-item">בורח שנים מעצמי בלי כיוון <span class="sep">✦</span> מתמלא בעשן וחוסר איזון <span class="sep">✦</span> בסוף זה רק אני והעתיד הלא ידוע <span class="sep">✦</span> עייף מהמירוץ ומבין שזה תירוץ <span class="sep">✦</span></span>
+    <span class="ticker-item">בורח שנים מעצמי בלי כיוון <span class="sep">✦</span> מתמלא בעשן וחוסר איזון <span class="sep">✦</span> בסוף זה רק אני והעתיד הלא ידוע <span class="sep">✦</span> עייף מהמירוץ ומבין שזה תירוץ <span class="sep">✦</span></span>
+  </div>
+</div>
+
+<footer>© מילים שלא אמרתי</footer>
+
+</body>
+</html>
