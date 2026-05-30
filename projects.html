@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>הפרויקטים של אילן</title>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Heebo', sans-serif;
+      background: #0f1117;
+      color: #e2e8f0;
+      min-height: 100vh;
+      padding: 24px 16px 48px;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .page-header h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .page-header p {
+      color: #94a3b8;
+      margin-top: 6px;
+      font-size: 0.95rem;
+    }
+
+    .section-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #64748b;
+      margin: 28px 0 12px;
+      padding-right: 4px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      background: #1e2330;
+      border: 1px solid #2d3548;
+      border-radius: 14px;
+      padding: 18px 20px;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: border-color 0.2s, transform 0.15s;
+      position: relative;
+    }
+
+    .card:hover {
+      border-color: #4f6ef7;
+      transform: translateY(-2px);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .card-emoji {
+      font-size: 1.6rem;
+      line-height: 1;
+    }
+
+    .card-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #f1f5f9;
+    }
+
+    .card-domain {
+      font-size: 0.8rem;
+      color: #4f6ef7;
+      margin-top: 1px;
+    }
+
+    .card-desc {
+      font-size: 0.88rem;
+      color: #94a3b8;
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    .card-links {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 5px 11px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+
+    .link-btn:hover { opacity: 0.8; }
+
+    .link-code {
+      background: #1f2d4a;
+      color: #60a5fa;
+      border: 1px solid #2d4a7a;
+    }
+
+    .link-live {
+      background: #1a3a2a;
+      color: #4ade80;
+      border: 1px solid #2a5a3a;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 20px;
+      margin-bottom: 8px;
+    }
+
+    .tag-site  { background: #312e81; color: #a5b4fc; }
+    .tag-app   { background: #1e3a5f; color: #93c5fd; }
+    .tag-wip   { background: #3d2a12; color: #fbbf24; }
+    .tag-done  { background: #1a3a2a; color: #4ade80; }
+
+    .updated {
+      position: absolute;
+      top: 14px;
+      left: 16px;
+      font-size: 0.7rem;
+      color: #475569;
+    }
+
+    .edit-section {
+      margin-top: 40px;
+      background: #1a1f2e;
+      border: 1px dashed #2d3548;
+      border-radius: 14px;
+      padding: 20px 24px;
+    }
+
+    .edit-section h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #cbd5e1;
+    }
+
+    .edit-section p {
+      font-size: 0.88rem;
+      color: #64748b;
+      line-height: 1.6;
+    }
+
+    .edit-section code {
+      background: #0f1117;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.82rem;
+      color: #a5b4fc;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-header">
+    <h1>🗂️ הפרויקטים של אילן</h1>
+    <p>כל מה שבנית — במקום אחד</p>
+  </div>
+
+  <!-- אתרים -->
+  <div class="section-title">🌐 אתרים</div>
+  <div class="cards">
+
+    <div class="card">
+      <span class="updated">עודכן היום</span>
+      <div class="card-top">
+        <span class="card-emoji">🎨</span>
+        <div>
+          <div class="card-name">ilanlevi.com</div>
+          <div class="card-domain">ilanlevi.com</div>
+        </div>
+      </div>
+      <span class="tag tag-done">בעבודה</span>
+      <p class="card-desc">האתר הראשי של אילן לוי — עוזר קולי, לב (צ'אט), עמוד ראשי</p>
+      <div class="card-links">
+        <a class="link-btn link-code" href="https://github.com/pics247365-art/-" target="_blank">📁 קוד GitHub</a>
+        <a class="link-btn link-live" href="https://ilanlevi.com" target="_blank">🌐 האתר החי</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="updated">עודכן 27/5</span>
+      <div class="card-top">
+        <span class="card-emoji">✨</span>
+        <div>
+          <div class="card-name">ilanailevi.com</div>
+          <div class="card-domain">ilanailevi.com</div>
+        </div>
+      </div>
+      <span class="tag tag-wip">בהכנה</span>
+      <p class="card-desc">האתר החדש — בהכנה</p>
+      <div class="card-links">
+        <a class="link-btn link-code" href="https://github.com/pics247365-art/ilanlevisite" target="_blank">📁 קוד GitHub</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- אפליקציות -->
+  <div class="section-title">📱 אפליקציות</div>
+  <div class="cards">
+
+    <div class="card">
+      <span class="updated">עודכן 19/5</span>
+      <div class="card-top">
+        <span class="card-emoji">💪</span>
+        <div><div class="card-name">אפליקציית כושר</div></div>
+      </div>
+      <span class="tag tag-app">אפליקציה</span>
+      <p class="card-desc">אפליקציית אימוני כושר</p>
+      <div class="card-links">
+        <a class="link-btn link-code" href="https://github.com/pics247365-art/learning-git" target="_blank">📁 קוד GitHub</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="updated">עודכן 10/5</span>
+      <div class="card-top">
+        <span class="card-emoji">🐕</span>
+        <div><div class="card-name">שירה אופיר — אילוף כלבים</div></div>
+      </div>
+      <span class="tag tag-app">אפליקציה</span>
+      <p class="card-desc">אפליקציה לאילוף כלבים</p>
+      <div class="card-links">
+        <a class="link-btn link-code" href="https://github.com/pics247365-art/SHIRAOFIR" target="_blank">📁 קוד GitHub</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="updated">עודכן 20/5</span>
+      <div class="card-top">
+        <span class="card-emoji">👴</span>
+        <div><div class="card-name">OLDERP — גיל שלישי</div></div>
+      </div>
+      <span class="tag tag-app">אפליקציה</span>
+      <p class="card-desc">בוט/אפליקציה לגיל השלישי</p>
+      <div class="card-links">
+        <a class="link-btn link-code" href="https://github.com/pics247365-art/OLDERP" target="_blank">📁 קוד GitHub</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="updated">עודכן 6/5</span>
+      <div class="card-top">
+        <span class="card-emoji">🐾</span>
+        <div><div class="card-name">Rexy the Happy Dog</div></div>
+      </div>
+      <span class="tag tag-app">אתר</span>
+      <p class="card-desc">אתר לכלב Rexy</p>
+      <div class="card-links">
+        <a class="link-btn link-code" href="https://github.com/pics247365-art/rexythehappydog" target="_blank">📁 קוד GitHub</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="updated">עודכן 17/5</span>
+      <div class="card-top">
+        <span class="card-emoji">🛒</span>
+        <div><div class="card-name">Baraer Shop</div></div>
+      </div>
+      <span class="tag tag-app">חנות</span>
+      <p class="card-desc">אתר חנות</p>
+      <div class="card-links">
+        <a class="link-btn link-code" href="https://github.com/pics247365-art/baraer-shop" target="_blank">📁 קוד GitHub</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="updated">עודכן 19/5</span>
+      <div class="card-top">
+        <span class="card-emoji">🧪</span>
+        <div><div class="card-name">AI Test Site</div></div>
+      </div>
+      <span class="tag tag-app">ניסוי</span>
+      <p class="card-desc">אתר ניסוי / TypeScript</p>
+      <div class="card-links">
+        <a class="link-btn link-code" href="https://github.com/pics247365-art/aitestsite" target="_blank">📁 קוד GitHub</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- הסבר עריכה -->
+  <div class="edit-section">
+    <h2>✏️ איך עורכים פרויקט?</h2>
+    <p>
+      1. נכנסים ל-<strong>claude.ai/code</strong><br>
+      2. בוחרים <strong>New Session</strong><br>
+      3. בוחרים את הפרויקט הרצוי מהרשימה<br>
+      4. מבקשים בעברית מה לשנות — Claude עושה את השאר
+    </p>
+  </div>
+
+</body>
+</html>
