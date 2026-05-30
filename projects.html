@@ -73,35 +73,12 @@
       margin-bottom: 10px;
     }
 
-    .card-emoji {
-      font-size: 1.6rem;
-      line-height: 1;
-    }
+    .card-emoji { font-size: 1.6rem; line-height: 1; }
+    .card-name { font-size: 1.05rem; font-weight: 700; color: #f1f5f9; }
+    .card-domain { font-size: 0.8rem; color: #4f6ef7; margin-top: 1px; }
+    .card-desc { font-size: 0.88rem; color: #94a3b8; line-height: 1.5; margin-bottom: 14px; }
 
-    .card-name {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #f1f5f9;
-    }
-
-    .card-domain {
-      font-size: 0.8rem;
-      color: #4f6ef7;
-      margin-top: 1px;
-    }
-
-    .card-desc {
-      font-size: 0.88rem;
-      color: #94a3b8;
-      line-height: 1.5;
-      margin-bottom: 14px;
-    }
-
-    .card-links {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
+    .card-links { display: flex; gap: 8px; flex-wrap: wrap; }
 
     .link-btn {
       display: inline-flex;
@@ -116,18 +93,8 @@
     }
 
     .link-btn:hover { opacity: 0.8; }
-
-    .link-code {
-      background: #1f2d4a;
-      color: #60a5fa;
-      border: 1px solid #2d4a7a;
-    }
-
-    .link-live {
-      background: #1a3a2a;
-      color: #4ade80;
-      border: 1px solid #2a5a3a;
-    }
+    .link-code { background: #1f2d4a; color: #60a5fa; border: 1px solid #2d4a7a; }
+    .link-live { background: #1a3a2a; color: #4ade80; border: 1px solid #2a5a3a; }
 
     .tag {
       display: inline-block;
@@ -143,13 +110,7 @@
     .tag-wip   { background: #3d2a12; color: #fbbf24; }
     .tag-done  { background: #1a3a2a; color: #4ade80; }
 
-    .updated {
-      position: absolute;
-      top: 14px;
-      left: 16px;
-      font-size: 0.7rem;
-      color: #475569;
-    }
+    .updated { position: absolute; top: 14px; left: 16px; font-size: 0.7rem; color: #475569; }
 
     .edit-section {
       margin-top: 40px;
@@ -159,26 +120,8 @@
       padding: 20px 24px;
     }
 
-    .edit-section h2 {
-      font-size: 1rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-      color: #cbd5e1;
-    }
-
-    .edit-section p {
-      font-size: 0.88rem;
-      color: #64748b;
-      line-height: 1.6;
-    }
-
-    .edit-section code {
-      background: #0f1117;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 0.82rem;
-      color: #a5b4fc;
-    }
+    .edit-section h2 { font-size: 1rem; font-weight: 700; margin-bottom: 10px; color: #cbd5e1; }
+    .edit-section p { font-size: 0.88rem; color: #64748b; line-height: 1.6; }
   </style>
 </head>
 <body>
@@ -188,7 +131,6 @@
     <p>כל מה שבנית — במקום אחד</p>
   </div>
 
-  <!-- אתרים -->
   <div class="section-title">🌐 אתרים</div>
   <div class="cards">
 
@@ -227,91 +169,59 @@
 
   </div>
 
-  <!-- אפליקציות -->
   <div class="section-title">📱 אפליקציות</div>
   <div class="cards">
 
     <div class="card">
       <span class="updated">עודכן 19/5</span>
-      <div class="card-top">
-        <span class="card-emoji">💪</span>
-        <div><div class="card-name">אפליקציית כושר</div></div>
-      </div>
+      <div class="card-top"><span class="card-emoji">💪</span><div><div class="card-name">אפליקציית כושר</div></div></div>
       <span class="tag tag-app">אפליקציה</span>
       <p class="card-desc">אפליקציית אימוני כושר</p>
-      <div class="card-links">
-        <a class="link-btn link-code" href="https://github.com/pics247365-art/learning-git" target="_blank">📁 קוד GitHub</a>
-      </div>
+      <div class="card-links"><a class="link-btn link-code" href="https://github.com/pics247365-art/learning-git" target="_blank">📁 קוד GitHub</a></div>
     </div>
 
     <div class="card">
       <span class="updated">עודכן 10/5</span>
-      <div class="card-top">
-        <span class="card-emoji">🐕</span>
-        <div><div class="card-name">שירה אופיר — אילוף כלבים</div></div>
-      </div>
+      <div class="card-top"><span class="card-emoji">🐕</span><div><div class="card-name">שירה אופיר — אילוף כלבים</div></div></div>
       <span class="tag tag-app">אפליקציה</span>
       <p class="card-desc">אפליקציה לאילוף כלבים</p>
-      <div class="card-links">
-        <a class="link-btn link-code" href="https://github.com/pics247365-art/SHIRAOFIR" target="_blank">📁 קוד GitHub</a>
-      </div>
+      <div class="card-links"><a class="link-btn link-code" href="https://github.com/pics247365-art/SHIRAOFIR" target="_blank">📁 קוד GitHub</a></div>
     </div>
 
     <div class="card">
       <span class="updated">עודכן 20/5</span>
-      <div class="card-top">
-        <span class="card-emoji">👴</span>
-        <div><div class="card-name">OLDERP — גיל שלישי</div></div>
-      </div>
+      <div class="card-top"><span class="card-emoji">👴</span><div><div class="card-name">OLDERP — גיל שלישי</div></div></div>
       <span class="tag tag-app">אפליקציה</span>
       <p class="card-desc">בוט/אפליקציה לגיל השלישי</p>
-      <div class="card-links">
-        <a class="link-btn link-code" href="https://github.com/pics247365-art/OLDERP" target="_blank">📁 קוד GitHub</a>
-      </div>
+      <div class="card-links"><a class="link-btn link-code" href="https://github.com/pics247365-art/OLDERP" target="_blank">📁 קוד GitHub</a></div>
     </div>
 
     <div class="card">
       <span class="updated">עודכן 6/5</span>
-      <div class="card-top">
-        <span class="card-emoji">🐾</span>
-        <div><div class="card-name">Rexy the Happy Dog</div></div>
-      </div>
+      <div class="card-top"><span class="card-emoji">🐾</span><div><div class="card-name">Rexy the Happy Dog</div></div></div>
       <span class="tag tag-app">אתר</span>
       <p class="card-desc">אתר לכלב Rexy</p>
-      <div class="card-links">
-        <a class="link-btn link-code" href="https://github.com/pics247365-art/rexythehappydog" target="_blank">📁 קוד GitHub</a>
-      </div>
+      <div class="card-links"><a class="link-btn link-code" href="https://github.com/pics247365-art/rexythehappydog" target="_blank">📁 קוד GitHub</a></div>
     </div>
 
     <div class="card">
       <span class="updated">עודכן 17/5</span>
-      <div class="card-top">
-        <span class="card-emoji">🛒</span>
-        <div><div class="card-name">Baraer Shop</div></div>
-      </div>
+      <div class="card-top"><span class="card-emoji">🛒</span><div><div class="card-name">Baraer Shop</div></div></div>
       <span class="tag tag-app">חנות</span>
       <p class="card-desc">אתר חנות</p>
-      <div class="card-links">
-        <a class="link-btn link-code" href="https://github.com/pics247365-art/baraer-shop" target="_blank">📁 קוד GitHub</a>
-      </div>
+      <div class="card-links"><a class="link-btn link-code" href="https://github.com/pics247365-art/baraer-shop" target="_blank">📁 קוד GitHub</a></div>
     </div>
 
     <div class="card">
       <span class="updated">עודכן 19/5</span>
-      <div class="card-top">
-        <span class="card-emoji">🧪</span>
-        <div><div class="card-name">AI Test Site</div></div>
-      </div>
+      <div class="card-top"><span class="card-emoji">🧪</span><div><div class="card-name">AI Test Site</div></div></div>
       <span class="tag tag-app">ניסוי</span>
       <p class="card-desc">אתר ניסוי / TypeScript</p>
-      <div class="card-links">
-        <a class="link-btn link-code" href="https://github.com/pics247365-art/aitestsite" target="_blank">📁 קוד GitHub</a>
-      </div>
+      <div class="card-links"><a class="link-btn link-code" href="https://github.com/pics247365-art/aitestsite" target="_blank">📁 קוד GitHub</a></div>
     </div>
 
   </div>
 
-  <!-- הסבר עריכה -->
   <div class="edit-section">
     <h2>✏️ איך עורכים פרויקט?</h2>
     <p>
