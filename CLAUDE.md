@@ -35,6 +35,38 @@
 סגנון: כהה, אלגנטי, minimal, עברי+אנגלי, grain texture
 ```
 
+## מבנה האתר — ilanlevi.com
+
+### תפריט ניווט (nav)
+```
+אילן לוי  |  שירותים  |  שגאון  |  קשר
+```
+
+### מבנה הדפים
+| קובץ | מה זה | URL |
+|------|--------|-----|
+| `index.html` | דף הבית הראשי | ilanlevi.com/ |
+| `assistant.html` | עוזר קולי — הקלטת משימות/תזכורות/רעיונות | ilanlevi.com/assistant |
+| `chat.html` | לב — צ'אט עם Claude (חבר שמקשיב) | ilanlevi.com/chat |
+| `app.html` | עוזר חכם — dashboard משימות | ilanlevi.com/app |
+| `projects.html` | מפת הפרויקטים | ilanlevi.com/projects |
+
+### סקציות בדף הבית
+```
+01 — HERO       : כותרת + כפתורי CTA ("דברו איתי" / "מה אני מציע")
+   — TICKER     : סרט גולל — ליווי אישי · קשר אנושי · נוכחות · הקשבה
+02 — SERVICES   : ביקור בבית | שיחה וקפה | טיול ביחד | שחמט
+   — MOMENTS    : תמונות — בריאות | אבל | ליווי אישי | דכאון | החלמה
+03 — PHILOSOPHY : ציטוט מניפסט
+04 — SHEGAON    : פרויקט שגאון (creative project)
+05 — CONTACT    : וואטסאפ + טלפון + רמת השרון
+```
+
+### CTA ראשי בדף הבית
+- כפתור ראשי (זהב): **"דברו איתי"** → מוביל ל-#contact
+- כפתור משני (ghost): **"מה אני מציע"** → מוביל ל-#services
+- וואטסאפ: `https://wa.me/972500000000`
+
 ## האתרים
 - **ilanlevi.com** → ריפוזיטורי `pics247365-art/-` (ה-repo הנוכחי)
 - **ilanailevi.com** → ריפוזיטורי `pics247365-art/ilanlevisite`
