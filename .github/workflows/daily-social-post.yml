@@ -1,0 +1,41 @@
+name: Daily Social Media Post
+
+on:
+  schedule:
+    # 07:00 UTC = 09:00 שעון ישראל (קיץ UTC+2 / חורף UTC+3)
+    - cron: '0 7 * * *'
+  workflow_dispatch:  # הפעלה ידנית מ-GitHub
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Post to social media
+        env:
+          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          FB_ACCESS_TOKEN: ${{ secrets.FB_ACCESS_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          SITE_BASE_URL: https://ilanlevi.com
+        run: python social/post_daily.py
+
+      - name: Save post log
+        run: |
+          git config user.email "github-actions@github.com"
+          git config user.name "GitHub Actions Bot"
+          git add social/log.json
+          git diff --staged --quiet || git commit -m "log: daily social post $(date +%Y-%m-%d)"
+          git push
