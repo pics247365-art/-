@@ -227,9 +227,10 @@ function showSaveArea(text) {
   const detected = detectType(text);
   state.selectedType = detected;
 
-  // Highlight detected type button
   document.querySelectorAll('.type-btn').forEach(btn => {
-    btn.classList.toggle('selected', btn.dataset.type === detected);
+    const isSelected = btn.dataset.type === detected;
+    btn.classList.toggle('selected', isSelected);
+    btn.setAttribute('aria-checked', isSelected ? 'true' : 'false');
   });
 
   els.saveArea.classList.remove('hidden');
@@ -242,7 +243,9 @@ document.querySelectorAll('.type-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     state.selectedType = btn.dataset.type;
     document.querySelectorAll('.type-btn').forEach(b => {
-      b.classList.toggle('selected', b === btn);
+      const isSelected = b === btn;
+      b.classList.toggle('selected', isSelected);
+      b.setAttribute('aria-checked', isSelected ? 'true' : 'false');
     });
   });
 });

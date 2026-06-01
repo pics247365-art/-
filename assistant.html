@@ -109,10 +109,10 @@
       <div class="save-area hidden" id="saveArea">
         <div class="type-detection" id="typeDetection">
           <span class="detected-label">זוהה כ:</span>
-          <div class="type-badges" id="typeBadges">
-            <button class="type-btn" data-type="task">📋 משימה</button>
-            <button class="type-btn" data-type="reminder">🔔 תזכורת</button>
-            <button class="type-btn" data-type="idea">💡 רעיון</button>
+          <div class="type-badges" id="typeBadges" role="radiogroup" aria-label="סוג פריט">
+            <button class="type-btn" data-type="task" role="radio" aria-checked="false">📋 משימה</button>
+            <button class="type-btn" data-type="reminder" role="radio" aria-checked="false">🔔 תזכורת</button>
+            <button class="type-btn" data-type="idea" role="radio" aria-checked="false">💡 רעיון</button>
           </div>
         </div>
         <div class="save-actions">
