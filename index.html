@@ -2,7 +2,7 @@
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>אילן לוי</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;700;900&family=Assistant:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
@@ -61,7 +61,7 @@ nav {
 .nav-links a {
   font-size: 0.8rem;
   font-weight: 400;
-  color: var(--dim);
+  color: #888;
   text-decoration: none;
   letter-spacing: 0.05em;
   transition: color 0.2s;
@@ -547,6 +547,19 @@ footer {
   border-top: 1px solid #0d0d0d;
 }
 
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track { animation: none; }
+  .reveal { transition: none; }
+  @keyframes fadeUp { from { opacity:1; transform:none; } }
+}
+
 /* Grain */
 body::after {
   content:'';
@@ -562,7 +575,7 @@ body::after {
 <body>
 
 <!-- NAV -->
-<nav>
+<nav aria-label="ניווט ראשי">
   <a href="#hero" class="nav-name">אילן <span>לוי</span></a>
   <div class="nav-links">
     <a href="#services">שירותים</a>
@@ -572,9 +585,10 @@ body::after {
   </div>
 </nav>
 
+<main>
 <!-- HERO -->
 <section id="hero">
-  <div class="hero-bg-text">א</div>
+  <div class="hero-bg-text" aria-hidden="true">א</div>
 
   <div class="hero-tag">— אילן לוי · ILAN LEVI —</div>
 
@@ -595,7 +609,7 @@ body::after {
 </section>
 
 <!-- TICKER -->
-<div class="ticker-wrap">
+<div class="ticker-wrap" aria-hidden="true">
   <div class="ticker-track">
     <span>ליווי אישי</span><span>·</span>
     <span>Personal Companionship</span><span>·</span>
@@ -708,7 +722,7 @@ body::after {
 
   <!-- SHEGAON PROJECT -->
   <div class="project-block reveal" id="shegaon">
-    <div class="project-bg-word">שג</div>
+    <div class="project-bg-word" aria-hidden="true">שג</div>
     <div class="project-tag">04 — CREATIVE PROJECT</div>
     <div class="project-title">שגאון</div>
     <div class="project-sub">Shegaon · A Personal Journey</div>
@@ -740,6 +754,8 @@ body::after {
 
   <div class="contact-area">RAMAT HASHARON · AREA</div>
 </section>
+
+</main>
 
 <footer>ILAN LEVI · ILANLEVI.COM · 2025</footer>
 
