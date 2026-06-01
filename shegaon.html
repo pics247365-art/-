@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>שגאון — אילן לוי</title>
+<meta name="description" content="מסע אישי בין שני עולמות, דרך מצלמה ומקלדת. המרחב שבין הדיכאון השקט לשגעון הרועש.">
+<meta property="og:title" content="שגאון — אילן לוי">
+<meta property="og:description" content="המרחב שבין הדיכאון השקט לשגעון הרועש.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://ilanlevi.com/shegaon">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;700;900&family=Assistant:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "שגאון",
+  "author": { "@type": "Person", "name": "אילן לוי" },
+  "description": "מסע אישי בין שני עולמות, דרך מצלמה ומקלדת.",
+  "url": "https://ilanlevi.com/shegaon"
+}
+</script>
+
+<style>
+:root {
+  --bg:    #0a0a0a;
+  --cream: #e8e0d0;
+  --gold:  #c49a2a;
+  --red:   #a81818;
+  --warm:  #c8a97a;
+  --dim:   #555;
+  --card:  #111;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html { scroll-behavior:smooth; overflow-x:hidden; }
+
+body {
+  background: var(--bg);
+  color: var(--cream);
+  font-family: 'Assistant', sans-serif;
+  overflow-x: hidden;
+}
+
+/* GRAIN */
+body::before {
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;
+  z-index:0;
+  opacity:.4;
+}
+
+/* NAV */
+nav {
+  position:fixed;
+  top:0; left:0; right:0;
+  z-index:100;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:1.5rem 2.5rem;
+  background:linear-gradient(to bottom, rgba(10,10,10,0.9), transparent);
+}
+.nav-logo {
+  font-family:'Frank Ruhl Libre', serif;
+  font-weight:900;
+  font-size:1.1rem;
+  color:var(--gold);
+  text-decoration:none;
+  letter-spacing:0.05em;
+}
+.nav-back {
+  font-size:.85rem;
+  color:var(--dim);
+  text-decoration:none;
+  transition:color .2s;
+  letter-spacing:0.08em;
+}
+.nav-back:hover { color:var(--cream); }
+
+/* HERO */
+.hero {
+  position:relative;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:6rem 2rem 4rem;
+  overflow:hidden;
+}
+
+.hero-glow {
+  position:absolute;
+  top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  width:600px; height:600px;
+  border-radius:50%;
+  background:radial-gradient(ellipse, rgba(168,24,24,0.12) 0%, transparent 70%);
+  pointer-events:none;
+}
+
+.hero-line {
+  width:1px; height:80px;
+  background:linear-gradient(to bottom, transparent, var(--gold));
+  margin:0 auto 2.5rem;
+}
+
+.hero-label {
+  font-family:'Playfair Display', serif;
+  font-style:italic;
+  font-size:.95rem;
+  color:var(--warm);
+  letter-spacing:0.2em;
+  margin-bottom:1.5rem;
+  opacity:.8;
+}
+
+.hero h1 {
+  font-family:'Frank Ruhl Libre', serif;
+  font-weight:900;
+  font-size:clamp(4rem, 12vw, 9rem);
+  line-height:0.9;
+  color:var(--cream);
+  margin-bottom:2rem;
+  letter-spacing:-0.02em;
+}
+
+.hero h1 span {
+  display:block;
+  background:linear-gradient(135deg, var(--gold), var(--red));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+.hero-sub {
+  font-family:'Playfair Display', serif;
+  font-style:italic;
+  font-size:clamp(1.1rem, 2.5vw, 1.5rem);
+  color:var(--warm);
+  max-width:560px;
+  line-height:1.7;
+  margin-bottom:3rem;
+  opacity:.85;
+}
+
+.hero-divider {
+  display:flex;
+  align-items:center;
+  gap:1rem;
+  margin-bottom:3rem;
+  opacity:.4;
+}
+.hero-divider::before,
+.hero-divider::after {
+  content:'';
+  flex:1;
+  height:1px;
+  max-width:120px;
+  background:var(--dim);
+}
+.hero-divider span { font-size:.7rem; letter-spacing:.3em; color:var(--dim); }
+
+.hero-cta {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:1rem;
+}
+
+.btn-primary {
+  display:inline-block;
+  padding:.9rem 2.5rem;
+  background:var(--gold);
+  color:var(--bg);
+  font-family:'Assistant', sans-serif;
+  font-weight:700;
+  font-size:1rem;
+  letter-spacing:0.1em;
+  text-decoration:none;
+  transition:background .2s, transform .2s;
+}
+.btn-primary:hover { background:var(--warm); transform:translateY(-2px); }
+
+.btn-ghost {
+  display:inline-block;
+  padding:.85rem 2.5rem;
+  border:1px solid var(--dim);
+  color:var(--cream);
+  font-family:'Assistant', sans-serif;
+  font-size:.9rem;
+  letter-spacing:0.1em;
+  text-decoration:none;
+  transition:border-color .2s, color .2s;
+}
+.btn-ghost:hover { border-color:var(--gold); color:var(--gold); }
+
+.scroll-hint {
+  position:absolute;
+  bottom:2.5rem; left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:.5rem;
+  opacity:.3;
+  animation:pulse 2.5s ease-in-out infinite;
+}
+.scroll-hint span { font-size:.7rem; letter-spacing:.2em; }
+.scroll-arrow { width:1px; height:40px; background:var(--cream); }
+
+@keyframes pulse {
+  0%,100% { opacity:.3; }
+  50%      { opacity:.6; }
+}
+
+/* ABOUT */
+.about {
+  max-width:720px;
+  margin:0 auto;
+  padding:8rem 2rem;
+  text-align:center;
+  position:relative;
+  z-index:1;
+}
+
+.section-num {
+  font-family:'Playfair Display', serif;
+  font-style:italic;
+  font-size:.8rem;
+  letter-spacing:.3em;
+  color:var(--gold);
+  margin-bottom:2rem;
+  opacity:.7;
+}
+
+.about h2 {
+  font-family:'Frank Ruhl Libre', serif;
+  font-weight:900;
+  font-size:clamp(2rem, 5vw, 3.2rem);
+  color:var(--cream);
+  margin-bottom:2rem;
+  line-height:1.2;
+}
+
+.about p {
+  font-size:1.15rem;
+  line-height:1.9;
+  color:var(--warm);
+  opacity:.85;
+  margin-bottom:1.5rem;
+}
+
+/* MANIFESTO */
+.manifesto {
+  border-top:1px solid #1a1a1a;
+  border-bottom:1px solid #1a1a1a;
+  padding:7rem 2rem;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+
+.manifesto::before {
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0; bottom:0;
+  background:radial-gradient(ellipse at center, rgba(196,154,42,0.05) 0%, transparent 70%);
+}
+
+.manifesto blockquote {
+  position:relative;
+  z-index:1;
+  max-width:800px;
+  margin:0 auto;
+}
+
+.manifesto blockquote p {
+  font-family:'Frank Ruhl Libre', serif;
+  font-weight:700;
+  font-size:clamp(1.4rem, 3.5vw, 2.4rem);
+  color:var(--cream);
+  line-height:1.5;
+  margin-bottom:2rem;
+}
+
+.manifesto blockquote p em {
+  font-family:'Playfair Display', serif;
+  font-style:italic;
+  color:var(--gold);
+  font-weight:400;
+}
+
+.manifesto cite {
+  font-size:.85rem;
+  letter-spacing:.2em;
+  color:var(--dim);
+  font-style:normal;
+}
+
+/* DUALITIES */
+.dualities {
+  max-width:900px;
+  margin:0 auto;
+  padding:8rem 2rem;
+  position:relative;
+  z-index:1;
+}
+
+.dualities h2 {
+  font-family:'Frank Ruhl Libre', serif;
+  font-weight:900;
+  font-size:clamp(1.8rem, 4vw, 2.8rem);
+  text-align:center;
+  margin-bottom:4rem;
+  color:var(--cream);
+}
+
+.duality-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1px;
+  background:#1a1a1a;
+}
+
+.duality-item {
+  background:var(--bg);
+  padding:3rem 2rem;
+  text-align:center;
+}
+
+.duality-item .word-he {
+  font-family:'Frank Ruhl Libre', serif;
+  font-weight:900;
+  font-size:2.2rem;
+  color:var(--cream);
+  display:block;
+  margin-bottom:.3rem;
+}
+.duality-item .word-en {
+  font-family:'Playfair Display', serif;
+  font-style:italic;
+  font-size:.95rem;
+  color:var(--dim);
+  display:block;
+  margin-bottom:1rem;
+  letter-spacing:.1em;
+}
+.duality-item p {
+  font-size:.9rem;
+  color:var(--warm);
+  opacity:.7;
+  line-height:1.6;
+}
+
+.duality-item:nth-child(1) .word-he { color:var(--dim); }
+.duality-item:nth-child(2) .word-he { color:var(--gold); }
+.duality-item:nth-child(3) .word-he { color:var(--warm); }
+.duality-item:nth-child(4) .word-he { color:var(--red); }
+
+/* CONTACT */
+.contact {
+  max-width:600px;
+  margin:0 auto;
+  padding:8rem 2rem 10rem;
+  text-align:center;
+  position:relative;
+  z-index:1;
+}
+
+.contact-line {
+  width:1px; height:60px;
+  background:linear-gradient(to bottom, var(--gold), transparent);
+  margin:0 auto 3rem;
+}
+
+.contact h2 {
+  font-family:'Frank Ruhl Libre', serif;
+  font-weight:900;
+  font-size:clamp(2rem, 5vw, 3rem);
+  margin-bottom:1.5rem;
+}
+
+.contact p {
+  font-size:1.05rem;
+  color:var(--warm);
+  opacity:.8;
+  line-height:1.8;
+  margin-bottom:3rem;
+}
+
+.contact-links {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:1rem;
+}
+
+.contact-link {
+  display:flex;
+  align-items:center;
+  gap:.75rem;
+  color:var(--cream);
+  text-decoration:none;
+  font-size:1rem;
+  padding:.7rem 2rem;
+  border:1px solid #222;
+  width:100%;
+  max-width:320px;
+  transition:border-color .2s, color .2s;
+  letter-spacing:.05em;
+}
+.contact-link:hover { border-color:var(--gold); color:var(--gold); }
+.contact-link .icon { font-size:1.2rem; opacity:.7; }
+
+/* FOOTER */
+footer {
+  border-top:1px solid #1a1a1a;
+  padding:2.5rem 2.5rem;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:relative;
+  z-index:1;
+}
+
+footer .brand {
+  font-family:'Frank Ruhl Libre', serif;
+  font-weight:900;
+  font-size:.9rem;
+  color:var(--gold);
+  letter-spacing:.05em;
+}
+
+footer .copy {
+  font-size:.75rem;
+  color:var(--dim);
+  letter-spacing:.1em;
+}
+
+footer a {
+  font-size:.8rem;
+  color:var(--dim);
+  text-decoration:none;
+  transition:color .2s;
+}
+footer a:hover { color:var(--cream); }
+
+/* RESPONSIVE */
+@media (max-width:600px) {
+  nav { padding:1.2rem 1.5rem; }
+  .duality-grid { grid-template-columns:1fr; }
+  footer { flex-direction:column; gap:1rem; text-align:center; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-back">← אילן לוי</a>
+  <a href="#" class="nav-logo">שגאון</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-line"></div>
+  <p class="hero-label">a personal journey · מסע אישי</p>
+  <h1>
+    שגאון
+    <span>Shegaon</span>
+  </h1>
+  <p class="hero-sub">המרחב שבין הדיכאון השקט לשגעון הרועש — דרך מצלמה ומקלדת.</p>
+  <div class="hero-divider"><span>✦</span></div>
+  <div class="hero-cta">
+    <a href="#contact" class="btn-primary">היו חלק מהמסע</a>
+    <a href="#about" class="btn-ghost">מה זה שגאון</a>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-arrow"></div>
+    <span>גלול</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <p class="section-num">01 — על הפרויקט</p>
+  <h2>בין שני עולמות</h2>
+  <p>
+    שגאון הוא מסע אישי בין שני עולמות שנדמה שלא יכולים לדור יחד — הדיכאון השקט שמחניק מבפנים, והשגעון הרועש שמפרק את כל מה שהיה.
+  </p>
+  <p>
+    דרך מצלמה ומקלדת, אני מתעד את המרחב שביניהם. לא כדי להסביר — כדי לגעת.
+  </p>
+</section>
+
+<!-- MANIFESTO -->
+<section class="manifesto">
+  <blockquote>
+    <p>
+      "השגעון לא תמיד רועש.<br>
+      לפעמים הוא יושב שקט בפינה<br>
+      <em>ומחייך אליך.</em>"
+    </p>
+    <cite>— אילן לוי, שגאון</cite>
+  </blockquote>
+</section>
+
+<!-- DUALITIES -->
+<section class="dualities">
+  <h2>מה שמניע את הפרויקט</h2>
+  <div class="duality-grid">
+    <div class="duality-item">
+      <span class="word-he">שקט</span>
+      <span class="word-en">Silence</span>
+      <p>הצד שמבפנים, שאף אחד לא רואה</p>
+    </div>
+    <div class="duality-item">
+      <span class="word-he">רעש</span>
+      <span class="word-en">Noise</span>
+      <p>מה שמתפרץ כשאי אפשר יותר לשמור</p>
+    </div>
+    <div class="duality-item">
+      <span class="word-he">מצלמה</span>
+      <span class="word-en">Camera</span>
+      <p>עדשה שרואה מה שהעין מחמיצה</p>
+    </div>
+    <div class="duality-item">
+      <span class="word-he">מקלדת</span>
+      <span class="word-en">Words</span>
+      <p>מילים שמגיעות אחרי שהתמונה שותקת</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-line"></div>
+  <p class="section-num">02 — צור קשר</p>
+  <h2>היו חלק מהמסע</h2>
+  <p>
+    רוצים לעקוב אחרי הפרויקט, לשמוע כשיוצא משהו חדש, או פשוט לדבר — אני כאן.
+  </p>
+  <div class="contact-links">
+    <a href="https://wa.me/972500000000" class="contact-link">
+      <span class="icon">💬</span>
+      <span>וואטסאפ — 050-000-0000</span>
+    </a>
+    <a href="mailto:info@ilanlevi.com" class="contact-link">
+      <span class="icon">✉</span>
+      <span>info@ilanlevi.com</span>
+    </a>
+    <a href="index.html#contact" class="contact-link">
+      <span class="icon">→</span>
+      <span>לדף הבית</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <span class="brand">אילן לוי — שגאון</span>
+  <a href="index.html">ilanlevi.com</a>
+  <span class="copy">© 2025</span>
+</footer>
+
+</body>
+</html>
