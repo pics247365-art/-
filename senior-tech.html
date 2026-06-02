@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>עזרה במחשב ובטלפון לגיל השלישי — אילן לוי</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;700;900&family=Assistant:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:    #0a0a0a;
+  --cream: #e8e0d0;
+  --gold:  #c49a2a;
+  --red:   #a81818;
+  --warm:  #c8a97a;
+  --dim:   #555;
+  --card:  #111;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html { scroll-behavior:smooth; overflow-x:hidden; }
+
+body {
+  background: var(--bg);
+  color: var(--cream);
+  font-family: 'Assistant', sans-serif;
+  overflow-x: hidden;
+}
+
+/* ─── GRAIN OVERLAY ─── */
+body::before {
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;
+  z-index:0;
+  opacity:0.6;
+}
+
+/* ─── NAV ─── */
+nav {
+  position:fixed;
+  top:0; left:0; right:0;
+  z-index:100;
+  height:56px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 1.5rem;
+  background:rgba(10,10,10,0.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid #1a1a1a;
+}
+.nav-name {
+  font-family:'Frank Ruhl Libre',serif;
+  font-weight:900;
+  font-size:1.1rem;
+  color:var(--cream);
+  text-decoration:none;
+}
+.nav-name span { color:var(--gold); }
+.nav-cta {
+  font-size:0.8rem;
+  font-weight:600;
+  color:var(--bg);
+  background:var(--gold);
+  padding:0.4rem 1.1rem;
+  border-radius:2px;
+  text-decoration:none;
+  letter-spacing:0.03em;
+  transition:opacity 0.2s;
+}
+.nav-cta:hover { opacity:0.85; }
+
+/* ─── HERO ─── */
+#hero {
+  min-height:100svh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:8rem 1.5rem 5rem;
+  position:relative;
+  overflow:hidden;
+}
+.hero-label {
+  font-size:0.7rem;
+  font-weight:600;
+  letter-spacing:0.2em;
+  color:var(--gold);
+  text-transform:uppercase;
+  margin-bottom:1.5rem;
+}
+.hero-h1 {
+  font-family:'Frank Ruhl Libre',serif;
+  font-weight:900;
+  font-size:clamp(2.4rem, 8vw, 5rem);
+  line-height:1.12;
+  margin-bottom:1.8rem;
+}
+.hero-h1 em {
+  font-style:normal;
+  color:var(--gold);
+}
+.hero-h1 .line-red {
+  color:var(--red);
+}
+.hero-sub {
+  font-size:clamp(1rem, 2.5vw, 1.25rem);
+  font-weight:300;
+  color:var(--warm);
+  line-height:1.7;
+  max-width:540px;
+  margin-bottom:2.8rem;
+}
+.hero-btns {
+  display:flex;
+  gap:1rem;
+  flex-wrap:wrap;
+}
+.btn-primary {
+  display:inline-flex;
+  align-items:center;
+  gap:0.5rem;
+  background:var(--gold);
+  color:var(--bg);
+  font-family:'Assistant',sans-serif;
+  font-weight:700;
+  font-size:1rem;
+  padding:0.85rem 2rem;
+  border-radius:2px;
+  text-decoration:none;
+  transition:opacity 0.2s, transform 0.2s;
+}
+.btn-primary:hover { opacity:0.88; transform:translateY(-1px); }
+.btn-ghost {
+  display:inline-flex;
+  align-items:center;
+  gap:0.5rem;
+  background:transparent;
+  color:var(--cream);
+  font-family:'Assistant',sans-serif;
+  font-weight:400;
+  font-size:1rem;
+  padding:0.85rem 2rem;
+  border-radius:2px;
+  border:1px solid #333;
+  text-decoration:none;
+  transition:border-color 0.2s, color 0.2s;
+}
+.btn-ghost:hover { border-color:var(--cream); }
+
+/* scroll indicator */
+.hero-scroll {
+  position:absolute;
+  bottom:2rem;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:0.4rem;
+  opacity:0.3;
+}
+.hero-scroll span {
+  font-size:0.65rem;
+  letter-spacing:0.15em;
+  color:var(--cream);
+}
+.scroll-line {
+  width:1px;
+  height:40px;
+  background:linear-gradient(to bottom, var(--cream), transparent);
+  animation:scrollDown 1.8s ease-in-out infinite;
+}
+@keyframes scrollDown {
+  0%   { transform:scaleY(0); transform-origin:top; }
+  50%  { transform:scaleY(1); transform-origin:top; }
+  51%  { transform:scaleY(1); transform-origin:bottom; }
+  100% { transform:scaleY(0); transform-origin:bottom; }
+}
+
+/* ─── TICKER ─── */
+.ticker-wrap {
+  overflow:hidden;
+  border-top:1px solid #1a1a1a;
+  border-bottom:1px solid #1a1a1a;
+  background:#0d0d0d;
+  padding:0.7rem 0;
+}
+.ticker-track {
+  display:flex;
+  gap:3rem;
+  white-space:nowrap;
+  animation:ticker 22s linear infinite;
+}
+.ticker-track span {
+  font-size:0.75rem;
+  font-weight:600;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--dim);
+}
+.ticker-track span.gold { color:var(--gold); }
+@keyframes ticker {
+  from { transform:translateX(0); }
+  to   { transform:translateX(-50%); }
+}
+
+/* ─── SECTION BASE ─── */
+section {
+  position:relative;
+  z-index:1;
+  padding:5rem 1.5rem;
+}
+.section-label {
+  font-size:0.65rem;
+  font-weight:700;
+  letter-spacing:0.22em;
+  color:var(--gold);
+  text-transform:uppercase;
+  margin-bottom:1rem;
+}
+.section-h2 {
+  font-family:'Frank Ruhl Libre',serif;
+  font-weight:900;
+  font-size:clamp(1.8rem, 5vw, 3rem);
+  line-height:1.2;
+  margin-bottom:1rem;
+}
+
+/* ─── MANIFESTO ─── */
+#manifesto {
+  background:var(--card);
+  border-top:1px solid #1c1c1c;
+  border-bottom:1px solid #1c1c1c;
+  text-align:center;
+  padding:4rem 1.5rem;
+}
+.manifesto-quote {
+  font-family:'Playfair Display',serif;
+  font-style:italic;
+  font-size:clamp(1.2rem, 3.5vw, 2rem);
+  color:var(--warm);
+  line-height:1.6;
+  max-width:680px;
+  margin:0 auto 1.5rem;
+}
+.manifesto-quote strong {
+  font-style:normal;
+  font-family:'Frank Ruhl Libre',serif;
+  color:var(--cream);
+  font-weight:900;
+}
+
+/* ─── SERVICES ─── */
+#services {
+  max-width:900px;
+  margin:0 auto;
+}
+.services-intro {
+  color:var(--warm);
+  font-size:1.05rem;
+  line-height:1.7;
+  max-width:520px;
+  margin-bottom:3rem;
+}
+.services-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+  gap:1px;
+  background:#1a1a1a;
+  border:1px solid #1a1a1a;
+}
+.service-card {
+  background:var(--bg);
+  padding:2rem 1.8rem;
+  transition:background 0.25s;
+}
+.service-card:hover { background:var(--card); }
+.service-icon {
+  font-size:1.8rem;
+  margin-bottom:1rem;
+  display:block;
+}
+.service-title {
+  font-family:'Frank Ruhl Libre',serif;
+  font-weight:900;
+  font-size:1.15rem;
+  margin-bottom:0.6rem;
+  color:var(--cream);
+}
+.service-desc {
+  font-size:0.9rem;
+  color:var(--dim);
+  line-height:1.65;
+}
+
+/* ─── PAIN POINTS ─── */
+#pain {
+  background:linear-gradient(to bottom, #0a0a0a, #0d0b08);
+  max-width:900px;
+  margin:0 auto;
+}
+.pain-list {
+  list-style:none;
+  display:flex;
+  flex-direction:column;
+  gap:0;
+  border:1px solid #1a1a1a;
+}
+.pain-item {
+  display:flex;
+  align-items:flex-start;
+  gap:1.2rem;
+  padding:1.5rem 1.8rem;
+  border-bottom:1px solid #1a1a1a;
+}
+.pain-item:last-child { border-bottom:none; }
+.pain-num {
+  font-family:'Frank Ruhl Libre',serif;
+  font-weight:900;
+  font-size:1.5rem;
+  color:var(--red);
+  min-width:2rem;
+  line-height:1;
+  margin-top:0.1rem;
+}
+.pain-text {
+  font-size:1rem;
+  line-height:1.65;
+  color:var(--warm);
+}
+.pain-text strong {
+  color:var(--cream);
+  font-weight:700;
+  display:block;
+  margin-bottom:0.2rem;
+  font-size:1.05rem;
+}
+
+/* ─── PROMISE ─── */
+#promise {
+  text-align:center;
+  padding:5rem 1.5rem;
+  max-width:720px;
+  margin:0 auto;
+}
+.promise-big {
+  font-family:'Frank Ruhl Libre',serif;
+  font-weight:900;
+  font-size:clamp(2rem, 6vw, 3.8rem);
+  line-height:1.15;
+  margin-bottom:1.5rem;
+}
+.promise-big .gold { color:var(--gold); }
+.promise-big .red  { color:var(--red); }
+.promise-sub {
+  font-size:1.05rem;
+  color:var(--warm);
+  line-height:1.7;
+  margin-bottom:2.5rem;
+}
+.promise-items {
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:1px;
+  background:#1a1a1a;
+  border:1px solid #1a1a1a;
+  margin-bottom:2.5rem;
+  text-align:right;
+}
+.promise-item {
+  background:var(--bg);
+  padding:1.4rem;
+}
+.promise-item-icon {
+  font-size:1.4rem;
+  margin-bottom:0.5rem;
+}
+.promise-item-text {
+  font-size:0.85rem;
+  color:var(--dim);
+  line-height:1.5;
+}
+.promise-item-text strong {
+  display:block;
+  color:var(--cream);
+  font-size:0.95rem;
+  margin-bottom:0.15rem;
+}
+
+/* ─── TESTIMONIALS ─── */
+#testimonials {
+  background:var(--card);
+  border-top:1px solid #1c1c1c;
+  border-bottom:1px solid #1c1c1c;
+}
+.testimonials-inner {
+  max-width:900px;
+  margin:0 auto;
+}
+.testi-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+  gap:1px;
+  background:#1a1a1a;
+  border:1px solid #1a1a1a;
+  margin-top:2.5rem;
+}
+.testi-card {
+  background:var(--card);
+  padding:2rem 1.8rem;
+}
+.testi-stars {
+  color:var(--gold);
+  font-size:0.9rem;
+  letter-spacing:0.1em;
+  margin-bottom:1rem;
+}
+.testi-text {
+  font-family:'Playfair Display',serif;
+  font-style:italic;
+  font-size:1rem;
+  color:var(--cream);
+  line-height:1.65;
+  margin-bottom:1.2rem;
+}
+.testi-name {
+  font-size:0.8rem;
+  font-weight:600;
+  color:var(--dim);
+  letter-spacing:0.08em;
+}
+
+/* ─── CONTACT ─── */
+#contact {
+  max-width:600px;
+  margin:0 auto;
+  text-align:center;
+  padding:5rem 1.5rem;
+}
+.contact-h2 {
+  font-family:'Frank Ruhl Libre',serif;
+  font-weight:900;
+  font-size:clamp(1.8rem, 5vw, 2.8rem);
+  line-height:1.2;
+  margin-bottom:0.8rem;
+}
+.contact-sub {
+  color:var(--warm);
+  font-size:1rem;
+  line-height:1.7;
+  margin-bottom:2.5rem;
+}
+.contact-btns {
+  display:flex;
+  flex-direction:column;
+  gap:1rem;
+  align-items:center;
+}
+.btn-wa {
+  display:inline-flex;
+  align-items:center;
+  gap:0.6rem;
+  background:#25d366;
+  color:#fff;
+  font-family:'Assistant',sans-serif;
+  font-weight:700;
+  font-size:1.05rem;
+  padding:1rem 2.5rem;
+  border-radius:2px;
+  text-decoration:none;
+  width:100%;
+  max-width:320px;
+  justify-content:center;
+  transition:opacity 0.2s;
+}
+.btn-wa:hover { opacity:0.88; }
+.btn-phone {
+  display:inline-flex;
+  align-items:center;
+  gap:0.6rem;
+  background:transparent;
+  color:var(--cream);
+  font-family:'Assistant',sans-serif;
+  font-weight:400;
+  font-size:1rem;
+  padding:0.9rem 2rem;
+  border-radius:2px;
+  border:1px solid #333;
+  text-decoration:none;
+  width:100%;
+  max-width:320px;
+  justify-content:center;
+  transition:border-color 0.2s;
+  direction:ltr;
+}
+.btn-phone:hover { border-color:var(--cream); }
+.contact-note {
+  margin-top:1.8rem;
+  font-size:0.8rem;
+  color:var(--dim);
+  line-height:1.6;
+}
+.contact-area {
+  display:inline-flex;
+  align-items:center;
+  gap:0.4rem;
+  font-size:0.75rem;
+  color:var(--dim);
+  letter-spacing:0.1em;
+  margin-top:1rem;
+}
+.contact-area::before {
+  content:'📍';
+  font-size:0.9rem;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  border-top:1px solid #1a1a1a;
+  padding:2rem 1.5rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:1rem;
+}
+.footer-name {
+  font-family:'Frank Ruhl Libre',serif;
+  font-weight:900;
+  font-size:0.95rem;
+  color:var(--cream);
+}
+.footer-name span { color:var(--gold); }
+.footer-copy {
+  font-size:0.75rem;
+  color:var(--dim);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width:600px) {
+  .promise-items { grid-template-columns:1fr; }
+  .hero-btns { flex-direction:column; }
+  .btn-primary, .btn-ghost { width:100%; justify-content:center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-name">אילן <span>לוי</span></a>
+  <a href="#contact" class="nav-cta">דברו איתי</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <p class="hero-label">עזרה טכנולוגית · גיל שלישי · רמת השרון</p>
+  <h1 class="hero-h1">
+    הטכנולוגיה<br>
+    לא מפחידה.<br>
+    <em>היא רק צריכה</em><br>
+    <span class="line-red">הסבר טוב.</span>
+  </h1>
+  <p class="hero-sub">
+    עזרה במחשב ובטלפון — בבית, בסבלנות, בלי ממהרים ובלי שיפוטיות.
+    כי כולם יכולים ללמוד. בקצב שלהם.
+  </p>
+  <div class="hero-btns">
+    <a href="https://wa.me/972500000000" class="btn-primary">💬 שלחו וואטסאפ</a>
+    <a href="#services" class="btn-ghost">מה אני עושה ←</a>
+  </div>
+  <div class="hero-scroll">
+    <span>גלל למטה</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <span class="gold">מחשב</span><span>·</span>
+    <span>טלפון חכם</span><span>·</span>
+    <span class="gold">וואטסאפ</span><span>·</span>
+    <span>זום</span><span>·</span>
+    <span class="gold">מייל</span><span>·</span>
+    <span>הגדרות</span><span>·</span>
+    <span class="gold">אבטחה</span><span>·</span>
+    <span>בסבלנות</span><span>·</span>
+    <span class="gold">בבית</span><span>·</span>
+    <span>בלי שיפוטיות</span><span>·</span>
+    <!-- repeat -->
+    <span class="gold">מחשב</span><span>·</span>
+    <span>טלפון חכם</span><span>·</span>
+    <span class="gold">וואטסאפ</span><span>·</span>
+    <span>זום</span><span>·</span>
+    <span class="gold">מייל</span><span>·</span>
+    <span>הגדרות</span><span>·</span>
+    <span class="gold">אבטחה</span><span>·</span>
+    <span>בסבלנות</span><span>·</span>
+    <span class="gold">בבית</span><span>·</span>
+    <span>בלי שיפוטיות</span><span>·</span>
+  </div>
+</div>
+
+<!-- MANIFESTO -->
+<section id="manifesto">
+  <p class="manifesto-quote">
+    "גיל הוא לא סיבה לוותר על הדיגיטל.<br>
+    <strong>זה רק עניין של מישהו שיסביר נכון.</strong>"
+  </p>
+</section>
+
+<!-- PAIN POINTS -->
+<section id="pain" style="padding-top:5rem;padding-bottom:5rem;">
+  <p class="section-label">מה מציק</p>
+  <h2 class="section-h2">מכירים את זה?</h2>
+  <ul class="pain-list" style="margin-top:2rem;">
+    <li class="pain-item">
+      <span class="pain-num">01</span>
+      <div class="pain-text">
+        <strong>הטלפון עשה משהו ועכשיו כלום לא עובד</strong>
+        לחצת על משהו בטעות, המסך התהפך, האפליקציה נעלמה — ואין ממי לשאול.
+      </div>
+    </li>
+    <li class="pain-item">
+      <span class="pain-num">02</span>
+      <div class="pain-text">
+        <strong>הילדים מסבירים — אבל מהר מדי</strong>
+        אחרי שניות הם כבר לקחו את הטלפון ועשו לבד. אתם עוד לא הבנתם מה קרה.
+      </div>
+    </li>
+    <li class="pain-item">
+      <span class="pain-num">03</span>
+      <div class="pain-text">
+        <strong>מפחדים ללחוץ — שמא "ישברו" משהו</strong>
+        הרגשה שכל לחיצה עלולה להרוס. שמה אחרי זה לא יהיה תיקון.
+      </div>
+    </li>
+    <li class="pain-item">
+      <span class="pain-num">04</span>
+      <div class="pain-text">
+        <strong>חוסמים תרמיות ו"עזרה מרחוק" מפחידה</strong>
+        לא יודעים מי אמין, מי רוצה לגנוב סיסמאות, ממי ניתן לקבל עזרה בלי לדאוג.
+      </div>
+    </li>
+    <li class="pain-item">
+      <span class="pain-num">05</span>
+      <div class="pain-text">
+        <strong>המחשב איטי / לא מתעדכן / "לא מגיב"</strong>
+        שנים של זבל שנצבר, עדכונים שלא בוצעו, תוכנות מיותרות שאוכלות זיכרון.
+      </div>
+    </li>
+  </ul>
+</section>
+
+<!-- SERVICES -->
+<section id="services" style="padding-top:5rem;padding-bottom:5rem;">
+  <div style="max-width:900px;margin:0 auto;">
+    <p class="section-label">מה אני עושה</p>
+    <h2 class="section-h2">עזרה אמיתית, בבית, בקצב שלך</h2>
+    <p class="services-intro">
+      מגיע אליך הביתה. לא ממהר. לא שופט. יושב לידך עד שאתה מרגיש בנוח לבד.
+    </p>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-icon">📱</span>
+        <div class="service-title">טלפון חכם</div>
+        <p class="service-desc">הגדרות, אפליקציות, וואטסאפ, סיסמאות, גיבוי, אחסון — כל מה שצריך להבין ולדעת לעשות לבד.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">💻</span>
+        <div class="service-title">מחשב ולפטופ</div>
+        <p class="service-desc">ניקוי, עדכונים, אנטי-וירוס, מייל, דפדפן, הדפסה, חיבור לאינטרנט — מהיסוד ועד שעובד חלק.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🎥</span>
+        <div class="service-title">זום ווידאו</div>
+        <p class="service-desc">שיחות וידאו עם נכדים, רופאים, חברים. לא עוד "הקמרה לא עובדת" ו"אני לא שומע אותך".</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🔐</span>
+        <div class="service-title">אבטחה ובטיחות</div>
+        <p class="service-desc">איך להכיר הונאות, מי לא לפתוח, סיסמאות חזקות, שמירה על הפרטיות — בלי פחד, עם הבנה.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">📧</span>
+        <div class="service-title">מיילים ומסמכים</div>
+        <p class="service-desc">Gmail, תמונות, קבצים, חתימה אלקטרונית, טפסים ממשלתיים — דיגיטל בלי סיוטים.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🛒</span>
+        <div class="service-title">קניות ותשלומים</div>
+        <p class="service-desc">קניה בטוחה אונליין, ביטוח לאומי, בנק דיגיטלי, הזמנת תרופות — עצמאות כלכלית דיגיטלית.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROMISE -->
+<section id="promise">
+  <p class="section-label">ההבטחה שלי</p>
+  <h2 class="promise-big">
+    בלי ממהרים.<br>
+    בלי <span class="red">שיפוטיות</span>.<br>
+    עד שזה <span class="gold">עובד.</span>
+  </h2>
+  <p class="promise-sub">
+    אני לא טכנאי. אני אדם שאוהב אנשים ויודע להסביר בשפה שמבינים.
+  </p>
+  <div class="promise-items">
+    <div class="promise-item">
+      <div class="promise-item-icon">🏠</div>
+      <div class="promise-item-text">
+        <strong>מגיע אליך</strong>
+        בבית שלך, נוח ומוכר
+      </div>
+    </div>
+    <div class="promise-item">
+      <div class="promise-item-icon">🐢</div>
+      <div class="promise-item-text">
+        <strong>בקצב שלך</strong>
+        חוזרים כמה פעמים שצריך
+      </div>
+    </div>
+    <div class="promise-item">
+      <div class="promise-item-icon">🤝</div>
+      <div class="promise-item-text">
+        <strong>אדם, לא רובוט</strong>
+        שיחה אמיתית, קפה ביחד
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="testimonials-inner">
+    <p class="section-label">מה אומרים</p>
+    <h2 class="section-h2">מי שכבר התקשר</h2>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"אחרי שעה אחת הצלחתי לשלוח תמונות לנכד בלי לבקש עזרה. לא האמנתי שאצליח."</p>
+        <div class="testi-name">רות, 74 — הרצליה</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"לא הרגשתי טיפש אף פעם. אילן מסביר בסבלנות, חוזר על כל דבר בלי להתעצבן."</p>
+        <div class="testi-name">משה, 81 — רמת השרון</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"המחשב לא עבד כבר שנתיים. תוך יום הכל הסתדר ואני שוב יכולה לעשות וידאו עם הנכדות."</p>
+        <div class="testi-name">מרים, 69 — תל אביב</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label">בואו נדבר</p>
+  <h2 class="contact-h2">מוכנים להתחיל?</h2>
+  <p class="contact-sub">
+    שלחו וואטסאפ — ונסדר כשנוח לכם, אצלכם בבית.
+  </p>
+  <div class="contact-btns">
+    <a href="https://wa.me/972500000000?text=שלום%20אילן,%20אשמח%20לעזרה%20עם%20המחשב/טלפון" class="btn-wa">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+      וואטסאפ עכשיו
+    </a>
+    <a href="tel:+972500000000" class="btn-phone">
+      📞 050-000-0000
+    </a>
+  </div>
+  <p class="contact-note">
+    זמינות: ימים א׳–ה׳, 9:00–19:00<br>
+    ביקורי בית · רמת השרון · הסביבה
+  </p>
+  <div class="contact-area">רמת השרון, תל אביב, הרצליה, כפר סבא</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">אילן <span>לוי</span></div>
+  <div class="footer-copy">© 2025 · ilanlevi.com · עזרה טכנולוגית לגיל השלישי</div>
+</footer>
+
+</body>
+</html>
