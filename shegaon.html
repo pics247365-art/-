@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>שגאון — אילן לוי</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;700;900&family=Assistant:wght@300;400;600&family=Playfair+Display:ital,wght@1,400;1,700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0a0a0a;
+  --cream: #e8e0d0;
+  --gold: #c49a2a;
+  --red: #a81818;
+  --warm: #c8a97a;
+  --dim: #444;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--cream);
+  font-family: 'Assistant', sans-serif;
+  overflow-x: hidden;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  background: rgba(10,10,10,0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(196,154,42,0.15);
+}
+
+.nav-logo {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-weight: 900;
+  font-size: 1rem;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--cream);
+  text-decoration: none;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.nav-links a:hover { opacity: 1; }
+
+/* HERO */
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 50%, rgba(168,24,24,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 50%, rgba(196,154,42,0.08) 0%, transparent 60%),
+    #0a0a0a;
+}
+
+.hero-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  opacity: 0.8;
+}
+
+.hero-title {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-weight: 900;
+  font-size: clamp(5rem, 18vw, 14rem);
+  line-height: 0.9;
+  color: var(--cream);
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+}
+
+.hero-title span {
+  color: var(--gold);
+}
+
+.hero-subtitle {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  color: var(--warm);
+  opacity: 0.9;
+  letter-spacing: 0.05em;
+  margin-bottom: 3rem;
+}
+
+.hero-line {
+  width: 60px;
+  height: 1px;
+  background: var(--gold);
+  margin: 0 auto 3rem;
+  opacity: 0.5;
+}
+
+.hero-cta {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  border: 1px solid rgba(196,154,42,0.5);
+  color: var(--gold);
+  text-decoration: none;
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: all 0.3s;
+}
+
+.hero-cta:hover {
+  background: var(--gold);
+  color: var(--bg);
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0.4;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: var(--cream);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.2; transform: scaleY(1); }
+  50% { opacity: 0.8; transform: scaleY(1.2); }
+}
+
+/* MANIFESTO */
+.manifesto {
+  padding: 8rem 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.manifesto-quote {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  line-height: 1.7;
+  color: var(--cream);
+  opacity: 0.9;
+  margin-bottom: 2rem;
+}
+
+.manifesto-quote em {
+  color: var(--gold);
+  font-style: normal;
+}
+
+.manifesto-attr {
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  color: var(--dim);
+  text-transform: uppercase;
+}
+
+/* JOURNEY — TIMELINE */
+.journey {
+  padding: 4rem 0 8rem;
+}
+
+.journey-header {
+  text-align: center;
+  padding: 0 2rem 5rem;
+}
+
+.section-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.35em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  opacity: 0.7;
+}
+
+.section-title {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-weight: 900;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.1;
+}
+
+/* IMAGE GRID — CINEMATIC */
+.image-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.image-card {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1;
+  cursor: pointer;
+}
+
+.image-card.wide {
+  grid-column: span 2;
+  aspect-ratio: 21/9;
+}
+
+.image-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+  filter: grayscale(20%) contrast(1.05);
+}
+
+.image-card:hover img {
+  transform: scale(1.04);
+  filter: grayscale(0%) contrast(1.08);
+}
+
+.image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 50%);
+  display: flex;
+  align-items: flex-end;
+  padding: 1.5rem;
+  transition: opacity 0.3s;
+}
+
+.image-label {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-weight: 900;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  color: white;
+  letter-spacing: 0.05em;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.8);
+}
+
+/* STORY SECTIONS */
+.story-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  max-width: 1200px;
+  margin: 6rem auto;
+  padding: 0 1rem;
+  align-items: center;
+}
+
+.story-section.reverse {
+  direction: ltr;
+}
+
+.story-section.reverse .story-text {
+  direction: rtl;
+}
+
+.story-img {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4/5;
+}
+
+.story-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(15%);
+  transition: transform 0.8s ease;
+}
+
+.story-section:hover .story-img img {
+  transform: scale(1.03);
+}
+
+.story-text {
+  padding: 3rem;
+}
+
+.story-number {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: 5rem;
+  color: var(--gold);
+  opacity: 0.15;
+  line-height: 1;
+  margin-bottom: -1rem;
+}
+
+.story-word {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-weight: 900;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  color: var(--cream);
+  margin-bottom: 1.5rem;
+  line-height: 1;
+}
+
+.story-body {
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: var(--cream);
+  opacity: 0.75;
+  font-weight: 300;
+}
+
+.story-divider {
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+  margin: 1.5rem 0;
+  opacity: 0.5;
+}
+
+/* CONTACT */
+.contact {
+  padding: 8rem 2rem;
+  text-align: center;
+  position: relative;
+}
+
+.contact::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%; transform: translateX(-50%);
+  width: 1px;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, var(--gold));
+  opacity: 0.3;
+}
+
+.contact-title {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-weight: 900;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  margin-bottom: 1rem;
+}
+
+.contact-sub {
+  font-size: 1rem;
+  color: var(--warm);
+  opacity: 0.8;
+  margin-bottom: 3rem;
+  font-weight: 300;
+}
+
+.contact-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--gold);
+  color: var(--bg);
+  text-decoration: none;
+  padding: 1.1rem 2.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  transition: all 0.25s;
+}
+
+.contact-btn:hover {
+  background: var(--warm);
+  transform: translateY(-2px);
+}
+
+.contact-email {
+  display: block;
+  margin-top: 1.5rem;
+  color: var(--dim);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.contact-email:hover { color: var(--cream); }
+
+/* FOOTER */
+footer {
+  border-top: 1px solid #1a1a1a;
+  padding: 2rem;
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--dim);
+  letter-spacing: 0.1em;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .image-grid { grid-template-columns: 1fr; gap: 2px; }
+  .image-card.wide { grid-column: span 1; aspect-ratio: 4/3; }
+  .story-section { grid-template-columns: 1fr; }
+  .story-section.reverse { direction: rtl; }
+  .story-text { padding: 2rem 1rem; }
+  .nav-links { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="/">אילן לוי</a>
+  <ul class="nav-links">
+    <li><a href="/">בית</a></li>
+    <li><a href="#journey">המסע</a></li>
+    <li><a href="#contact">צור קשר</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">פרויקט אישי · אילן לוי</p>
+    <h1 class="hero-title">שג<span>א</span>ון</h1>
+    <p class="hero-subtitle">מסע בין הדיכאון השקט לשגעון הרועש</p>
+    <div class="hero-line"></div>
+    <a href="#journey" class="hero-cta">גלה את המסע</a>
+  </div>
+  <div class="scroll-hint">
+    <span>גלול</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="manifesto">
+  <p class="manifesto-quote">
+    "יש מרחב בין <em>לדעת</em> לבין <em>להרגיש</em>.<br>
+    שם חי השגאון.<br>
+    לא כחולשה — כאמת."
+  </p>
+  <p class="manifesto-attr">— אילן לוי</p>
+</section>
+
+<!-- JOURNEY -->
+<section class="journey" id="journey">
+  <div class="journey-header">
+    <p class="section-label">פרקי המסע</p>
+    <h2 class="section-title">מה שלא מדברים עליו</h2>
+  </div>
+
+  <!-- GRID -->
+  <div class="image-grid">
+    <div class="image-card">
+      <img src="https://lh3.googleusercontent.com/d/1upBf1eaWEUb8g7Nb58ZC7aCGPVOeKBoD" alt="אבל" loading="lazy">
+      <div class="image-overlay"><span class="image-label">אבל</span></div>
+    </div>
+    <div class="image-card">
+      <img src="https://lh3.googleusercontent.com/d/1ZoVYsdEYhz5YFm-cSIQrO4Bm2Kf4H16Z" alt="משבר" loading="lazy">
+      <div class="image-overlay"><span class="image-label">משבר</span></div>
+    </div>
+    <div class="image-card wide">
+      <img src="https://lh3.googleusercontent.com/d/1XSxZOBQITsrSMfW4iZ2xH-zCyDzLIe16" alt="ליווי אישי" loading="lazy">
+      <div class="image-overlay"><span class="image-label">ליווי אישי</span></div>
+    </div>
+    <div class="image-card">
+      <img src="https://lh3.googleusercontent.com/d/1tsrx33KOC2xlvFjEcrix35l1jz-eSCP2" alt="דכאון" loading="lazy">
+      <div class="image-overlay"><span class="image-label">דכאון</span></div>
+    </div>
+    <div class="image-card">
+      <img src="https://lh3.googleusercontent.com/d/1Cc9QA4K_bkmEyAVblebqp5XRAUllMtsM" alt="טיפול" loading="lazy">
+      <div class="image-overlay"><span class="image-label">טיפול</span></div>
+    </div>
+    <div class="image-card">
+      <img src="https://lh3.googleusercontent.com/d/1GGpVx8AjiEZAcf2W4bDLICCj5lZ6BtB-" alt="אהבה" loading="lazy">
+      <div class="image-overlay"><span class="image-label">אהבה</span></div>
+    </div>
+    <div class="image-card">
+      <img src="https://lh3.googleusercontent.com/d/1woZui1dQ3yYruinLv0efxd330VCmfKnL" alt="אמון" loading="lazy">
+      <div class="image-overlay"><span class="image-label">אמון</span></div>
+    </div>
+    <div class="image-card">
+      <img src="https://lh3.googleusercontent.com/d/1afTRzVI8pRM_GyEyAk1n2I_bsddLV2VH" alt="התמכרות" loading="lazy">
+      <div class="image-overlay"><span class="image-label">התמכרות</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- STORY SECTIONS -->
+<section style="padding: 4rem 0 8rem;">
+
+  <div class="story-section">
+    <div class="story-img">
+      <img src="https://lh3.googleusercontent.com/d/1upBf1eaWEUb8g7Nb58ZC7aCGPVOeKBoD" alt="אבל">
+    </div>
+    <div class="story-text">
+      <div class="story-number">01</div>
+      <h3 class="story-word">אבל</h3>
+      <div class="story-divider"></div>
+      <p class="story-body">
+        לא תמיד יש מילים לדבר שאיבדת. לפעמים יש רק את הים, והשמיים, והשתיקה שמחזיקה הכל בפנים.
+        האבל לא מסתיים — הוא משתנה.
+      </p>
+    </div>
+  </div>
+
+  <div class="story-section reverse">
+    <div class="story-text">
+      <div class="story-number">02</div>
+      <h3 class="story-word">משבר</h3>
+      <div class="story-divider"></div>
+      <p class="story-body">
+        הקירות נסדקים. האור מגיע בדיוק מהסדק הזה.
+        המשבר אינו הסוף — הוא המעבר.
+      </p>
+    </div>
+    <div class="story-img">
+      <img src="https://lh3.googleusercontent.com/d/1ZoVYsdEYhz5YFm-cSIQrO4Bm2Kf4H16Z" alt="משבר">
+    </div>
+  </div>
+
+  <div class="story-section">
+    <div class="story-img">
+      <img src="https://lh3.googleusercontent.com/d/1GGpVx8AjiEZAcf2W4bDLICCj5lZ6BtB-" alt="ליווי אישי">
+    </div>
+    <div class="story-text">
+      <div class="story-number">03</div>
+      <h3 class="story-word">ליווי</h3>
+      <div class="story-divider"></div>
+      <p class="story-body">
+        לא צריך לדעת את הדרך. מספיק שיש מישהו שהולך לצידך. אני כאן — בלי שיפוטיות, בלי חפזון, רק נוכחות אמיתית.
+      </p>
+    </div>
+  </div>
+
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <p class="section-label">בואו נדבר</p>
+  <h2 class="contact-title">לא חייבים לעבור את זה לבד</h2>
+  <p class="contact-sub">אני כאן. רמת השרון והסביבה.</p>
+  <a href="https://wa.me/972500000000" class="contact-btn">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+    שלחו הודעה בוואטסאפ
+  </a>
+  <a href="mailto:info@ilanlevi.com" class="contact-email">info@ilanlevi.com</a>
+</section>
+
+<footer>
+  <p>© 2026 אילן לוי · שגאון · כל הזכויות שמורות</p>
+</footer>
+
+</body>
+</html>
