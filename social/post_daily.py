@@ -18,7 +18,7 @@ LOG_FILE = Path(__file__).parent / "log.json"
 FB_PAGE_ID = os.getenv("FB_PAGE_ID")
 FB_ACCESS_TOKEN = os.getenv("FB_ACCESS_TOKEN")
 IG_USER_ID = os.getenv("IG_USER_ID")
-SITE_BASE_URL = os.getenv("SITE_BASE_URL", "https://ilanlevi.com")
+SITE_BASE_URL = os.getenv("SITE_BASE_URL", "https://raw.githubusercontent.com/pics247365-art/-/main")
 
 
 def get_images():
@@ -39,8 +39,12 @@ def save_log(log):
     LOG_FILE.write_text(json.dumps(log, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
+FACEBOOK_PAGE_ID = "1163665443488405"
+INSTAGRAM_ACCOUNT_ID = "17841432368148282"
+
+
 def post_to_facebook(image_url, caption):
-    url = f"https://graph.facebook.com/v21.0/{FB_PAGE_ID}/photos"
+    url = f"https://graph.facebook.com/v21.0/{FACEBOOK_PAGE_ID}/photos"
     resp = requests.post(url, json={
         "url": image_url,
         "caption": caption,
@@ -53,7 +57,7 @@ def post_to_facebook(image_url, caption):
 def post_to_instagram(image_url, caption):
     # Step 1: create media container
     resp = requests.post(
-        f"https://graph.facebook.com/v21.0/{IG_USER_ID}/media",
+        f"https://graph.facebook.com/v21.0/{INSTAGRAM_ACCOUNT_ID}/media",
         json={
             "image_url": image_url,
             "caption": caption,
@@ -65,7 +69,7 @@ def post_to_instagram(image_url, caption):
 
     # Step 2: publish
     resp = requests.post(
-        f"https://graph.facebook.com/v21.0/{IG_USER_ID}/media_publish",
+        f"https://graph.facebook.com/v21.0/{INSTAGRAM_ACCOUNT_ID}/media_publish",
         json={
             "creation_id": creation_id,
             "access_token": FB_ACCESS_TOKEN,
