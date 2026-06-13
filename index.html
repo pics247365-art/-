@@ -3,39 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>אילן לוי — ליווי אישי וקשר אנושי</title>
-<meta name="description" content="ליווי אישי וקשר אנושי. נוכחות, הקשבה, פשוט להיות שם. רמת השרון והסביבה.">
+<title>אילן לוי</title>
+<meta name="description" content="המרחב האישי של אילן לוי — צילום, יצירה, ליווי ואינטליגנציה מלאכותית בשפה אנושית אחת. רמת השרון.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;700;900&family=Assistant:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:    #0a0a0a;
-  --cream: #e8e0d0;
-  --gold:  #c49a2a;
-  --red:   #a81818;
-  --warm:  #c8a97a;
-  --dim:   #555;
-  --muted: #2a2a2a;
-  --line:  #181818;
-  --card:  #0f0f0f;
+  --bg:      #f6f2e9;
+  --surface: #ede7d5;
+  --ink:     #0d0d0d;
+  --gold:    #b07c14;
+  --red:     #a81818;
+  --warm:    #7a5a18;
+  --dim:     #888;
+  --muted:   #bdb6a8;
+  --line:    #dbd3c2;
 }
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html { scroll-behavior: smooth; overflow-x: hidden; }
-body { background: var(--bg); color: var(--cream); font-family: 'Assistant', sans-serif; overflow-x: hidden; }
+body { background: var(--bg); color: var(--ink); font-family: 'Assistant', sans-serif; overflow-x: hidden; }
 a { color: inherit; text-decoration: none; }
 img { display: block; }
-
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
-}
 
 /* ── NAV ── */
 nav {
@@ -47,9 +37,9 @@ nav {
   align-items: center;
   justify-content: space-between;
   padding: 0 2rem;
-  background: rgba(10,10,10,0.88);
-  backdrop-filter: blur(24px) saturate(1.3);
-  -webkit-backdrop-filter: blur(24px) saturate(1.3);
+  background: rgba(246,242,233,0.9);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   border-bottom: 1px solid var(--line);
 }
 
@@ -57,8 +47,8 @@ nav {
   font-family: 'Frank Ruhl Libre', serif;
   font-weight: 900;
   font-size: 1.05rem;
-  letter-spacing: 0.04em;
-  color: var(--cream);
+  letter-spacing: 0.03em;
+  color: var(--ink);
 }
 
 .nav-logo em { color: var(--gold); font-style: normal; }
@@ -70,21 +60,20 @@ nav {
 }
 
 .nav-links a {
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 400;
-  letter-spacing: 0.12em;
-  color: #3a3a3a;
+  letter-spacing: 0.1em;
+  color: var(--muted);
   text-transform: uppercase;
   transition: color 0.25s;
 }
 
-.nav-links a:hover { color: var(--cream); }
+.nav-links a:hover { color: var(--ink); }
 
 .nav-cta {
-  border: 1px solid #252525 !important;
-  padding: 0.38rem 1rem;
+  border: 1px solid var(--line) !important;
+  padding: 0.36rem 1rem;
   color: var(--warm) !important;
-  border-radius: 0;
   transition: border-color 0.25s, color 0.25s !important;
 }
 
@@ -96,9 +85,10 @@ nav {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 0 2rem 4.5rem;
+  padding: 0 2rem 5rem;
   position: relative;
   overflow: hidden;
+  border-bottom: 1px solid var(--line);
 }
 
 .hero-bg-letter {
@@ -108,88 +98,93 @@ nav {
   transform: translate(-44%, -52%);
   font-family: 'Frank Ruhl Libre', serif;
   font-weight: 900;
-  font-size: clamp(64vw, 80vw, 92vw);
-  color: rgba(196,154,42,0.045);
+  font-size: clamp(64vw, 82vw, 94vw);
+  color: rgba(176,124,20,0.055);
   pointer-events: none;
   user-select: none;
   line-height: 1;
   direction: ltr;
 }
 
-.hero-eyebrow {
-  font-size: 0.56rem;
-  letter-spacing: 0.48em;
-  color: var(--gold);
-  text-transform: uppercase;
-  direction: ltr;
-  margin-bottom: 1.8rem;
+.hero-tag-row {
+  display: flex;
+  gap: 1.2rem;
+  align-items: center;
+  margin-bottom: 2rem;
   opacity: 0;
   animation: fadeUp 1.2s 0.3s cubic-bezier(0.22,1,0.36,1) both;
+  direction: rtl;
+  flex-wrap: wrap;
 }
 
-h1.hero-name {
+.hero-tag-item {
+  font-size: 0.56rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.hero-tag-sep { color: var(--gold); font-size: 0.45rem; }
+
+h1.hero-headline {
   font-family: 'Frank Ruhl Libre', serif;
   font-weight: 900;
-  font-size: clamp(5.5rem, 26vw, 12rem);
-  line-height: 0.8;
+  font-size: clamp(2.8rem, 9.5vw, 5.5rem);
+  line-height: 1.05;
   direction: rtl;
+  color: var(--ink);
   opacity: 0;
   animation: fadeUp 1.2s 0.5s cubic-bezier(0.22,1,0.36,1) both;
+  max-width: 720px;
 }
 
-h1.hero-name .gold { color: var(--gold); }
+h1.hero-headline em {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--red);
+}
 
 .hero-rule {
   height: 1px;
-  width: 0;
   background: linear-gradient(90deg, var(--gold), transparent);
   margin: 2.2rem 0;
   animation: expandRule 1.2s 0.9s cubic-bezier(0.22,1,0.36,1) both;
-  max-width: 320px;
+  max-width: 280px;
+  opacity: 0;
 }
 
 @keyframes expandRule {
-  from { width: 0; opacity: 0; }
-  to   { width: 320px; opacity: 1; }
+  from { max-width: 0; opacity: 0; }
+  to   { max-width: 280px; opacity: 1; }
 }
 
-.hero-caption {
-  max-width: 400px;
+.hero-desc {
+  font-size: 0.96rem;
+  font-weight: 300;
+  color: var(--dim);
+  line-height: 1.85;
+  direction: rtl;
+  max-width: 480px;
   opacity: 0;
   animation: fadeUp 1.2s 0.85s cubic-bezier(0.22,1,0.36,1) both;
 }
 
-.hero-caption p {
-  font-size: 1.02rem;
-  font-weight: 300;
-  color: var(--warm);
-  line-height: 1.85;
-}
-
-.hero-caption .en-sub {
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
-  font-size: 0.74rem;
-  color: #363636;
-  direction: ltr;
-  margin-top: 0.7rem;
-}
-
 .hero-actions {
   display: flex;
-  gap: 0.9rem;
-  margin-top: 2.8rem;
+  gap: 0.8rem;
+  margin-top: 2.5rem;
   flex-wrap: wrap;
   opacity: 0;
-  animation: fadeUp 1.2s 1.05s cubic-bezier(0.22,1,0.36,1) both;
+  animation: fadeUp 1.2s 1s cubic-bezier(0.22,1,0.36,1) both;
 }
 
-.btn-gold {
+.btn-dark {
   display: inline-flex;
   align-items: center;
-  background: var(--gold);
-  color: #000;
-  padding: 0.92rem 2.4rem;
+  background: var(--ink);
+  color: var(--bg);
+  padding: 0.9rem 2.2rem;
   font-family: 'Assistant', sans-serif;
   font-weight: 700;
   font-size: 0.82rem;
@@ -197,36 +192,35 @@ h1.hero-name .gold { color: var(--gold); }
   transition: opacity 0.2s, transform 0.2s;
 }
 
-.btn-gold:hover { opacity: 0.88; transform: translateY(-2px); }
-.btn-gold:active { opacity: 0.75; transform: translateY(0); }
+.btn-dark:hover { opacity: 0.82; transform: translateY(-2px); }
+.btn-dark:active { opacity: 0.72; transform: translateY(0); }
 
 .btn-outline {
   display: inline-flex;
   align-items: center;
-  border: 1px solid #252525;
+  border: 1px solid var(--line);
   color: var(--dim);
-  padding: 0.92rem 2.4rem;
+  padding: 0.9rem 2.2rem;
   font-family: 'Assistant', sans-serif;
   font-size: 0.82rem;
   letter-spacing: 0.07em;
   transition: border-color 0.25s, color 0.25s;
 }
 
-.btn-outline:hover { border-color: #444; color: var(--cream); }
+.btn-outline:hover { border-color: var(--ink); color: var(--ink); }
 
 .hero-meta {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-top: 4.5rem;
+  margin-top: 5rem;
   opacity: 0;
-  animation: fadeIn 1.2s 1.3s ease both;
+  animation: fadeIn 1.2s 1.2s ease both;
 }
 
-.hero-location {
-  font-size: 0.6rem;
+.hero-meta-loc {
+  font-size: 0.56rem;
   letter-spacing: 0.35em;
-  color: #252525;
+  color: var(--muted);
   text-transform: uppercase;
   direction: ltr;
 }
@@ -235,9 +229,9 @@ h1.hero-name .gold { color: var(--gold); }
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  font-size: 0.6rem;
-  letter-spacing: 0.25em;
-  color: #252525;
+  font-size: 0.56rem;
+  letter-spacing: 0.28em;
+  color: var(--muted);
   text-transform: uppercase;
   direction: ltr;
 }
@@ -245,14 +239,14 @@ h1.hero-name .gold { color: var(--gold); }
 .hero-scroll-hint::before {
   content: '';
   display: block;
-  width: 28px;
+  width: 24px;
   height: 1px;
-  background: #252525;
+  background: var(--muted);
 }
 
 /* ── TICKER ── */
 .ticker {
-  background: var(--gold);
+  background: var(--ink);
   overflow: hidden;
   padding: 0.65rem 0;
 }
@@ -260,24 +254,25 @@ h1.hero-name .gold { color: var(--gold); }
 .ticker-inner {
   display: flex;
   gap: 2.8rem;
-  animation: ticker 32s linear infinite;
+  animation: ticker 34s linear infinite;
   white-space: nowrap;
   direction: ltr;
   width: max-content;
 }
 
 .ticker-item {
-  font-size: 0.5rem;
+  font-size: 0.48rem;
   letter-spacing: 0.32em;
   text-transform: uppercase;
-  color: #000;
-  font-weight: 700;
+  color: rgba(246,242,233,0.4);
+  font-weight: 600;
   flex-shrink: 0;
 }
 
 .ticker-sep {
-  font-size: 0.42rem;
-  color: rgba(0,0,0,0.35);
+  font-size: 0.4rem;
+  color: var(--gold);
+  opacity: 0.7;
   flex-shrink: 0;
 }
 
@@ -286,138 +281,158 @@ h1.hero-name .gold { color: var(--gold); }
   to   { transform: translateX(-50%); }
 }
 
-/* ── SHARED SECTION LABELS ── */
+/* ── SHARED LABELS ── */
 .s-tag {
-  font-size: 0.5rem;
-  letter-spacing: 0.48em;
+  font-size: 0.48rem;
+  letter-spacing: 0.5em;
   color: var(--gold);
   text-transform: uppercase;
   direction: ltr;
-  margin-bottom: 1.1rem;
+  margin-bottom: 1rem;
 }
 
-.s-tag.red { color: var(--red); }
-.s-tag.muted { color: var(--dim); }
+.s-tag.red   { color: var(--red); }
+.s-tag.muted { color: var(--muted); }
 
-.s-title {
+/* ── WORLDS ── */
+#worlds {
+  padding: 8rem 2rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.worlds-header { margin-bottom: 5rem; }
+
+.worlds-title {
   font-family: 'Frank Ruhl Libre', serif;
   font-weight: 900;
-  font-size: clamp(2.6rem, 10vw, 4.8rem);
-  line-height: 0.86;
+  font-size: clamp(2.6rem, 10vw, 5rem);
+  line-height: 0.88;
   direction: rtl;
+  color: var(--ink);
+  margin-bottom: 0.6rem;
 }
 
-.s-en {
+.worlds-en {
   font-family: 'Playfair Display', serif;
   font-style: italic;
   font-size: 0.78rem;
-  color: #2e2e2e;
+  color: var(--muted);
   direction: ltr;
-  margin-top: 0.6rem;
 }
 
-/* ── SERVICES ── */
-#services {
-  padding: 7.5rem 2rem;
-  border-top: 1px solid var(--line);
-}
-
-.services-header { margin-bottom: 4rem; }
-
-.service-row {
+.world-row {
   display: flex;
   align-items: flex-start;
-  gap: 1.8rem;
-  padding: 2.4rem 0;
+  gap: 1.6rem;
+  padding: 2.8rem 0;
   border-top: 1px solid var(--line);
   direction: rtl;
-  transition: background 0.3s;
   position: relative;
+  cursor: default;
 }
 
-.service-row::before {
+.world-row:last-child { border-bottom: 1px solid var(--line); }
+
+.world-row::after {
   content: '';
   position: absolute;
-  right: 0; top: 0; bottom: 0;
-  width: 0;
-  background: var(--gold);
-  opacity: 0.06;
-  transition: width 0.4s cubic-bezier(0.22,1,0.36,1);
+  right: -2rem; left: -2rem; top: 0; bottom: 0;
+  background: var(--surface);
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.22,1,0.36,1);
+  pointer-events: none;
 }
 
-.service-row:hover::before { width: 100%; }
+.world-row:hover::after { opacity: 1; }
 
-.service-row:last-of-type { border-bottom: 1px solid var(--line); }
-
-.svc-num {
+.world-num {
   font-family: 'Playfair Display', serif;
   font-style: italic;
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   color: var(--gold);
-  opacity: 0.6;
-  min-width: 28px;
-  padding-top: 0.2rem;
+  min-width: 26px;
+  padding-top: 0.3rem;
   direction: ltr;
   flex-shrink: 0;
+  position: relative;
+  z-index: 1;
 }
 
-.svc-body { flex: 1; }
+.world-body {
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
 
-.svc-name {
+.world-name {
   font-family: 'Frank Ruhl Libre', serif;
-  font-weight: 700;
-  font-size: clamp(1.6rem, 5.5vw, 2.4rem);
-  color: var(--cream);
-  line-height: 1;
-  margin-bottom: 0.55rem;
+  font-weight: 900;
+  font-size: clamp(2rem, 6.5vw, 3rem);
+  color: var(--ink);
+  line-height: 0.9;
+  margin-bottom: 0.65rem;
+  direction: rtl;
 }
 
-.svc-desc {
+.world-desc {
   font-size: 0.82rem;
   font-weight: 300;
-  color: #3e3e3e;
-  line-height: 1.8;
+  color: var(--dim);
+  line-height: 1.75;
 }
 
-.svc-arrow {
+.world-en {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 0.68rem;
+  color: var(--muted);
+  direction: ltr;
+  margin-top: 0.3rem;
+}
+
+.world-arrow {
+  position: relative;
+  z-index: 1;
   flex-shrink: 0;
-  color: #1e1e1e;
-  font-size: 1.1rem;
-  padding-top: 0.4rem;
+  color: var(--muted);
+  font-size: 1rem;
+  padding-top: 0.5rem;
   direction: ltr;
   transition: color 0.3s, transform 0.3s;
 }
 
-.service-row:hover .svc-arrow { color: var(--gold); transform: translateX(-5px); }
+.world-row:hover .world-arrow { color: var(--gold); transform: translateX(-5px); }
 
-.services-note {
-  margin-top: 3.5rem;
-  padding: 1.5rem 1.5rem 1.5rem 0;
-  border-right: 2px solid var(--red);
+/* ── PHOTOGRAPHY ── */
+#photography {
+  padding: 8rem 0 8rem;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.photo-header {
+  padding: 0 2rem 3.5rem;
+}
+
+.photo-headline {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-weight: 900;
+  font-size: clamp(2.2rem, 8vw, 4.2rem);
   direction: rtl;
+  line-height: 0.95;
+  margin-bottom: 1.2rem;
 }
 
-.services-note p {
-  font-size: 0.79rem;
-  color: #333;
+.photo-desc {
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: var(--dim);
   line-height: 1.9;
+  direction: rtl;
+  max-width: 440px;
 }
 
-.services-note strong { color: var(--red); font-weight: 700; }
-
-/* ── MOMENTS ── */
-#moments {
-  background: #060606;
-  border-top: 1px solid var(--line);
-  padding-top: 6rem;
-  padding-bottom: 6rem;
-}
-
-.moments-header {
-  padding: 0 2rem 3rem;
-}
-
-.moments-scroll {
+.photo-strip {
   display: flex;
   gap: 2px;
   overflow-x: auto;
@@ -427,144 +442,67 @@ h1.hero-name .gold { color: var(--gold); }
   cursor: grab;
 }
 
-.moments-scroll:active { cursor: grabbing; }
-.moments-scroll::-webkit-scrollbar { display: none; }
+.photo-strip:active { cursor: grabbing; }
+.photo-strip::-webkit-scrollbar { display: none; }
 
-.moment-card {
+.photo-card {
   flex-shrink: 0;
   width: 54vw;
   max-width: 300px;
   aspect-ratio: 3 / 4;
   position: relative;
   overflow: hidden;
-  background: #111;
+  background: #c9c0b0;
 }
 
-.moment-card img {
+.photo-card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: grayscale(25%) contrast(1.08);
+  filter: contrast(1.04);
   transition: transform 0.7s cubic-bezier(0.22,1,0.36,1);
   will-change: transform;
 }
 
-.moment-card:hover img { transform: scale(1.06); }
+.photo-card:hover img { transform: scale(1.05); }
 
-.moment-overlay {
+.photo-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.1) 50%, transparent 100%);
+  background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 55%);
 }
 
-.moment-label {
+.photo-label {
   position: absolute;
-  bottom: 1.1rem;
+  bottom: 1rem;
   right: 1rem;
   font-family: 'Frank Ruhl Libre', serif;
   font-weight: 900;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   color: #fff;
-  direction: rtl;
-  text-shadow: 0 2px 12px rgba(0,0,0,0.6);
-}
-
-.moment-en {
-  position: absolute;
-  bottom: 1.1rem;
-  left: 1rem;
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
-  font-size: 0.62rem;
-  color: rgba(255,255,255,0.35);
-  letter-spacing: 0.06em;
-  direction: ltr;
-}
-
-/* ── PHILOSOPHY ── */
-#philosophy {
-  padding: 9rem 2rem;
-  border-top: 1px solid var(--line);
-  max-width: 680px;
-  margin: 0 auto;
-}
-
-.philosophy-eyebrow {
-  font-size: 0.5rem;
-  letter-spacing: 0.48em;
-  color: #282828;
-  text-transform: uppercase;
-  direction: ltr;
-  margin-bottom: 3.5rem;
-}
-
-blockquote.manifesto-quote {
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
-  font-size: clamp(1.7rem, 5.5vw, 2.7rem);
-  line-height: 1.5;
-  color: var(--cream);
-  direction: rtl;
-  border-right: 3px solid var(--red);
-  padding-right: 2rem;
-  margin-bottom: 3.5rem;
-}
-
-.manifesto-body {
-  font-size: 0.92rem;
-  font-weight: 300;
-  color: #363636;
-  line-height: 2.1;
   direction: rtl;
 }
 
 /* ── SHEGAON ── */
 #shegaon {
-  background: #050505;
-  border-top: 1px solid var(--line);
+  padding: 8rem 2rem;
   border-bottom: 1px solid var(--line);
-  padding: 7rem 2rem;
   position: relative;
   overflow: hidden;
 }
 
-.shegaon-img-bg {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-}
-
-.shegaon-img-bg img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.07;
-  filter: grayscale(100%) contrast(1.2);
-}
-
 .shegaon-bg-word {
   position: absolute;
-  bottom: -4rem;
+  bottom: -5rem;
   left: -1rem;
   font-family: 'Frank Ruhl Libre', serif;
   font-weight: 900;
-  font-size: 48vw;
+  font-size: 52vw;
   color: rgba(168,24,24,0.04);
   pointer-events: none;
   user-select: none;
   line-height: 1;
   direction: ltr;
-}
-
-.shegaon-inner { position: relative; z-index: 2; }
-
-.shegaon-tag {
-  font-size: 0.5rem;
-  letter-spacing: 0.48em;
-  color: var(--red);
-  text-transform: uppercase;
-  direction: ltr;
-  margin-bottom: 2.2rem;
 }
 
 .shegaon-title {
@@ -573,50 +511,233 @@ blockquote.manifesto-quote {
   font-size: clamp(5.5rem, 24vw, 11rem);
   line-height: 0.8;
   direction: rtl;
-  color: var(--cream);
+  color: var(--ink);
+  position: relative;
 }
 
 .shegaon-sub {
   font-family: 'Playfair Display', serif;
   font-style: italic;
   font-size: 0.84rem;
-  color: #2a2a2a;
+  color: var(--muted);
   direction: ltr;
-  margin-top: 0.9rem;
-  margin-bottom: 3rem;
+  margin-top: 1rem;
+  margin-bottom: 2.8rem;
+  position: relative;
 }
 
 .shegaon-desc {
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   font-weight: 300;
-  color: #383838;
+  color: var(--dim);
   line-height: 2;
   direction: rtl;
-  max-width: 480px;
-  margin-bottom: 3.5rem;
+  max-width: 460px;
+  margin-bottom: 3rem;
+  position: relative;
 }
 
-.shegaon-link {
+.link-red {
   display: inline-flex;
   align-items: center;
-  gap: 1rem;
-  font-size: 0.66rem;
+  gap: 0.8rem;
+  font-size: 0.65rem;
   letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--red);
   direction: ltr;
   padding-bottom: 0.4rem;
-  border-bottom: 1px solid #1a1a1a;
+  border-bottom: 1px solid rgba(168,24,24,0.2);
   transition: border-color 0.25s, gap 0.3s;
+  position: relative;
 }
 
-.shegaon-link:hover { border-color: var(--red); gap: 1.5rem; }
+.link-red:hover { border-color: var(--red); gap: 1.3rem; }
+
+/* ── AI / APPS ── */
+#ai-apps {
+  padding: 8rem 2rem;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.ai-headline {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-weight: 900;
+  font-size: clamp(2.2rem, 8vw, 4.2rem);
+  direction: rtl;
+  line-height: 0.95;
+  margin-bottom: 1.2rem;
+}
+
+.ai-desc {
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: var(--dim);
+  line-height: 1.9;
+  direction: rtl;
+  max-width: 460px;
+  margin-bottom: 3rem;
+}
+
+.apps-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+
+.app-card {
+  display: block;
+  background: var(--bg);
+  padding: 2rem 1.5rem;
+  direction: rtl;
+  border-right: 2px solid transparent;
+  transition: border-color 0.3s, background 0.3s;
+}
+
+.app-card:hover {
+  background: #e8e1cf;
+  border-right-color: var(--gold);
+}
+
+.app-num {
+  font-size: 0.56rem;
+  letter-spacing: 0.32em;
+  color: var(--gold);
+  direction: ltr;
+  margin-bottom: 0.9rem;
+}
+
+.app-name {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 0.4rem;
+  color: var(--ink);
+}
+
+.app-desc {
+  font-size: 0.78rem;
+  font-weight: 300;
+  color: var(--dim);
+  line-height: 1.75;
+}
+
+/* ── PERSONAL GUIDANCE ── */
+#guidance {
+  padding: 8rem 2rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.guidance-headline {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-weight: 900;
+  font-size: clamp(2.2rem, 8vw, 4.2rem);
+  direction: rtl;
+  line-height: 0.95;
+  margin-bottom: 1.2rem;
+}
+
+.guidance-desc {
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: var(--dim);
+  line-height: 1.9;
+  direction: rtl;
+  max-width: 440px;
+  margin-bottom: 3.5rem;
+}
+
+.gs-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 2rem 0;
+  border-top: 1px solid var(--line);
+  direction: rtl;
+}
+
+.gs-row:last-of-type { border-bottom: 1px solid var(--line); }
+
+.gs-num {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 0.72rem;
+  color: var(--gold);
+  min-width: 24px;
+  flex-shrink: 0;
+  padding-top: 0.15rem;
+  direction: ltr;
+}
+
+.gs-name {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-weight: 700;
+  font-size: clamp(1.4rem, 4vw, 1.8rem);
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+
+.gs-desc {
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: var(--dim);
+  line-height: 1.75;
+}
+
+.guidance-note {
+  margin-top: 3rem;
+  padding: 1.4rem 1.4rem 1.4rem 0;
+  border-right: 2px solid var(--red);
+  direction: rtl;
+}
+
+.guidance-note p { font-size: 0.8rem; color: var(--dim); line-height: 1.9; }
+.guidance-note strong { color: var(--red); font-weight: 700; }
+
+/* ── PHILOSOPHY (dark band) ── */
+#philosophy {
+  padding: 9rem 2rem;
+  background: var(--ink);
+  border-top: none;
+}
+
+.manifesto-eyebrow {
+  font-size: 0.48rem;
+  letter-spacing: 0.5em;
+  color: rgba(246,242,233,0.25);
+  text-transform: uppercase;
+  direction: ltr;
+  margin-bottom: 3.5rem;
+}
+
+blockquote.manifesto-quote {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(1.8rem, 5.5vw, 2.8rem);
+  line-height: 1.5;
+  color: var(--bg);
+  direction: rtl;
+  border-right: 3px solid var(--red);
+  padding-right: 2rem;
+  margin-bottom: 3rem;
+  max-width: 680px;
+}
+
+.manifesto-body {
+  font-size: 0.92rem;
+  font-weight: 300;
+  color: rgba(246,242,233,0.35);
+  line-height: 2.1;
+  direction: rtl;
+  max-width: 560px;
+}
 
 /* ── CONTACT ── */
 #contact {
   padding: 9rem 2rem 7rem;
   border-top: 1px solid var(--line);
-  background: #040404;
   position: relative;
   overflow: hidden;
 }
@@ -628,22 +749,11 @@ blockquote.manifesto-quote {
   font-family: 'Frank Ruhl Libre', serif;
   font-weight: 900;
   font-size: 68vw;
-  color: rgba(255,255,255,0.009);
+  color: rgba(176,124,20,0.05);
   pointer-events: none;
   user-select: none;
   line-height: 1;
   direction: rtl;
-}
-
-.contact-inner { position: relative; z-index: 2; }
-
-.contact-tag {
-  font-size: 0.5rem;
-  letter-spacing: 0.48em;
-  color: #2a2a2a;
-  text-transform: uppercase;
-  direction: ltr;
-  margin-bottom: 2.2rem;
 }
 
 .contact-headline {
@@ -653,63 +763,64 @@ blockquote.manifesto-quote {
   line-height: 0.8;
   direction: rtl;
   margin-bottom: 1.8rem;
+  position: relative;
 }
 
 .contact-sub {
   font-size: 0.92rem;
   font-weight: 300;
-  color: var(--warm);
+  color: var(--dim);
   line-height: 1.9;
   direction: rtl;
   margin-bottom: 3.5rem;
   max-width: 360px;
+  position: relative;
 }
 
 .contact-rule {
   height: 1px;
   background: var(--line);
   margin-bottom: 3rem;
-  max-width: 420px;
+  max-width: 400px;
+  position: relative;
 }
 
 .contact-wa {
   display: inline-flex;
   align-items: center;
   gap: 1rem;
-  background: rgba(22,50,22,0.6);
+  background: #1a3a1a;
   border: 1px solid rgba(111,207,122,0.12);
   color: #6fcf7a;
-  padding: 1.1rem 2.6rem;
+  padding: 1.1rem 2.4rem;
   font-family: 'Assistant', sans-serif;
   font-weight: 600;
   font-size: 0.88rem;
   letter-spacing: 0.04em;
   direction: rtl;
   transition: background 0.25s, border-color 0.25s;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1rem;
+  position: relative;
 }
 
-.contact-wa:hover {
-  background: rgba(26,58,26,0.8);
-  border-color: rgba(111,207,122,0.28);
-}
+.contact-wa:hover { background: rgba(26,58,26,0.9); border-color: rgba(111,207,122,0.28); }
 
 .contact-phone {
   display: block;
   font-size: 0.76rem;
-  color: #242424;
+  color: var(--muted);
   letter-spacing: 0.22em;
   direction: ltr;
-  margin-top: 0.5rem;
   transition: color 0.25s;
+  position: relative;
 }
 
 .contact-phone:hover { color: var(--dim); }
 
 .contact-area {
   margin-top: 6rem;
-  font-size: 0.58rem;
-  color: #181818;
+  font-size: 0.56rem;
+  color: var(--muted);
   letter-spacing: 0.38em;
   text-transform: uppercase;
   direction: ltr;
@@ -721,14 +832,14 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 1px solid #0d0d0d;
+  border-top: 1px solid var(--line);
   direction: ltr;
 }
 
 .footer-l, .footer-r {
-  font-size: 0.58rem;
+  font-size: 0.56rem;
   letter-spacing: 0.28em;
-  color: #1c1c1c;
+  color: var(--muted);
   text-transform: uppercase;
 }
 
@@ -753,24 +864,28 @@ footer {
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
 .d1 { transition-delay: 0.08s; }
-.d2 { transition-delay: 0.16s; }
-.d3 { transition-delay: 0.24s; }
-.d4 { transition-delay: 0.34s; }
+.d2 { transition-delay: 0.18s; }
+.d3 { transition-delay: 0.28s; }
+.d4 { transition-delay: 0.38s; }
 
 /* ── MOBILE ── */
 @media (max-width: 500px) {
   nav { padding: 0 1.3rem; }
-  .nav-links { gap: 1.2rem; }
+  .nav-links { gap: 1rem; }
+  .nav-links a { font-size: 0.62rem; }
 
-  #hero { padding: 0 1.3rem 3.5rem; }
+  #hero  { padding: 0 1.3rem 3.5rem; }
+  #worlds, #shegaon, #ai-apps, #guidance, #philosophy, #contact {
+    padding-left: 1.3rem; padding-right: 1.3rem;
+  }
+  .photo-header { padding-left: 1.3rem; padding-right: 1.3rem; }
+  .photo-strip  { padding-left: 1.3rem; padding-right: 1.3rem; }
 
-  #services, #moments, #shegaon, #contact { padding-left: 1.3rem; padding-right: 1.3rem; }
-  .moments-header { padding-left: 1.3rem; padding-right: 1.3rem; }
-  .moments-scroll { padding-left: 1.3rem; padding-right: 1.3rem; }
+  .world-row::after { right: -1.3rem; left: -1.3rem; }
 
-  #philosophy { padding-left: 1.3rem; padding-right: 1.3rem; }
+  .apps-grid { grid-template-columns: 1fr; }
 
-  .contact-wa { padding-left: 1.5rem; padding-right: 1.5rem; width: 100%; justify-content: center; }
+  .contact-wa { width: 100%; justify-content: center; }
 
   footer { padding: 1.4rem 1.3rem; }
 }
@@ -782,37 +897,46 @@ footer {
 <nav>
   <a href="#hero" class="nav-logo">אילן <em>לוי</em></a>
   <div class="nav-links">
-    <a href="#services">שירותים</a>
+    <a href="#worlds">עולמות</a>
+    <a href="#photography">צילום</a>
     <a href="#shegaon">שגאון</a>
+    <a href="#ai-apps">אפליקציות</a>
     <a href="#contact" class="nav-cta">קשר</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section id="hero">
-  <div class="hero-bg-letter" aria-hidden="true">א</div>
+  <div class="hero-bg-letter" aria-hidden="true">י</div>
 
-  <div class="hero-eyebrow">— Personal Companion · Human Connection —</div>
+  <div class="hero-tag-row">
+    <span class="hero-tag-item">צילום</span>
+    <span class="hero-tag-sep">·</span>
+    <span class="hero-tag-item">תודעה</span>
+    <span class="hero-tag-sep">·</span>
+    <span class="hero-tag-item">טכנולוגיה</span>
+    <span class="hero-tag-sep">·</span>
+    <span class="hero-tag-item">קשר אנושי</span>
+  </div>
 
-  <h1 class="hero-name">
-    אילן<br>
-    <span class="gold">לוי</span>
+  <h1 class="hero-headline">
+    יש סיפורים שאי אפשר<br>להסביר.<br>
+    <em>אפשר רק להרגיש.</em>
   </h1>
 
   <div class="hero-rule" aria-hidden="true"></div>
 
-  <div class="hero-caption">
-    <p>ליווי וקשר אנושי.<br>נוכחות, הקשבה, פשוט להיות שם.</p>
-    <p class="en-sub">Presence. Listening. Simply being there.</p>
-  </div>
+  <p class="hero-desc">
+    המרחב האישי של אילן לוי — מקום שבו צילום, יצירה, ליווי ואינטליגנציה מלאכותית נפגשים בשפה אנושית אחת.
+  </p>
 
   <div class="hero-actions">
-    <a href="#contact" class="btn-gold">דברו איתי</a>
-    <a href="#services" class="btn-outline">מה אני מציע</a>
+    <a href="#worlds" class="btn-dark">לגלות את העולמות</a>
+    <a href="#contact" class="btn-outline">יצירת קשר</a>
   </div>
 
   <div class="hero-meta">
-    <span class="hero-location">Ramat HaSharon · Area</span>
+    <span class="hero-meta-loc">Ramat HaSharon · Israel</span>
     <span class="hero-scroll-hint">Scroll</span>
   </div>
 </section>
@@ -820,169 +944,235 @@ footer {
 <!-- TICKER -->
 <div class="ticker" aria-hidden="true">
   <div class="ticker-inner">
+    <span class="ticker-item">Photography</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Shagaon</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Artificial Intelligence</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Personal Guidance</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">צילום</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">שגאון</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">בינה מלאכותית</span><span class="ticker-sep">·</span>
     <span class="ticker-item">ליווי אישי</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">Personal Companionship</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">קשר אנושי</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">Human Connection</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">נוכחות</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">Presence</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">הקשבה</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">Listening</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Photography</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Shagaon</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Artificial Intelligence</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Personal Guidance</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">צילום</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">שגאון</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">בינה מלאכותית</span><span class="ticker-sep">·</span>
     <span class="ticker-item">ליווי אישי</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">Personal Companionship</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">קשר אנושי</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">Human Connection</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">נוכחות</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">Presence</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">הקשבה</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">Listening</span><span class="ticker-sep">·</span>
   </div>
 </div>
 
-<!-- SERVICES -->
-<section id="services">
-  <header class="services-header">
-    <div class="s-tag reveal">01 — Services</div>
-    <h2 class="s-title reveal d1">מה אני<br>מציע</h2>
-    <p class="s-en reveal d2">What I Offer</p>
+<!-- WORLDS -->
+<section id="worlds">
+  <header class="worlds-header">
+    <div class="s-tag reveal">Core Worlds</div>
+    <h2 class="worlds-title reveal d1">ארבעה עולמות.<br>שפה אחת.</h2>
+    <p class="worlds-en reveal d2">Four Worlds. One Language.</p>
   </header>
 
-  <div class="service-row reveal">
-    <span class="svc-num">01</span>
-    <div class="svc-body">
-      <div class="svc-name">ביקור בבית</div>
-      <div class="svc-desc">מגיע אליך — בלי חפזון, בלי שיפוטיות. הבית שלך, הקצב שלך.</div>
+  <a href="#photography" class="world-row reveal">
+    <span class="world-num">01</span>
+    <div class="world-body">
+      <div class="world-name">צילום</div>
+      <div class="world-desc">לראות רגע לפני שהוא נעלם</div>
+      <div class="world-en">Photography</div>
     </div>
-    <span class="svc-arrow">←</span>
+    <span class="world-arrow">←</span>
+  </a>
+
+  <a href="#shegaon" class="world-row reveal d1">
+    <span class="world-num">02</span>
+    <div class="world-body">
+      <div class="world-name">שגאון</div>
+      <div class="world-desc">המרחב שבין דיכאון לשיגעון</div>
+      <div class="world-en">Shagaon</div>
+    </div>
+    <span class="world-arrow">←</span>
+  </a>
+
+  <a href="#ai-apps" class="world-row reveal d2">
+    <span class="world-num">03</span>
+    <div class="world-body">
+      <div class="world-name">בינה מלאכותית</div>
+      <div class="world-desc">טכנולוגיה שמרגישה אנושית</div>
+      <div class="world-en">Artificial Intelligence</div>
+    </div>
+    <span class="world-arrow">←</span>
+  </a>
+
+  <a href="#guidance" class="world-row reveal d3">
+    <span class="world-num">04</span>
+    <div class="world-body">
+      <div class="world-name">ליווי אישי</div>
+      <div class="world-desc">ליווי שקט בתקופות שינוי</div>
+      <div class="world-en">Personal Guidance</div>
+    </div>
+    <span class="world-arrow">←</span>
+  </a>
+</section>
+
+<!-- PHOTOGRAPHY -->
+<section id="photography">
+  <div class="photo-header">
+    <div class="s-tag reveal">01 — Photography</div>
+    <h2 class="photo-headline reveal d1">כמה רגעים<br>לא צריכים הסבר.</h2>
+    <p class="photo-desc reveal d2">
+      צילום אישי, דוקומנטרי ורגיש.<br>
+      כזה שלא מנסה לצעוק — אלא להישאר.
+    </p>
   </div>
 
-  <div class="service-row reveal d1">
-    <span class="svc-num">02</span>
-    <div class="svc-body">
-      <div class="svc-name">שיחה וקפה</div>
-      <div class="svc-desc">לשבת, לדבר, להקשיב. פשוט ואמיתי — בלי שעון, בלי פרוטוקול.</div>
+  <div class="photo-strip" id="photoStrip">
+    <div class="photo-card">
+      <img src="images/artwork-home.png" alt="בית">
+      <div class="photo-overlay"></div>
+      <div class="photo-label">בית</div>
     </div>
-    <span class="svc-arrow">←</span>
+    <div class="photo-card">
+      <img src="images/artwork-photography.jpg" alt="רגע">
+      <div class="photo-overlay"></div>
+      <div class="photo-label">רגע</div>
+    </div>
+    <div class="photo-card">
+      <img src="images/artwork-depression.jpg" alt="דכאון">
+      <div class="photo-overlay"></div>
+      <div class="photo-label">דכאון</div>
+    </div>
+    <div class="photo-card">
+      <img src="images/artwork-madness.jpg" alt="שגאון">
+      <div class="photo-overlay"></div>
+      <div class="photo-label">שגאון</div>
+    </div>
+  </div>
+</section>
+
+<!-- SHEGAON -->
+<section id="shegaon">
+  <div class="shegaon-bg-word" aria-hidden="true">שג</div>
+
+  <div class="s-tag red reveal">02 — Creative Project</div>
+  <h2 class="shegaon-title reveal d1">שגאון</h2>
+  <p class="shegaon-sub reveal d2">Shegaon · A Personal Journey</p>
+  <p class="shegaon-desc reveal d3">
+    מסע אישי בין שני עולמות — דרך מצלמה ומקלדת.<br>
+    המרחב שבין הדיכאון השקט לשגעון הרועש.<br>
+    כל תמונה עמוד. כל מילה שאלה.
+  </p>
+  <a href="app.html" class="link-red reveal d4">לפרויקט ←</a>
+</section>
+
+<!-- AI / APPS -->
+<section id="ai-apps">
+  <div class="s-tag reveal">03 — Technology</div>
+  <h2 class="ai-headline reveal d1">טכנולוגיה<br>שמרגישה אנושית.</h2>
+  <p class="ai-desc reveal d2">
+    כלים שבנויים מתוך הצורך האנושי — לא מתוך הטכנולוגיה.<br>
+    בינה מלאכותית שמקשיבה, זוכרת, ומלווה.
+  </p>
+
+  <div class="apps-grid reveal d3">
+    <a href="chat.html" class="app-card">
+      <div class="app-num">01</div>
+      <div class="app-name">לב — שיחה</div>
+      <div class="app-desc">חבר שמקשיב, זמין תמיד, בלי שיפוטיות</div>
+    </a>
+    <a href="assistant.html" class="app-card">
+      <div class="app-num">02</div>
+      <div class="app-name">עוזר קולי</div>
+      <div class="app-desc">הקלטת משימות ורעיונות בקול</div>
+    </a>
+    <a href="app.html" class="app-card">
+      <div class="app-num">03</div>
+      <div class="app-name">עוזר חכם</div>
+      <div class="app-desc">לוח משימות עם בינה מלאכותית</div>
+    </a>
+    <a href="projects.html" class="app-card">
+      <div class="app-num">04</div>
+      <div class="app-name">כל הפרויקטים</div>
+      <div class="app-desc">מפת כל העולמות והכלים</div>
+    </a>
+  </div>
+</section>
+
+<!-- PERSONAL GUIDANCE -->
+<section id="guidance">
+  <div class="s-tag reveal">04 — Personal Guidance</div>
+  <h2 class="guidance-headline reveal d1">ליווי שקט<br>בתקופות שינוי.</h2>
+  <p class="guidance-desc reveal d2">
+    אין פרוטוקול. אין שעון. אין שיפוטיות.<br>
+    רק נוכחות אנושית אמיתית — בקצב שלך.
+  </p>
+
+  <div class="gs-row reveal">
+    <span class="gs-num">01</span>
+    <div>
+      <div class="gs-name">ביקור בבית</div>
+      <div class="gs-desc">מגיע אליך — בלי חפזון, בלי שיפוטיות</div>
+    </div>
+  </div>
+  <div class="gs-row reveal d1">
+    <span class="gs-num">02</span>
+    <div>
+      <div class="gs-name">שיחה וקפה</div>
+      <div class="gs-desc">לשבת, לדבר, להקשיב. פשוט ואמיתי</div>
+    </div>
+  </div>
+  <div class="gs-row reveal d2">
+    <span class="gs-num">03</span>
+    <div>
+      <div class="gs-name">טיול ביחד</div>
+      <div class="gs-desc">צעד אחרי צעד, בקצב שלך בלבד</div>
+    </div>
+  </div>
+  <div class="gs-row reveal d3">
+    <span class="gs-num">04</span>
+    <div>
+      <div class="gs-name">משחק שחמט</div>
+      <div class="gs-desc">כי לפעמים המוח צריך עניין</div>
+    </div>
   </div>
 
-  <div class="service-row reveal d2">
-    <span class="svc-num">03</span>
-    <div class="svc-body">
-      <div class="svc-name">טיול ביחד</div>
-      <div class="svc-desc">צעד אחרי צעד. ברוח, בשמש, בשקט. בקצב שלך בלבד.</div>
-    </div>
-    <span class="svc-arrow">←</span>
-  </div>
-
-  <div class="service-row reveal d3">
-    <span class="svc-num">04</span>
-    <div class="svc-body">
-      <div class="svc-name">משחק שחמט</div>
-      <div class="svc-desc">כי לפעמים המוח צריך עניין, אתגר, ושותף שמכיר את המשחק.</div>
-    </div>
-    <span class="svc-arrow">←</span>
-  </div>
-
-  <div class="services-note reveal">
+  <div class="guidance-note reveal">
     <p><strong>חשוב לדעת:</strong> אני לא רופא ולא מטפל רפואי. אני איש של אנשים — של שיחה, של נוכחות, של קשר אנושי אמיתי.</p>
   </div>
 </section>
 
-<!-- MOMENTS -->
-<div id="moments">
-  <div class="moments-header">
-    <div class="s-tag reveal">02 — Moments</div>
-    <h2 class="s-title reveal d1" style="font-size: clamp(2.2rem, 8.5vw, 4rem);">מתי אני<br>יכול לעזור</h2>
-  </div>
-
-  <div class="moments-scroll" id="momentsScroll">
-    <div class="moment-card">
-      <img src="images/artwork-home.png" alt="בית">
-      <div class="moment-overlay"></div>
-      <div class="moment-label">בית</div>
-      <div class="moment-en">Home Visit</div>
-    </div>
-    <div class="moment-card">
-      <img src="images/artwork-photography.jpg" alt="רגעים">
-      <div class="moment-overlay"></div>
-      <div class="moment-label">רגעים</div>
-      <div class="moment-en">Moments</div>
-    </div>
-    <div class="moment-card">
-      <img src="images/artwork-depression.jpg" alt="דכאון">
-      <div class="moment-overlay"></div>
-      <div class="moment-label">דכאון</div>
-      <div class="moment-en">Depression</div>
-    </div>
-    <div class="moment-card">
-      <img src="images/artwork-madness.jpg" alt="שגאון">
-      <div class="moment-overlay"></div>
-      <div class="moment-label">שגאון</div>
-      <div class="moment-en">Madness</div>
-    </div>
-  </div>
-</div>
-
-<!-- PHILOSOPHY -->
+<!-- PHILOSOPHY — dark band -->
 <section id="philosophy">
-  <div class="philosophy-eyebrow reveal">03 — Philosophy</div>
-
+  <div class="manifesto-eyebrow reveal">Philosophy</div>
   <blockquote class="manifesto-quote reveal d1">
     "כי כולם צריכים מישהו שם בשבילם —<br>
     נוכח, מקשיב, לא שופט."
   </blockquote>
-
   <p class="manifesto-body reveal d2">
-    אני מגיע אליך הביתה.<br>
-    שותה איתך קפה. הולך איתך לטיול.<br>
+    אני מגיע אליך הביתה. שותה איתך קפה. הולך איתך לטיול.<br>
     מקשיב לסיפורי החיים שלך, לרגשות, לכל מה שחשוב לך.<br><br>
     אין חפזון. אין שיפוטיות.<br>
     רק נוכחות אנושית אמיתית.
   </p>
 </section>
 
-<!-- SHEGAON -->
-<section id="shegaon">
-  <div class="shegaon-img-bg" aria-hidden="true">
-    <img src="images/artwork-madness.jpg" alt="">
-  </div>
-  <div class="shegaon-bg-word" aria-hidden="true">שג</div>
-
-  <div class="shegaon-inner">
-    <div class="shegaon-tag reveal">04 — Creative Project</div>
-    <h2 class="shegaon-title reveal d1">שגאון</h2>
-    <p class="shegaon-sub reveal d2">Shegaon · A Personal Journey</p>
-    <p class="shegaon-desc reveal d3">
-      מסע אישי בין שני עולמות — דרך מצלמה ומקלדת.<br>
-      המרחב שבין הדיכאון השקט לשגעון הרועש.<br>
-      כל תמונה עמוד. כל מילה שאלה.
-    </p>
-    <a href="app.html" class="shegaon-link reveal d4">לפרויקט ←</a>
-  </div>
-</section>
-
 <!-- CONTACT -->
 <section id="contact">
   <div class="contact-bg-letter" aria-hidden="true">ק</div>
-  <div class="contact-inner">
-    <div class="contact-tag reveal">05 — Contact</div>
-    <h2 class="contact-headline reveal d1">בואו<br>נדבר</h2>
-    <p class="contact-sub reveal d2">
-      רמת השרון והסביבה<br>
-      זמין לשיחה ולפגישה ראשונה
-    </p>
-    <div class="contact-rule reveal d3"></div>
-    <div class="reveal d3">
-      <a href="https://wa.me/972500000000" class="contact-wa">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-        </svg>
-        שלח הודעה בוואטסאפ
-      </a>
-      <a href="tel:0500000000" class="contact-phone">050-000-0000</a>
-    </div>
-    <div class="contact-area">Ramat HaSharon · Israel</div>
+  <div class="s-tag muted reveal" style="position:relative;">05 — Contact</div>
+  <h2 class="contact-headline reveal d1">בואו<br>נדבר</h2>
+  <p class="contact-sub reveal d2">
+    רמת השרון והסביבה<br>
+    זמין לשיחה ולפגישה ראשונה
+  </p>
+  <div class="contact-rule reveal d3"></div>
+  <div class="reveal d3" style="position:relative;">
+    <a href="https://wa.me/972500000000" class="contact-wa">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+      </svg>
+      שלח הודעה בוואטסאפ
+    </a>
+    <a href="tel:0500000000" class="contact-phone">050-000-0000</a>
   </div>
+  <div class="contact-area">Ramat HaSharon · Israel</div>
 </section>
 
 <!-- FOOTER -->
@@ -1004,8 +1194,8 @@ const io = new IntersectionObserver(entries => {
 
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-// Drag-to-scroll (moments strip)
-const strip = document.getElementById('momentsScroll');
+// Drag-to-scroll (photo strip)
+const strip = document.getElementById('photoStrip');
 let down = false, startX, scrollL;
 
 strip.addEventListener('mousedown', e => {
