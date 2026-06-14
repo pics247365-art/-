@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>עזרה עכשיו — אילן לוי</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700;900&family=Assistant:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:    #0a0a0a;
+      --cream: #e8e0d0;
+      --gold:  #c49a2a;
+      --red:   #a81818;
+      --warm:  #c8a97a;
+    }
+
+    html, body {
+      background: var(--bg);
+      color: var(--cream);
+      font-family: 'Assistant', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* grain */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(10,10,10,0.95);
+      border-bottom: 1px solid rgba(196,154,42,0.15);
+    }
+
+    nav a {
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 0.9rem;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    nav a:hover { opacity: 1; }
+    nav .logo {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-weight: 900;
+      color: var(--gold);
+      font-size: 1.1rem;
+      opacity: 1;
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    /* ── SCREENS ── */
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    /* ── HOME ── */
+    #screen-home {
+      text-align: center;
+      padding-top: 2rem;
+    }
+
+    .home-title {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-weight: 900;
+      font-size: clamp(2.2rem, 8vw, 3.5rem);
+      line-height: 1.1;
+      color: var(--cream);
+      margin-bottom: 0.5rem;
+    }
+
+    .home-sub {
+      color: var(--warm);
+      font-size: 1.1rem;
+      margin-bottom: 2.5rem;
+      opacity: 0.85;
+    }
+
+    /* mood selector */
+    .mood-label {
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .mood-row {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .mood-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 0.9rem 1rem;
+      cursor: pointer;
+      color: var(--cream);
+      font-family: 'Assistant', sans-serif;
+      font-size: 0.8rem;
+      min-width: 70px;
+      transition: all 0.2s;
+    }
+    .mood-btn:hover { border-color: var(--gold); transform: translateY(-2px); }
+    .mood-btn .emoji { font-size: 1.8rem; }
+    .mood-btn[data-level="1"] { --c: #4caf50; }
+    .mood-btn[data-level="2"] { --c: #8bc34a; }
+    .mood-btn[data-level="3"] { --c: #ffc107; }
+    .mood-btn[data-level="4"] { --c: #ff7043; }
+    .mood-btn[data-level="5"] { --c: #a81818; }
+    .mood-btn.selected { border-color: var(--c); background: rgba(255,255,255,0.08); }
+
+    /* big action buttons */
+    .action-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .action-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 1.4rem 1rem;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.25s;
+      font-family: 'Assistant', sans-serif;
+    }
+    .action-card:hover { transform: translateY(-3px); border-color: var(--gold); }
+    .action-card .icon { font-size: 2rem; margin-bottom: 0.5rem; }
+    .action-card .label { font-size: 0.95rem; color: var(--cream); font-weight: 600; }
+    .action-card .desc { font-size: 0.78rem; color: var(--warm); margin-top: 0.2rem; opacity: 0.8; }
+    .action-card.crisis-card { grid-column: 1 / -1; border-color: var(--red); background: rgba(168,24,24,0.08); }
+    .action-card.crisis-card:hover { background: rgba(168,24,24,0.15); }
+    .action-card.crisis-card .label { color: #ff6b6b; font-size: 1.1rem; }
+
+    /* ── BREATHING ── */
+    #screen-breath {
+      text-align: center;
+      padding-top: 1rem;
+    }
+
+    .breath-title {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-weight: 700;
+      font-size: 1.8rem;
+      margin-bottom: 0.3rem;
+    }
+    .breath-sub { color: var(--warm); font-size: 0.95rem; margin-bottom: 2.5rem; }
+
+    .breath-circle-wrap {
+      position: relative;
+      width: 220px;
+      height: 220px;
+      margin: 0 auto 2rem;
+    }
+
+    .breath-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 3px solid var(--gold);
+      opacity: 0.3;
+    }
+
+    .breath-circle {
+      position: absolute;
+      inset: 20px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(196,154,42,0.2), rgba(196,154,42,0.05));
+      border: 2px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.1s linear;
+    }
+
+    .breath-text {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--gold);
+      text-align: center;
+    }
+
+    .breath-phase {
+      font-size: 1.3rem;
+      color: var(--cream);
+      margin-bottom: 0.3rem;
+      min-height: 2rem;
+      font-weight: 600;
+    }
+
+    .breath-count {
+      font-size: 3rem;
+      color: var(--gold);
+      font-family: 'Frank Ruhl Libre', serif;
+      font-weight: 900;
+      min-height: 4rem;
+      line-height: 1;
+    }
+
+    .breath-cycle-info {
+      font-size: 0.85rem;
+      color: var(--warm);
+      opacity: 0.7;
+      margin-bottom: 2rem;
+    }
+
+    /* ── CRISIS PANEL ── */
+    #screen-crisis {
+      text-align: center;
+      padding-top: 1rem;
+    }
+
+    .crisis-title {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-weight: 900;
+      font-size: 2rem;
+      color: #ff6b6b;
+      margin-bottom: 0.5rem;
+    }
+    .crisis-sub { color: var(--warm); margin-bottom: 2rem; font-size: 1rem; }
+
+    .crisis-step {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 1rem;
+      text-align: right;
+    }
+    .crisis-step .step-num {
+      font-size: 0.75rem;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.3rem;
+    }
+    .crisis-step .step-text {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .crisis-step .step-desc { font-size: 0.85rem; color: var(--warm); opacity: 0.8; }
+
+    .crisis-phones {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+      margin: 1.5rem 0;
+    }
+
+    .phone-card {
+      background: rgba(168,24,24,0.1);
+      border: 1px solid rgba(168,24,24,0.3);
+      border-radius: 12px;
+      padding: 1rem;
+      text-decoration: none;
+      color: var(--cream);
+      transition: all 0.2s;
+    }
+    .phone-card:hover { background: rgba(168,24,24,0.2); }
+    .phone-card .ph-org { font-size: 0.75rem; color: var(--warm); margin-bottom: 0.2rem; }
+    .phone-card .ph-num { font-size: 1.4rem; font-weight: 700; color: #ff9999; }
+
+    /* ── CALM ── */
+    #screen-calm {
+      text-align: center;
+      padding-top: 1.5rem;
+    }
+
+    .calm-card {
+      background: rgba(196,154,42,0.06);
+      border: 1px solid rgba(196,154,42,0.2);
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      margin-bottom: 1.5rem;
+      min-height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .calm-quote {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: clamp(1.2rem, 4vw, 1.6rem);
+      font-weight: 700;
+      line-height: 1.6;
+      color: var(--cream);
+    }
+
+    /* ── CONTACT ── */
+    #screen-contact {
+      text-align: center;
+      padding-top: 1.5rem;
+    }
+
+    .contact-title {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-weight: 900;
+      font-size: 1.8rem;
+      margin-bottom: 0.4rem;
+    }
+    .contact-sub { color: var(--warm); margin-bottom: 2rem; font-size: 0.95rem; }
+
+    .contact-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      text-align: right;
+    }
+    .contact-name {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 0.2rem;
+    }
+    .contact-desc { font-size: 0.85rem; color: var(--warm); margin-bottom: 1rem; }
+
+    /* ── SHARED BUTTONS ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      border-radius: 8px;
+      font-family: 'Assistant', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      transition: all 0.2s;
+      width: 100%;
+    }
+    .btn-gold { background: var(--gold); color: #0a0a0a; }
+    .btn-gold:hover { background: #d4aa3a; }
+    .btn-ghost { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: var(--cream); }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+    .btn-red { background: var(--red); color: var(--cream); }
+    .btn-red:hover { background: #c01e1e; }
+    .btn-wa { background: #25d366; color: #fff; }
+    .btn-wa:hover { background: #1eb856; }
+    .btn-sm { padding: 0.6rem 1.2rem; font-size: 0.9rem; width: auto; }
+    .btn + .btn { margin-top: 0.7rem; }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: none;
+      border: none;
+      color: var(--warm);
+      cursor: pointer;
+      font-family: 'Assistant', sans-serif;
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+      padding: 0;
+    }
+    .back-btn:hover { color: var(--gold); }
+
+    .divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      margin: 1.5rem 0;
+    }
+
+    /* breathing animation classes */
+    @keyframes expand { from { transform: scale(1); } to { transform: scale(1.18); } }
+    @keyframes contract { from { transform: scale(1.18); } to { transform: scale(1); } }
+    .breath-expanding { animation: expand linear forwards; }
+    .breath-contracting { animation: contract linear forwards; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">אילן לוי</a>
+  <a href="index.html#contact">חזרה לאתר</a>
+</nav>
+
+<main>
+
+  <!-- ══ HOME ══ -->
+  <div id="screen-home" class="screen active">
+    <h1 class="home-title">עכשיו קשה לי.</h1>
+    <p class="home-sub">בחר מה אתה צריך עכשיו</p>
+
+    <p class="mood-label">איך אתה מרגיש?</p>
+    <div class="mood-row">
+      <button class="mood-btn" data-level="1"><span class="emoji">😌</span>בסדר</button>
+      <button class="mood-btn" data-level="2"><span class="emoji">😐</span>לא רע</button>
+      <button class="mood-btn" data-level="3"><span class="emoji">😔</span>קשה</button>
+      <button class="mood-btn" data-level="4"><span class="emoji">😰</span>מאוד קשה</button>
+      <button class="mood-btn" data-level="5"><span class="emoji">🆘</span>לא יכול</button>
+    </div>
+
+    <div class="action-grid">
+      <div class="action-card crisis-card" onclick="showScreen('crisis')">
+        <div class="icon">🆘</div>
+        <div class="label">אני במשבר עכשיו</div>
+        <div class="desc">עזרה מיידית + מספרי חירום</div>
+      </div>
+      <div class="action-card" onclick="startBreathing()">
+        <div class="icon">🌬️</div>
+        <div class="label">תרגיל נשימה</div>
+        <div class="desc">2 דקות להרגעה</div>
+      </div>
+      <div class="action-card" onclick="showCalm()">
+        <div class="icon">💛</div>
+        <div class="label">משפטים מרגיעים</div>
+        <div class="desc">דברים שעוזרים לשמוע</div>
+      </div>
+      <div class="action-card" onclick="showScreen('contact')">
+        <div class="icon">🤝</div>
+        <div class="label">לדבר עם אילן</div>
+        <div class="desc">אדם אמיתי, בלי שיפוטיות</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ BREATHING ══ -->
+  <div id="screen-breath" class="screen">
+    <button class="back-btn" onclick="showScreen('home')">← חזרה</button>
+    <h2 class="breath-title">נשימה מרגיעה</h2>
+    <p class="breath-sub">4 ספירות שאיפה · 7 עצירה · 8 נשיפה</p>
+
+    <div class="breath-circle-wrap">
+      <div class="breath-ring"></div>
+      <div id="breathCircle" class="breath-circle">
+        <div class="breath-text" id="breathCenterText">לחץ<br>להתחיל</div>
+      </div>
+    </div>
+
+    <div class="breath-phase" id="breathPhase"></div>
+    <div class="breath-count" id="breathCount"></div>
+    <div class="breath-cycle-info" id="breathCycleInfo"></div>
+
+    <button id="breathStartBtn" class="btn btn-gold" onclick="toggleBreath()">התחל</button>
+    <button class="btn btn-ghost" onclick="showScreen('home')" style="margin-top:0.7rem">חזרה</button>
+  </div>
+
+  <!-- ══ CRISIS ══ -->
+  <div id="screen-crisis" class="screen">
+    <button class="back-btn" onclick="showScreen('home')">← חזרה</button>
+    <h2 class="crisis-title">אתה לא לבד.</h2>
+    <p class="crisis-sub">עזרה זמינה עכשיו — עשה דבר אחד בכל פעם</p>
+
+    <div class="crisis-step">
+      <div class="step-num">צעד ראשון</div>
+      <div class="step-text">קח שלוש נשימות עמוקות</div>
+      <div class="step-desc">שאף לאט — עצור — נשוף לאט. עכשיו.</div>
+    </div>
+
+    <div class="crisis-step">
+      <div class="step-num">צעד שני — קו חירום</div>
+      <div class="step-text">מישהו מחכה לטלפון שלך</div>
+      <div class="step-desc">בחינם, 24/7, סודי לחלוטין</div>
+    </div>
+
+    <div class="crisis-phones">
+      <a href="tel:1201" class="phone-card">
+        <div class="ph-org">ער"ן — קו הסיוע</div>
+        <div class="ph-num">1201</div>
+      </a>
+      <a href="tel:1201" class="phone-card">
+        <div class="ph-org">עזר לנפש</div>
+        <div class="ph-num">1201</div>
+      </a>
+      <a href="tel:101" class="phone-card">
+        <div class="ph-org">מד"א — חירום</div>
+        <div class="ph-num">101</div>
+      </a>
+      <a href="tel:100" class="phone-card">
+        <div class="ph-org">משטרה — חירום</div>
+        <div class="ph-num">100</div>
+      </a>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="crisis-step">
+      <div class="step-num">אפשרות נוספת</div>
+      <div class="step-text">לדבר עם אילן</div>
+      <div class="step-desc">לא רופא — אדם שמקשיב, בלי שיפוטיות</div>
+    </div>
+
+    <a href="https://wa.me/972500000000?text=אני%20צריך%20עזרה%20עכשיו" class="btn btn-wa">
+      💬 וואטסאפ עם אילן עכשיו
+    </a>
+
+    <button class="btn btn-ghost" style="margin-top:0.7rem" onclick="startBreathing()">
+      🌬️ תרגיל נשימה
+    </button>
+  </div>
+
+  <!-- ══ CALM ══ -->
+  <div id="screen-calm" class="screen">
+    <button class="back-btn" onclick="showScreen('home')">← חזרה</button>
+    <h2 style="font-family:'Frank Ruhl Libre',serif;font-weight:900;font-size:1.8rem;margin-bottom:0.3rem">דברים שעוזרים לשמוע</h2>
+    <p style="color:var(--warm);margin-bottom:1.5rem;font-size:0.9rem">לחץ על הכרטיס לדבר הבא</p>
+
+    <div class="calm-card" onclick="nextQuote()" style="cursor:pointer">
+      <p class="calm-quote" id="calmQuote">טוען...</p>
+    </div>
+
+    <p style="font-size:0.78rem;color:var(--warm);opacity:0.6;margin-bottom:1.5rem">לחץ על הכרטיס לעבור הלאה</p>
+
+    <button class="btn btn-gold" onclick="nextQuote()">משפט הבא</button>
+    <button class="btn btn-ghost" style="margin-top:0.7rem" onclick="showScreen('home')">חזרה</button>
+  </div>
+
+  <!-- ══ CONTACT ══ -->
+  <div id="screen-contact" class="screen">
+    <button class="back-btn" onclick="showScreen('home')">← חזרה</button>
+    <h2 class="contact-title">לדבר עם אדם</h2>
+    <p class="contact-sub">לפעמים כל מה שצריך זה מישהו שמקשיב</p>
+
+    <div class="contact-card">
+      <div class="contact-name">אילן לוי</div>
+      <div class="contact-desc">ליווי אישי · רמת השרון והסביבה · לא רופא, לא מטפל — איש של אנשים</div>
+      <a href="https://wa.me/972500000000" class="btn btn-wa">💬 וואטסאפ</a>
+      <a href="tel:0500000000" class="btn btn-ghost" style="margin-top:0.7rem">📞 טלפון</a>
+    </div>
+
+    <hr class="divider" />
+
+    <p style="font-size:0.85rem;color:var(--warm);margin-bottom:1rem;text-align:center">קווי חירום מקצועיים</p>
+    <div class="crisis-phones">
+      <a href="tel:1201" class="phone-card">
+        <div class="ph-org">ער"ן</div>
+        <div class="ph-num">1201</div>
+      </a>
+      <a href="tel:1201" class="phone-card">
+        <div class="ph-org">עזר לנפש</div>
+        <div class="ph-num">1201</div>
+      </a>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  /* ── navigation ── */
+  function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen-' + id).classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  /* ── mood buttons ── */
+  document.querySelectorAll('.mood-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
+      this.classList.add('selected');
+      const level = parseInt(this.dataset.level);
+      if (level >= 5) {
+        setTimeout(() => showScreen('crisis'), 400);
+      }
+    });
+  });
+
+  /* ── BREATHING (4-7-8) ── */
+  let breathRunning = false;
+  let breathTimer = null;
+  let breathCycle = 0;
+  const PHASES = [
+    { label: 'שאף', duration: 4, scale: 1.18, dir: 'expanding' },
+    { label: 'עצור', duration: 7, scale: 1.18, dir: '' },
+    { label: 'נשוף', duration: 8, scale: 1.0,  dir: 'contracting' },
+  ];
+
+  function startBreathing() {
+    showScreen('breath');
+    if (!breathRunning) toggleBreath();
+  }
+
+  function toggleBreath() {
+    if (breathRunning) {
+      stopBreath();
+    } else {
+      breathRunning = true;
+      document.getElementById('breathStartBtn').textContent = 'עצור';
+      breathCycle = 0;
+      runPhase(0, 0);
+    }
+  }
+
+  function stopBreath() {
+    breathRunning = false;
+    clearTimeout(breathTimer);
+    document.getElementById('breathStartBtn').textContent = 'התחל';
+    document.getElementById('breathPhase').textContent = '';
+    document.getElementById('breathCount').textContent = '';
+    document.getElementById('breathCycleInfo').textContent = '';
+    document.getElementById('breathCenterText').textContent = 'לחץ\nלהתחיל';
+    const circle = document.getElementById('breathCircle');
+    circle.style.animation = '';
+    circle.style.transform = '';
+  }
+
+  function runPhase(phaseIdx, cycle) {
+    if (!breathRunning) return;
+    const phase = PHASES[phaseIdx];
+    const circle = document.getElementById('breathCircle');
+
+    circle.style.animation = 'none';
+    circle.style.transform = phaseIdx === 0 ? 'scale(1)' : 'scale(1.18)';
+
+    document.getElementById('breathPhase').textContent = phase.label;
+    document.getElementById('breathCycleInfo').textContent = 'מחזור ' + (cycle + 1) + ' מתוך 4';
+    document.getElementById('breathCenterText').textContent = phase.label;
+
+    void circle.offsetWidth;
+    if (phase.dir) {
+      circle.style.animation = `breath-${phase.dir} ${phase.duration}s linear forwards`;
+      if (phase.dir === 'expanding') {
+        circle.style.animation = `expand ${phase.duration}s linear forwards`;
+      } else {
+        circle.style.animation = `contract ${phase.duration}s linear forwards`;
+      }
+    }
+
+    let count = phase.duration;
+    document.getElementById('breathCount').textContent = count;
+    const tick = setInterval(() => {
+      count--;
+      if (count > 0) {
+        document.getElementById('breathCount').textContent = count;
+      } else {
+        clearInterval(tick);
+      }
+    }, 1000);
+
+    breathTimer = setTimeout(() => {
+      clearInterval(tick);
+      const nextPhase = (phaseIdx + 1) % PHASES.length;
+      const nextCycle = nextPhase === 0 ? cycle + 1 : cycle;
+      if (nextCycle >= 4 && nextPhase === 0) {
+        stopBreath();
+        document.getElementById('breathPhase').textContent = 'כל הכבוד 🌟';
+        document.getElementById('breathCount').textContent = '';
+        document.getElementById('breathCycleInfo').textContent = '4 מחזורים הושלמו';
+        document.getElementById('breathCenterText').textContent = '✓';
+        document.getElementById('breathStartBtn').textContent = 'התחל מחדש';
+      } else {
+        runPhase(nextPhase, nextCycle);
+      }
+    }, phase.duration * 1000);
+  }
+
+  /* ── CALM QUOTES ── */
+  const QUOTES = [
+    'הרגש הזה יעבור. הוא עבר בעבר, והוא יעבור גם הפעם.',
+    'אתה לא חייב להרגיש בסדר עכשיו. מותר לך להיות בדיוק כפי שאתה.',
+    'גל גבוה נראה מפחיד — אבל גלים עוברים.',
+    'נשימה אחת בכל פעם. רגע אחד בכל פעם.',
+    'לפנות לעזרה זה אומץ. לא חולשה.',
+    'אתה הגעת עד לכאן. זה אומר משהו.',
+    'הגוף שלך עובד קשה עכשיו. תן לו רגע.',
+    'אין צורך להסביר את עצמך לאף אחד. מה שאתה מרגיש — מרגיש.',
+    'הצעד הקטן ביותר קדימה — זה מספיק.',
+    'אתה לא לבד בזה, גם אם זה מרגיש כך.',
+    'עכשיו קשה. זה לא אומר שתמיד יהיה קשה.',
+    'אתה יותר חזק ממה שאתה חושב.',
+  ];
+  let quoteIdx = 0;
+
+  function showCalm() {
+    quoteIdx = Math.floor(Math.random() * QUOTES.length);
+    document.getElementById('calmQuote').textContent = QUOTES[quoteIdx];
+    showScreen('calm');
+  }
+
+  function nextQuote() {
+    quoteIdx = (quoteIdx + 1) % QUOTES.length;
+    const el = document.getElementById('calmQuote');
+    el.style.opacity = '0';
+    setTimeout(() => {
+      el.textContent = QUOTES[quoteIdx];
+      el.style.transition = 'opacity 0.4s';
+      el.style.opacity = '1';
+    }, 200);
+  }
+</script>
+</body>
+</html>
