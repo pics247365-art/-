@@ -1,11 +1,11 @@
-<div align="center">
+# ilanlevi.com
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+קבצי קוד לאתר של אילן לוי. ה-domain `ilanlevi.com` עצמו מוגש כרגע מ-WordPress — הריפו הזה אינו האתר החי.
 
-  <h1>Built with AI Studio</h2>
+## עמודים
+- `index.html` — דף הבית
+- `shegaon.html` — פרויקט שגאון
+- `chat.html`, `app.html`, `assistant.html`, `projects.html`, `builder.html`
 
-  <p>The fastest path from prompt to production with Gemini.</p>
-
-  <a href="https://aistudio.google.com/apps">Start building</a>
-
-</div>
+## אוטומציה
+- `social/post_daily.py` — פרסום יומי לפייסבוק/אינסטגרם (לא פעיל עדיין — חסרים credentials ותמונות)
