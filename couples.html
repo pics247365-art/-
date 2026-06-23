@@ -2,870 +2,733 @@
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>אילן ואשתו — פרטי</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700;900&family=Assistant:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:      #0a0a0a;
+  --cream:   #e8e0d0;
+  --gold:    #c49a2a;
+  --red:     #a81818;
+  --warm:    #c8a97a;
+  --surf:    #141414;
+  --surf2:   #1c1c1c;
+  --bdr:     #2a2a2a;
+}
+body {
+  background: var(--bg);
+  color: var(--cream);
+  font-family: 'Assistant', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
 
-  :root {
-    --bg:    #0a0a0a;
-    --cream: #e8e0d0;
-    --gold:  #c49a2a;
-    --red:   #a81818;
-    --warm:  #c8a97a;
-    --surface: #141414;
-    --border: #2a2a2a;
-  }
+/* ── PIN ── */
+#pin-screen {
+  position: fixed; inset: 0;
+  background: var(--bg);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 1.8rem; z-index: 200;
+}
+#pin-screen h1 { font-family: 'Frank Ruhl Libre', serif; font-size: 2rem; font-weight: 900; color: var(--gold); }
+#pin-dots { display: flex; gap: 1rem; }
+.pin-dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--gold); }
+.pin-dot.f { background: var(--gold); }
+#pin-pad { display: grid; grid-template-columns: repeat(3, 70px); gap: 10px; }
+.pb {
+  width: 70px; height: 70px; border-radius: 50%;
+  border: 1px solid var(--bdr); background: var(--surf);
+  color: var(--cream); font-family: 'Assistant', sans-serif;
+  font-size: 1.4rem; font-weight: 600; cursor: pointer; transition: all .15s;
+}
+.pb:hover { border-color: var(--gold); color: var(--gold); }
+.pb:active { transform: scale(.92); }
+.pb.sm { font-size: .9rem; color: var(--warm); }
+#pin-err { color: var(--red); font-size: .9rem; min-height: 1.2em; }
 
-  body {
-    background: var(--bg);
-    color: var(--cream);
-    font-family: 'Assistant', sans-serif;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+/* ── APP SHELL ── */
+#app { display: none; width: 100%; max-width: 480px; margin: 0 auto; }
 
-  /* ─── PIN SCREEN ─── */
-  #pin-screen {
-    position: fixed;
-    inset: 0;
-    background: var(--bg);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    z-index: 100;
-  }
+/* ── TABS ── */
+.tab-bar {
+  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 100%; max-width: 480px;
+  background: rgba(10,10,10,.97);
+  border-top: 1px solid var(--bdr);
+  display: flex; z-index: 50;
+}
+.tab-btn {
+  flex: 1; padding: .7rem .2rem .5rem;
+  background: transparent; border: none;
+  color: var(--warm); font-size: .7rem;
+  cursor: pointer; opacity: .5;
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  transition: opacity .2s, color .2s;
+}
+.tab-btn .ico { font-size: 1.35rem; line-height: 1; }
+.tab-btn.active { opacity: 1; color: var(--gold); }
 
-  #pin-screen h1 {
-    font-family: 'Frank Ruhl Libre', serif;
-    font-size: 2.2rem;
-    font-weight: 900;
-    color: var(--gold);
-    letter-spacing: 0.05em;
-  }
+.page { display: none; padding: 1rem 1rem 5rem; }
+.page.active { display: block; }
 
-  #pin-screen p {
-    color: var(--warm);
-    font-size: 0.95rem;
-    opacity: 0.7;
-  }
+/* ── SHARED ── */
+.section-title {
+  font-family: 'Frank Ruhl Libre', serif; font-size: 1.1rem; font-weight: 700;
+  color: var(--cream); margin-bottom: 1rem;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.section-title small { font-family: 'Assistant', sans-serif; font-size: .8rem; color: var(--warm); font-weight: 400; }
 
-  #pin-dots {
-    display: flex;
-    gap: 1rem;
-  }
+/* ── PAGE: DASHBOARD ── */
+header { text-align: center; padding: 2.2rem 0 1.5rem; border-bottom: 1px solid var(--bdr); margin-bottom: 1.5rem; }
+header h1 { font-family: 'Frank Ruhl Libre', serif; font-size: 2rem; font-weight: 900; color: var(--gold); }
+header p { color: var(--warm); font-size: .9rem; margin-top: .25rem; }
+.stats-strip {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 1px;
+  background: var(--bdr); border: 1px solid var(--bdr); border-radius: 12px;
+  overflow: hidden; margin-bottom: 1.5rem;
+}
+.stat-box { background: var(--surf); padding: 1rem .5rem; text-align: center; }
+.stat-num { font-family: 'Frank Ruhl Libre', serif; font-size: 2rem; font-weight: 900; color: var(--gold); line-height: 1; }
+.stat-lbl { font-size: .72rem; color: var(--warm); margin-top: .25rem; }
+#log-btn {
+  width: 100%; padding: 1rem;
+  background: var(--gold); color: var(--bg); border: none;
+  border-radius: 12px; font-family: 'Frank Ruhl Libre', serif;
+  font-size: 1.2rem; font-weight: 900; cursor: pointer;
+  margin-bottom: 1.5rem; transition: all .2s;
+}
+#log-btn:hover { background: var(--warm); }
+/* calendar */
+.cal-nav { display: flex; align-items: center; gap: .8rem; margin-bottom: .8rem; }
+.cal-nav button {
+  background: transparent; border: 1px solid var(--bdr); color: var(--warm);
+  width: 30px; height: 30px; border-radius: 6px; cursor: pointer; font-size: 1rem;
+}
+.cal-month { flex: 1; text-align: center; font-family: 'Frank Ruhl Libre', serif; font-size: .95rem; font-weight: 700; }
+.cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 3px; margin-bottom: 1.5rem; }
+.cdn { text-align: center; font-size: .68rem; color: var(--warm); opacity: .6; padding: 4px 0; }
+.cd {
+  aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+  border-radius: 5px; font-size: .8rem; color: var(--cream); opacity: .35;
+}
+.cd.ev { background: rgba(196,154,42,.14); border: 1px solid rgba(196,154,42,.4); opacity: 1; color: var(--gold); font-weight: 600; cursor: pointer; }
+.cd.tod { border: 1px solid var(--warm); opacity: .8; }
+.cd.tod.ev { border-color: var(--gold); opacity: 1; }
+/* history */
+.entry-list { display: flex; flex-direction: column; gap: .7rem; }
+.ecard {
+  background: var(--surf); border: 1px solid var(--bdr); border-radius: 10px;
+  padding: .9rem 1rem; display: flex; justify-content: space-between; align-items: flex-start;
+}
+.edate { font-family: 'Frank Ruhl Libre', serif; font-size: .9rem; color: var(--gold); font-weight: 700; }
+.emeta { font-size: .78rem; color: var(--warm); margin-top: .15rem; opacity: .8; }
+.enote { font-size: .82rem; color: var(--cream); margin-top: .35rem; opacity: .7; }
+.edel { background: transparent; border: none; color: var(--bdr); font-size: 1rem; cursor: pointer; transition: color .2s; }
+.edel:hover { color: var(--red); }
+.empty { text-align: center; padding: 2rem; color: var(--warm); opacity: .4; font-size: .9rem; }
 
-  .pin-dot {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    border: 2px solid var(--gold);
-    background: transparent;
-    transition: background 0.2s;
-  }
-  .pin-dot.filled { background: var(--gold); }
+/* ── PAGE: CHAT ── */
+.who-toggle {
+  display: flex; gap: .5rem; margin-bottom: 1rem;
+}
+.who-btn {
+  flex: 1; padding: .5rem; border-radius: 8px;
+  border: 1px solid var(--bdr); background: transparent;
+  color: var(--warm); font-family: 'Assistant', sans-serif;
+  font-size: .9rem; cursor: pointer; transition: all .2s;
+}
+.who-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(196,154,42,.08); }
 
-  #pin-pad {
-    display: grid;
-    grid-template-columns: repeat(3, 70px);
-    gap: 12px;
-  }
+.chat-box {
+  height: 55vh; overflow-y: auto;
+  display: flex; flex-direction: column; gap: .6rem;
+  padding: .5rem 0 1rem; margin-bottom: .8rem;
+}
+.chat-box::-webkit-scrollbar { width: 4px; }
+.chat-box::-webkit-scrollbar-thumb { background: var(--bdr); border-radius: 4px; }
 
-  .pin-btn {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    border: 1px solid var(--border);
-    background: var(--surface);
-    color: var(--cream);
-    font-family: 'Assistant', sans-serif;
-    font-size: 1.4rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .pin-btn:hover { border-color: var(--gold); color: var(--gold); }
-  .pin-btn:active { transform: scale(0.93); }
-  .pin-btn.del { font-size: 1rem; color: var(--warm); }
+.bubble-wrap { display: flex; }
+.bubble-wrap.mine { justify-content: flex-end; }
+.bubble-wrap.hers { justify-content: flex-start; }
 
-  #pin-error {
-    color: var(--red);
-    font-size: 0.9rem;
-    min-height: 1.2em;
-  }
+.bubble {
+  max-width: 72%; padding: .6rem .9rem;
+  border-radius: 14px; font-size: .9rem; line-height: 1.4;
+}
+.bubble-wrap.mine .bubble {
+  background: rgba(196,154,42,.18);
+  border: 1px solid rgba(196,154,42,.3);
+  color: var(--cream);
+}
+.bubble-wrap.hers .bubble {
+  background: var(--surf2);
+  border: 1px solid var(--bdr);
+  color: var(--cream);
+}
+.bubble-sender { font-size: .68rem; color: var(--warm); margin-bottom: .15rem; opacity: .7; }
+.bubble-time { font-size: .65rem; color: var(--warm); margin-top: .25rem; text-align: left; opacity: .5; }
 
-  /* ─── MAIN APP ─── */
-  #app {
-    width: 100%;
-    max-width: 480px;
-    padding: 0 1rem 6rem;
-    display: none;
-  }
+.chat-input-row { display: flex; gap: .6rem; }
+.chat-input-row input {
+  flex: 1; background: var(--surf); border: 1px solid var(--bdr);
+  color: var(--cream); padding: .7rem 1rem; border-radius: 10px;
+  font-family: 'Assistant', sans-serif; font-size: .95rem; outline: none;
+}
+.chat-input-row input:focus { border-color: var(--gold); }
+.send-btn {
+  padding: .7rem 1rem; background: var(--gold); color: var(--bg);
+  border: none; border-radius: 10px; font-size: 1rem; cursor: pointer;
+}
+.chat-clear {
+  text-align: center; margin-top: .8rem;
+  font-size: .78rem; color: var(--warm); opacity: .4; cursor: pointer; text-decoration: underline;
+}
+.chat-clear:hover { opacity: .8; }
 
-  header {
-    text-align: center;
-    padding: 2.5rem 0 1.5rem;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 2rem;
-  }
+/* ── PAGE: WISHLIST ── */
+.wish-add { display: flex; gap: .6rem; margin-bottom: 1.2rem; }
+.wish-add input {
+  flex: 1; background: var(--surf); border: 1px solid var(--bdr);
+  color: var(--cream); padding: .7rem 1rem; border-radius: 10px;
+  font-family: 'Assistant', sans-serif; font-size: .95rem; outline: none;
+}
+.wish-add input:focus { border-color: var(--gold); }
+.wish-add button {
+  padding: .7rem 1.1rem; background: var(--gold); color: var(--bg);
+  border: none; border-radius: 10px; font-size: 1rem; cursor: pointer;
+  font-weight: 700;
+}
+.wish-category-tabs { display: flex; gap: .4rem; margin-bottom: 1rem; flex-wrap: wrap; }
+.wcat-btn {
+  padding: .3rem .8rem; border-radius: 20px; border: 1px solid var(--bdr);
+  background: transparent; color: var(--warm); font-size: .8rem; cursor: pointer;
+}
+.wcat-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(196,154,42,.08); }
 
-  header h1 {
-    font-family: 'Frank Ruhl Libre', serif;
-    font-size: 2rem;
-    font-weight: 900;
-    color: var(--gold);
-  }
+.wish-list { display: flex; flex-direction: column; gap: .6rem; }
+.wish-card {
+  background: var(--surf); border: 1px solid var(--bdr); border-radius: 10px;
+  padding: .9rem 1rem; display: flex; align-items: center; gap: .8rem;
+}
+.wish-check {
+  width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--bdr);
+  flex-shrink: 0; cursor: pointer; transition: all .2s; display: flex;
+  align-items: center; justify-content: center; font-size: .75rem; color: transparent;
+}
+.wish-card.done .wish-check { border-color: var(--gold); background: var(--gold); color: var(--bg); }
+.wish-card.done .wish-text { text-decoration: line-through; opacity: .45; }
+.wish-text { flex: 1; font-size: .92rem; }
+.wish-cat { font-size: .7rem; color: var(--warm); opacity: .6; margin-top: .15rem; }
+.wish-del { background: transparent; border: none; color: var(--bdr); font-size: .95rem; cursor: pointer; }
+.wish-del:hover { color: var(--red); }
 
-  header p {
-    color: var(--warm);
-    font-size: 0.9rem;
-    margin-top: 0.3rem;
-  }
+/* ── SETTINGS MINI ── */
+#settings-bar {
+  display: flex; gap: .5rem; justify-content: center; padding: .8rem 0;
+  border-top: 1px solid var(--bdr); margin-top: 1rem;
+}
+.mini-btn {
+  background: transparent; border: 1px solid var(--bdr); color: var(--warm);
+  border-radius: 8px; padding: .4rem .9rem; font-size: .78rem; cursor: pointer;
+  font-family: 'Assistant', sans-serif;
+}
+.mini-btn:hover { border-color: var(--warm); }
 
-  /* ─── STATS STRIP ─── */
-  .stats-strip {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    margin-bottom: 2rem;
-  }
-
-  .stat-box {
-    background: var(--surface);
-    padding: 1.2rem 0.5rem;
-    text-align: center;
-  }
-
-  .stat-num {
-    font-family: 'Frank Ruhl Libre', serif;
-    font-size: 2rem;
-    font-weight: 900;
-    color: var(--gold);
-    line-height: 1;
-  }
-
-  .stat-label {
-    font-size: 0.75rem;
-    color: var(--warm);
-    margin-top: 0.3rem;
-    opacity: 0.8;
-  }
-
-  /* ─── LOG BUTTON ─── */
-  #log-btn {
-    width: 100%;
-    padding: 1.1rem;
-    background: var(--gold);
-    color: var(--bg);
-    border: none;
-    border-radius: 12px;
-    font-family: 'Frank Ruhl Libre', serif;
-    font-size: 1.3rem;
-    font-weight: 900;
-    cursor: pointer;
-    transition: all 0.2s;
-    margin-bottom: 2rem;
-    letter-spacing: 0.03em;
-  }
-  #log-btn:hover { background: var(--warm); transform: translateY(-1px); }
-  #log-btn:active { transform: scale(0.98); }
-
-  /* ─── LOG MODAL ─── */
-  .modal-bg {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.85);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 50;
-    padding: 1rem;
-  }
-  .modal-bg.open { display: flex; }
-
-  .modal {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 2rem;
-    width: 100%;
-    max-width: 380px;
-  }
-
-  .modal h2 {
-    font-family: 'Frank Ruhl Libre', serif;
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--gold);
-    margin-bottom: 1.5rem;
-  }
-
-  .form-group {
-    margin-bottom: 1.2rem;
-  }
-
-  .form-group label {
-    display: block;
-    font-size: 0.85rem;
-    color: var(--warm);
-    margin-bottom: 0.4rem;
-  }
-
-  .form-group input,
-  .form-group textarea,
-  .form-group select {
-    width: 100%;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    color: var(--cream);
-    padding: 0.7rem 0.9rem;
-    border-radius: 8px;
-    font-family: 'Assistant', sans-serif;
-    font-size: 0.95rem;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  .form-group input:focus,
-  .form-group textarea:focus,
-  .form-group select:focus { border-color: var(--gold); }
-
-  .form-group textarea { resize: vertical; min-height: 80px; }
-
-  .mood-grid {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-  }
-
-  .mood-btn {
-    padding: 0.4rem 0.9rem;
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    background: transparent;
-    color: var(--cream);
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .mood-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(196,154,42,0.1); }
-
-  .modal-actions {
-    display: flex;
-    gap: 0.8rem;
-    margin-top: 1.5rem;
-  }
-
-  .btn-save {
-    flex: 1;
-    padding: 0.8rem;
-    background: var(--gold);
-    color: var(--bg);
-    border: none;
-    border-radius: 8px;
-    font-family: 'Frank Ruhl Libre', serif;
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-  }
-
-  .btn-cancel {
-    padding: 0.8rem 1.2rem;
-    background: transparent;
-    color: var(--warm);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    font-size: 0.9rem;
-    cursor: pointer;
-  }
-
-  /* ─── CALENDAR ─── */
-  .section-title {
-    font-family: 'Frank Ruhl Libre', serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--cream);
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .section-title span { color: var(--warm); font-size: 0.85rem; font-family: 'Assistant', sans-serif; font-weight: 400; }
-
-  .cal-nav { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.8rem; }
-  .cal-nav button {
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--warm);
-    width: 32px; height: 32px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1rem;
-  }
-  .cal-month {
-    font-family: 'Frank Ruhl Libre', serif;
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--cream);
-    flex: 1;
-    text-align: center;
-  }
-
-  .cal-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 4px;
-    margin-bottom: 2rem;
-  }
-
-  .cal-day-name {
-    text-align: center;
-    font-size: 0.7rem;
-    color: var(--warm);
-    opacity: 0.6;
-    padding: 4px 0;
-  }
-
-  .cal-day {
-    aspect-ratio: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 6px;
-    font-size: 0.85rem;
-    color: var(--cream);
-    cursor: default;
-    opacity: 0.4;
-    position: relative;
-  }
-
-  .cal-day.has-event {
-    background: rgba(196,154,42,0.15);
-    border: 1px solid rgba(196,154,42,0.4);
-    opacity: 1;
-    color: var(--gold);
-    font-weight: 600;
-    cursor: pointer;
-  }
-
-  .cal-day.today {
-    border: 1px solid var(--warm);
-    opacity: 0.8;
-  }
-
-  .cal-day.today.has-event { border-color: var(--gold); opacity: 1; }
-
-  .cal-day.empty { pointer-events: none; }
-
-  /* ─── HISTORY LIST ─── */
-  .entry-list { display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 2rem; }
-
-  .entry-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 1rem 1.2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-  }
-
-  .entry-date {
-    font-family: 'Frank Ruhl Libre', serif;
-    font-size: 0.95rem;
-    color: var(--gold);
-    font-weight: 700;
-  }
-
-  .entry-meta {
-    font-size: 0.8rem;
-    color: var(--warm);
-    margin-top: 0.2rem;
-    opacity: 0.8;
-  }
-
-  .entry-note {
-    font-size: 0.85rem;
-    color: var(--cream);
-    margin-top: 0.4rem;
-    opacity: 0.7;
-  }
-
-  .entry-delete {
-    background: transparent;
-    border: none;
-    color: var(--border);
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: color 0.2s;
-    padding: 0 0.2rem;
-  }
-  .entry-delete:hover { color: var(--red); }
-
-  /* ─── BOTTOM NAV ─── */
-  .bottom-bar {
-    position: fixed;
-    bottom: 0; left: 0; right: 0;
-    height: 3.5rem;
-    background: rgba(10,10,10,0.95);
-    border-top: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-  }
-
-  #lock-btn {
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--warm);
-    border-radius: 8px;
-    padding: 0.5rem 1.2rem;
-    font-size: 0.85rem;
-    cursor: pointer;
-    font-family: 'Assistant', sans-serif;
-    opacity: 0.7;
-  }
-  #lock-btn:hover { opacity: 1; border-color: var(--warm); }
-
-  #change-pin-btn {
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--warm);
-    border-radius: 8px;
-    padding: 0.5rem 1.2rem;
-    font-size: 0.85rem;
-    cursor: pointer;
-    font-family: 'Assistant', sans-serif;
-    opacity: 0.5;
-  }
-  #change-pin-btn:hover { opacity: 0.9; }
-
-  /* empty state */
-  .empty-state {
-    text-align: center;
-    padding: 2rem;
-    color: var(--warm);
-    opacity: 0.5;
-    font-size: 0.9rem;
-  }
+/* ── MODALS ── */
+.modal-bg {
+  position: fixed; inset: 0; background: rgba(0,0,0,.85);
+  display: none; align-items: center; justify-content: center; z-index: 100; padding: 1rem;
+}
+.modal-bg.open { display: flex; }
+.modal {
+  background: var(--surf); border: 1px solid var(--bdr); border-radius: 16px;
+  padding: 1.8rem; width: 100%; max-width: 380px;
+}
+.modal h2 { font-family: 'Frank Ruhl Libre', serif; font-size: 1.4rem; font-weight: 700; color: var(--gold); margin-bottom: 1.4rem; }
+.fg { margin-bottom: 1.1rem; }
+.fg label { display: block; font-size: .83rem; color: var(--warm); margin-bottom: .35rem; }
+.fg input, .fg textarea, .fg select {
+  width: 100%; background: var(--bg); border: 1px solid var(--bdr);
+  color: var(--cream); padding: .65rem .9rem; border-radius: 8px;
+  font-family: 'Assistant', sans-serif; font-size: .93rem; outline: none;
+}
+.fg input:focus, .fg textarea:focus { border-color: var(--gold); }
+.fg textarea { resize: vertical; min-height: 70px; }
+.mood-grid { display: flex; gap: .4rem; flex-wrap: wrap; }
+.mood-btn {
+  padding: .35rem .8rem; border: 1px solid var(--bdr); border-radius: 20px;
+  background: transparent; color: var(--cream); font-size: .85rem; cursor: pointer;
+}
+.mood-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(196,154,42,.1); }
+.modal-actions { display: flex; gap: .7rem; margin-top: 1.4rem; }
+.btn-save {
+  flex: 1; padding: .75rem; background: var(--gold); color: var(--bg);
+  border: none; border-radius: 8px; font-family: 'Frank Ruhl Libre', serif;
+  font-size: 1rem; font-weight: 700; cursor: pointer;
+}
+.btn-cancel {
+  padding: .75rem 1.1rem; background: transparent; color: var(--warm);
+  border: 1px solid var(--bdr); border-radius: 8px; font-size: .88rem; cursor: pointer;
+}
 </style>
 </head>
 <body>
 
-<!-- PIN SCREEN -->
+<!-- ═══ PIN SCREEN ═══ -->
 <div id="pin-screen">
-  <div>
-    <h1>🔐 פרטי</h1>
-    <p style="text-align:center; margin-top:0.3rem">הכנס קוד גישה</p>
-  </div>
+  <h1>🔐 פרטי</h1>
   <div id="pin-dots">
-    <div class="pin-dot" id="d0"></div>
-    <div class="pin-dot" id="d1"></div>
-    <div class="pin-dot" id="d2"></div>
-    <div class="pin-dot" id="d3"></div>
+    <div class="pin-dot" id="d0"></div><div class="pin-dot" id="d1"></div>
+    <div class="pin-dot" id="d2"></div><div class="pin-dot" id="d3"></div>
   </div>
   <div id="pin-pad">
-    <button class="pin-btn" data-n="1">1</button>
-    <button class="pin-btn" data-n="2">2</button>
-    <button class="pin-btn" data-n="3">3</button>
-    <button class="pin-btn" data-n="4">4</button>
-    <button class="pin-btn" data-n="5">5</button>
-    <button class="pin-btn" data-n="6">6</button>
-    <button class="pin-btn" data-n="7">7</button>
-    <button class="pin-btn" data-n="8">8</button>
-    <button class="pin-btn" data-n="9">9</button>
-    <button class="pin-btn del" data-n="del">⌫</button>
-    <button class="pin-btn" data-n="0">0</button>
-    <button class="pin-btn del" data-n="ok">OK</button>
+    <button class="pb" data-n="1">1</button><button class="pb" data-n="2">2</button><button class="pb" data-n="3">3</button>
+    <button class="pb" data-n="4">4</button><button class="pb" data-n="5">5</button><button class="pb" data-n="6">6</button>
+    <button class="pb" data-n="7">7</button><button class="pb" data-n="8">8</button><button class="pb" data-n="9">9</button>
+    <button class="pb sm" data-n="del">⌫</button><button class="pb" data-n="0">0</button><button class="pb sm" data-n="ok">OK</button>
   </div>
-  <div id="pin-error"></div>
+  <div id="pin-err"></div>
 </div>
 
-<!-- MAIN APP -->
+<!-- ═══ MAIN APP ═══ -->
 <div id="app">
-  <header>
-    <h1>אילן ❤ </h1>
-    <p id="last-time-text">טוען...</p>
-  </header>
 
-  <!-- STATS -->
-  <div class="stats-strip">
-    <div class="stat-box">
-      <div class="stat-num" id="stat-week">0</div>
-      <div class="stat-label">השבוע</div>
+  <!-- ─ TAB: DASHBOARD ─ -->
+  <div class="page active" id="pg-dash">
+    <header>
+      <h1>אילן ❤️</h1>
+      <p id="last-txt">טוען...</p>
+    </header>
+
+    <div class="stats-strip">
+      <div class="stat-box"><div class="stat-num" id="sw">0</div><div class="stat-lbl">השבוע</div></div>
+      <div class="stat-box"><div class="stat-num" id="sm">0</div><div class="stat-lbl">החודש</div></div>
+      <div class="stat-box"><div class="stat-num" id="st">0</div><div class="stat-lbl">סה"כ</div></div>
     </div>
-    <div class="stat-box">
-      <div class="stat-num" id="stat-month">0</div>
-      <div class="stat-label">החודש</div>
+
+    <button id="log-btn">+ רשום עכשיו</button>
+
+    <div class="section-title" style="margin-bottom:.8rem">
+      <span>קלנדר</span>
     </div>
-    <div class="stat-box">
-      <div class="stat-num" id="stat-total">0</div>
-      <div class="stat-label">סה"כ</div>
+    <div class="cal-nav">
+      <button id="cal-prev">‹</button>
+      <div class="cal-month" id="cal-lbl"></div>
+      <button id="cal-next">›</button>
+    </div>
+    <div class="cal-grid" id="cal-grid"></div>
+
+    <div class="section-title">
+      היסטוריה <small id="hist-cnt"></small>
+    </div>
+    <div class="entry-list" id="entry-list"></div>
+
+    <div id="settings-bar">
+      <button class="mini-btn" id="change-pin-btn">שנה PIN</button>
+      <button class="mini-btn" id="lock-btn">🔒 נעל</button>
     </div>
   </div>
 
-  <!-- LOG BUTTON -->
-  <button id="log-btn">+ רשום עכשיו</button>
+  <!-- ─ TAB: CHAT ─ -->
+  <div class="page" id="pg-chat">
+    <div style="padding-top:1.5rem">
+      <div class="section-title">
+        💬 צ'אט פרטי זוגי
+        <small id="chat-clear" style="cursor:pointer;text-decoration:underline">נקה הכל</small>
+      </div>
 
-  <!-- CALENDAR -->
-  <div class="cal-nav">
-    <button id="cal-prev">‹</button>
-    <div class="cal-month" id="cal-month-label"></div>
-    <button id="cal-next">›</button>
-  </div>
-  <div class="cal-grid" id="cal-grid"></div>
+      <div class="who-toggle">
+        <button class="who-btn active" data-who="ilan">👨 אילן</button>
+        <button class="who-btn" data-who="wife">👩 אשתי</button>
+      </div>
 
-  <!-- HISTORY -->
-  <div class="section-title">
-    היסטוריה
-    <span id="history-count"></span>
-  </div>
-  <div class="entry-list" id="entry-list">
-    <div class="empty-state">עדיין אין רשומות</div>
-  </div>
+      <div class="chat-box" id="chat-box">
+        <div class="empty" id="chat-empty">עדיין אין הודעות — התחילו לשוחח 💬</div>
+      </div>
 
-  <div class="bottom-bar">
-    <button id="change-pin-btn">שנה PIN</button>
-    <button id="lock-btn">🔒 נעל</button>
-  </div>
-</div>
-
-<!-- LOG MODAL -->
-<div class="modal-bg" id="modal">
-  <div class="modal">
-    <h2>רשום</h2>
-    <div class="form-group">
-      <label>תאריך ושעה</label>
-      <input type="datetime-local" id="entry-datetime">
-    </div>
-    <div class="form-group">
-      <label>מצב רוח</label>
-      <div class="mood-grid">
-        <button class="mood-btn" data-mood="🔥 לוהט">🔥 לוהט</button>
-        <button class="mood-btn" data-mood="❤️ רומנטי">❤️ רומנטי</button>
-        <button class="mood-btn" data-mood="😌 רגוע">😌 רגוע</button>
-        <button class="mood-btn" data-mood="🎉 מיוחד">🎉 מיוחד</button>
-        <button class="mood-btn" data-mood="💤 לפני שינה">💤 לפני שינה</button>
-        <button class="mood-btn" data-mood="⚡ ספונטני">⚡ ספונטני</button>
+      <div class="chat-input-row">
+        <input type="text" id="chat-input" placeholder="כתוב משהו..." maxlength="500">
+        <button class="send-btn" id="send-btn">שלח</button>
       </div>
     </div>
-    <div class="form-group">
+  </div>
+
+  <!-- ─ TAB: WISHLIST ─ -->
+  <div class="page" id="pg-wish">
+    <div style="padding-top:1.5rem">
+      <div class="section-title">✨ משאלות וחלומות</div>
+
+      <div class="wish-add">
+        <input type="text" id="wish-input" placeholder="הוסף משאלה..." maxlength="200">
+        <button id="wish-add-btn">+</button>
+      </div>
+
+      <div class="wish-category-tabs" id="wish-cats">
+        <button class="wcat-btn active" data-cat="הכל">הכל</button>
+        <button class="wcat-btn" data-cat="🔥 אינטימי">🔥 אינטימי</button>
+        <button class="wcat-btn" data-cat="🌍 טיול">🌍 טיול</button>
+        <button class="wcat-btn" data-cat="🍽️ אוכל">🍽️ אוכל</button>
+        <button class="wcat-btn" data-cat="💆 פינוק">💆 פינוק</button>
+      </div>
+
+      <div class="wish-list" id="wish-list"></div>
+    </div>
+  </div>
+
+  <!-- TAB BAR -->
+  <div class="tab-bar">
+    <button class="tab-btn active" data-tab="dash"><span class="ico">📅</span>מעקב</button>
+    <button class="tab-btn" data-tab="chat"><span class="ico">💬</span>צ'אט</button>
+    <button class="tab-btn" data-tab="wish"><span class="ico">✨</span>משאלות</button>
+  </div>
+</div>
+
+<!-- ═══ LOG MODAL ═══ -->
+<div class="modal-bg" id="modal-log">
+  <div class="modal">
+    <h2>רשום</h2>
+    <div class="fg">
+      <label>תאריך ושעה</label>
+      <input type="datetime-local" id="e-dt">
+    </div>
+    <div class="fg">
+      <label>מצב רוח</label>
+      <div class="mood-grid">
+        <button class="mood-btn" data-m="🔥 לוהט">🔥 לוהט</button>
+        <button class="mood-btn" data-m="❤️ רומנטי">❤️ רומנטי</button>
+        <button class="mood-btn" data-m="😌 רגוע">😌 רגוע</button>
+        <button class="mood-btn" data-m="🎉 מיוחד">🎉 מיוחד</button>
+        <button class="mood-btn" data-m="💤 לפני שינה">💤 לפני שינה</button>
+        <button class="mood-btn" data-m="⚡ ספונטני">⚡ ספונטני</button>
+      </div>
+    </div>
+    <div class="fg">
       <label>הערה (אופציונלי)</label>
-      <textarea id="entry-note" placeholder="..."></textarea>
+      <textarea id="e-note" placeholder="..."></textarea>
     </div>
     <div class="modal-actions">
-      <button class="btn-save" id="save-btn">שמור</button>
-      <button class="btn-cancel" id="cancel-btn">ביטול</button>
+      <button class="btn-save" id="e-save">שמור</button>
+      <button class="btn-cancel" id="e-cancel">ביטול</button>
     </div>
   </div>
 </div>
 
-<!-- CHANGE PIN MODAL -->
-<div class="modal-bg" id="change-pin-modal">
+<!-- ═══ CHANGE PIN MODAL ═══ -->
+<div class="modal-bg" id="modal-pin">
   <div class="modal">
     <h2>שנה PIN</h2>
-    <div class="form-group">
-      <label>PIN נוכחי</label>
-      <input type="password" inputmode="numeric" maxlength="4" id="old-pin" placeholder="••••">
-    </div>
-    <div class="form-group">
-      <label>PIN חדש (4 ספרות)</label>
-      <input type="password" inputmode="numeric" maxlength="4" id="new-pin" placeholder="••••">
-    </div>
-    <div class="form-group">
-      <label>אשר PIN חדש</label>
-      <input type="password" inputmode="numeric" maxlength="4" id="new-pin2" placeholder="••••">
-    </div>
-    <p id="pin-change-error" style="color:var(--red); font-size:0.85rem; min-height:1.2em;"></p>
+    <div class="fg"><label>PIN נוכחי</label><input type="password" inputmode="numeric" maxlength="4" id="p-old" placeholder="••••"></div>
+    <div class="fg"><label>PIN חדש (4 ספרות)</label><input type="password" inputmode="numeric" maxlength="4" id="p-new" placeholder="••••"></div>
+    <div class="fg"><label>אשר PIN חדש</label><input type="password" inputmode="numeric" maxlength="4" id="p-new2" placeholder="••••"></div>
+    <p id="pin-err2" style="color:var(--red);font-size:.85rem;min-height:1.1em;"></p>
     <div class="modal-actions">
-      <button class="btn-save" id="save-pin-btn">שמור</button>
-      <button class="btn-cancel" id="cancel-pin-btn">ביטול</button>
+      <button class="btn-save" id="p-save">שמור</button>
+      <button class="btn-cancel" id="p-cancel">ביטול</button>
     </div>
+  </div>
+</div>
+
+<!-- ═══ WISH CATEGORY PICKER ═══ -->
+<div class="modal-bg" id="modal-wish">
+  <div class="modal">
+    <h2>קטגוריה</h2>
+    <div style="display:flex;flex-direction:column;gap:.6rem" id="wish-cat-pick">
+      <button class="btn-save" style="background:var(--surf);color:var(--cream);border:1px solid var(--bdr)" data-wc="🔥 אינטימי">🔥 אינטימי</button>
+      <button class="btn-save" style="background:var(--surf);color:var(--cream);border:1px solid var(--bdr)" data-wc="🌍 טיול">🌍 טיול</button>
+      <button class="btn-save" style="background:var(--surf);color:var(--cream);border:1px solid var(--bdr)" data-wc="🍽️ אוכל">🍽️ אוכל</button>
+      <button class="btn-save" style="background:var(--surf);color:var(--cream);border:1px solid var(--bdr)" data-wc="💆 פינוק">💆 פינוק</button>
+      <button class="btn-save" style="background:var(--surf);color:var(--cream);border:1px solid var(--bdr)" data-wc="💫 אחר">💫 אחר</button>
+    </div>
+    <div class="modal-actions"><button class="btn-cancel" id="wc-cancel">ביטול</button></div>
   </div>
 </div>
 
 <script>
-// ─── STORAGE KEYS ───
-const KEY_PIN     = 'cp_pin';
-const KEY_ENTRIES = 'cp_entries';
-const DEFAULT_PIN = '1234';
+// ── KEYS ──
+const K_PIN  = 'cp_pin';
+const K_LOG  = 'cp_log';
+const K_CHAT = 'cp_chat';
+const K_WISH = 'cp_wish';
+const DEF_PIN = '1234';
 
-// ─── STATE ───
-let pinInput = '';
-let selectedMood = '';
-let calYear, calMonth;
+// ── HELPERS ──
+const g  = id => document.getElementById(id);
+const gs = s  => document.querySelectorAll(s);
+const getPin  = () => localStorage.getItem(K_PIN) || DEF_PIN;
+const getLogs = () => JSON.parse(localStorage.getItem(K_LOG)  || '[]');
+const getMsgs = () => JSON.parse(localStorage.getItem(K_CHAT) || '[]');
+const getWish = () => JSON.parse(localStorage.getItem(K_WISH) || '[]');
+const saveLogs = v => localStorage.setItem(K_LOG,  JSON.stringify(v));
+const saveMsgs = v => localStorage.setItem(K_CHAT, JSON.stringify(v));
+const saveWish = v => localStorage.setItem(K_WISH, JSON.stringify(v));
 
-function getPin()     { return localStorage.getItem(KEY_PIN) || DEFAULT_PIN; }
-function getEntries() { return JSON.parse(localStorage.getItem(KEY_ENTRIES) || '[]'); }
-function saveEntries(e){ localStorage.setItem(KEY_ENTRIES, JSON.stringify(e)); }
-
-// ─── PIN SCREEN ───
-document.querySelectorAll('.pin-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const n = btn.dataset.n;
-    if (n === 'del') {
-      pinInput = pinInput.slice(0,-1);
-    } else if (n === 'ok') {
-      checkPin();
-    } else {
-      if (pinInput.length < 4) {
-        pinInput += n;
-        if (pinInput.length === 4) checkPin();
-      }
-    }
-    updateDots();
-  });
-});
+// ── PIN ──
+let pinBuf = '';
+gs('.pb').forEach(b => b.addEventListener('click', () => {
+  const n = b.dataset.n;
+  if (n==='del') pinBuf = pinBuf.slice(0,-1);
+  else if (n==='ok') checkPin();
+  else if (pinBuf.length < 4) { pinBuf += n; if (pinBuf.length===4) checkPin(); }
+  updateDots();
+}));
 
 function updateDots() {
-  for(let i=0;i<4;i++){
-    document.getElementById('d'+i).classList.toggle('filled', i < pinInput.length);
-  }
+  for (let i=0;i<4;i++) g('d'+i).classList.toggle('f', i < pinBuf.length);
 }
-
 function checkPin() {
-  if (pinInput === getPin()) {
-    document.getElementById('pin-screen').style.display = 'none';
-    document.getElementById('app').style.display = 'block';
+  if (pinBuf === getPin()) {
+    g('pin-screen').style.display = 'none';
+    g('app').style.display = 'block';
     initApp();
   } else {
-    document.getElementById('pin-error').textContent = 'קוד שגוי';
-    pinInput = '';
-    updateDots();
-    setTimeout(() => document.getElementById('pin-error').textContent = '', 1500);
+    g('pin-err').textContent = 'קוד שגוי';
+    pinBuf = ''; updateDots();
+    setTimeout(() => g('pin-err').textContent='', 1500);
   }
 }
 
-// ─── APP INIT ───
+// ── TABS ──
+gs('.tab-btn').forEach(b => b.addEventListener('click', () => {
+  gs('.tab-btn').forEach(x => x.classList.remove('active'));
+  gs('.page').forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  g('pg-'+b.dataset.tab).classList.add('active');
+  if (b.dataset.tab==='chat') scrollChat();
+}));
+
+// ── INIT ──
+let calY, calM, curWho='ilan', curWCat='הכל', pendingWish='';
+
 function initApp() {
   const now = new Date();
-  calYear  = now.getFullYear();
-  calMonth = now.getMonth();
-  renderStats();
-  renderCalendar();
-  renderHistory();
+  calY = now.getFullYear(); calM = now.getMonth();
+  renderDash(); renderChat(); renderWish();
 }
 
-// ─── STATS ───
+// ──────────── DASHBOARD ────────────
+function renderDash() { renderStats(); renderCalendar(); renderHistory(); }
+
 function renderStats() {
-  const entries = getEntries();
-  const now = new Date();
-
-  const weekAgo = new Date(now); weekAgo.setDate(now.getDate()-7);
-  const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
-
-  const week  = entries.filter(e => new Date(e.dt) >= weekAgo).length;
-  const month = entries.filter(e => new Date(e.dt) >= monthStart).length;
-  const total = entries.length;
-
-  document.getElementById('stat-week').textContent  = week;
-  document.getElementById('stat-month').textContent = month;
-  document.getElementById('stat-total').textContent = total;
-
-  if (entries.length === 0) {
-    document.getElementById('last-time-text').textContent = 'עדיין לא רשמתם';
-  } else {
-    const last = new Date(entries[0].dt);
-    const diff = Math.floor((now - last) / 86400000);
-    if (diff === 0) document.getElementById('last-time-text').textContent = 'היום! 🔥';
-    else if (diff === 1) document.getElementById('last-time-text').textContent = 'אתמול';
-    else document.getElementById('last-time-text').textContent = `לפני ${diff} ימים`;
-  }
+  const logs = getLogs(), now = new Date();
+  const wa = new Date(now); wa.setDate(now.getDate()-7);
+  const ms = new Date(now.getFullYear(), now.getMonth(), 1);
+  g('sw').textContent = logs.filter(e=>new Date(e.dt)>=wa).length;
+  g('sm').textContent = logs.filter(e=>new Date(e.dt)>=ms).length;
+  g('st').textContent = logs.length;
+  if (!logs.length) { g('last-txt').textContent='עדיין לא רשמתם'; return; }
+  const diff = Math.floor((now - new Date(logs[0].dt))/86400000);
+  g('last-txt').textContent = diff===0?'היום! 🔥':diff===1?'אתמול':`לפני ${diff} ימים`;
 }
 
-// ─── CALENDAR ───
-const HE_MONTHS = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
-const HE_DAYS   = ['א','ב','ג','ד','ה','ו','ש'];
+const HE_M=['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
+const HE_D=['א','ב','ג','ד','ה','ו','ש'];
 
 function renderCalendar() {
-  document.getElementById('cal-month-label').textContent = `${HE_MONTHS[calMonth]} ${calYear}`;
-
-  const entries = getEntries();
-  const daysWithEvents = new Set(
-    entries
-      .filter(e => { const d=new Date(e.dt); return d.getFullYear()===calYear && d.getMonth()===calMonth; })
-      .map(e => new Date(e.dt).getDate())
-  );
-
-  const grid = document.getElementById('cal-grid');
+  g('cal-lbl').textContent = `${HE_M[calM]} ${calY}`;
+  const logs = getLogs();
+  const evDays = new Set(logs.filter(e=>{
+    const d=new Date(e.dt); return d.getFullYear()===calY && d.getMonth()===calM;
+  }).map(e=>new Date(e.dt).getDate()));
+  const grid = g('cal-grid');
   grid.innerHTML = '';
-
-  HE_DAYS.forEach(d => {
-    const el = document.createElement('div');
-    el.className = 'cal-day-name';
-    el.textContent = d;
-    grid.appendChild(el);
-  });
-
-  const firstDay = new Date(calYear, calMonth, 1).getDay(); // 0=Sun
-  for(let i=0;i<firstDay;i++){
-    const el = document.createElement('div');
-    el.className = 'cal-day empty';
-    grid.appendChild(el);
-  }
-
-  const daysInMonth = new Date(calYear, calMonth+1, 0).getDate();
-  const today = new Date();
-
-  for(let d=1;d<=daysInMonth;d++){
-    const el = document.createElement('div');
-    el.className = 'cal-day';
-    el.textContent = d;
-
-    const isToday = today.getDate()===d && today.getMonth()===calMonth && today.getFullYear()===calYear;
-    if (isToday) el.classList.add('today');
-    if (daysWithEvents.has(d)) el.classList.add('has-event');
-
+  HE_D.forEach(d => { const el=document.createElement('div'); el.className='cdn'; el.textContent=d; grid.appendChild(el); });
+  const fd = new Date(calY,calM,1).getDay();
+  for(let i=0;i<fd;i++){const el=document.createElement('div');el.className='cd';grid.appendChild(el);}
+  const dim = new Date(calY,calM+1,0).getDate(), today=new Date();
+  for(let d=1;d<=dim;d++){
+    const el=document.createElement('div'); el.className='cd'; el.textContent=d;
+    if(today.getDate()===d&&today.getMonth()===calM&&today.getFullYear()===calY) el.classList.add('tod');
+    if(evDays.has(d)) el.classList.add('ev');
     grid.appendChild(el);
   }
 }
+g('cal-prev').onclick=()=>{calM--;if(calM<0){calM=11;calY--;}renderCalendar();};
+g('cal-next').onclick=()=>{calM++;if(calM>11){calM=0;calY++;}renderCalendar();};
 
-document.getElementById('cal-prev').addEventListener('click', () => {
-  calMonth--;
-  if(calMonth<0){ calMonth=11; calYear--; }
-  renderCalendar();
-});
-document.getElementById('cal-next').addEventListener('click', () => {
-  calMonth++;
-  if(calMonth>11){ calMonth=0; calYear++; }
-  renderCalendar();
-});
-
-// ─── HISTORY ───
 function renderHistory() {
-  const entries = getEntries();
-  const list = document.getElementById('entry-list');
-  document.getElementById('history-count').textContent = entries.length ? `${entries.length} רשומות` : '';
-
-  if (entries.length === 0) {
-    list.innerHTML = '<div class="empty-state">עדיין אין רשומות</div>';
-    return;
-  }
-
-  list.innerHTML = entries.map((e,i) => {
-    const d = new Date(e.dt);
-    const dateStr = d.toLocaleDateString('he-IL', {day:'numeric', month:'long', year:'numeric'});
-    const timeStr = d.toLocaleTimeString('he-IL', {hour:'2-digit', minute:'2-digit'});
-    return `
-      <div class="entry-card">
-        <div>
-          <div class="entry-date">${dateStr}</div>
-          <div class="entry-meta">${timeStr}${e.mood ? ' · '+e.mood : ''}</div>
-          ${e.note ? `<div class="entry-note">${e.note}</div>` : ''}
-        </div>
-        <button class="entry-delete" data-i="${i}">✕</button>
-      </div>`;
+  const logs = getLogs(), list = g('entry-list');
+  g('hist-cnt').textContent = logs.length ? `${logs.length} רשומות` : '';
+  if (!logs.length) { list.innerHTML='<div class="empty">עדיין אין רשומות</div>'; return; }
+  list.innerHTML = logs.map((e,i)=>{
+    const d=new Date(e.dt);
+    const ds=d.toLocaleDateString('he-IL',{day:'numeric',month:'long',year:'numeric'});
+    const ts=d.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'});
+    return `<div class="ecard">
+      <div>
+        <div class="edate">${ds}</div>
+        <div class="emeta">${ts}${e.mood?' · '+e.mood:''}</div>
+        ${e.note?`<div class="enote">${e.note}</div>`:''}
+      </div>
+      <button class="edel" data-i="${i}">✕</button>
+    </div>`;
   }).join('');
-
-  list.querySelectorAll('.entry-delete').forEach(btn => {
-    btn.addEventListener('click', () => {
-      if(!confirm('למחוק רשומה זו?')) return;
-      const entries = getEntries();
-      entries.splice(+btn.dataset.i, 1);
-      saveEntries(entries);
-      renderStats(); renderCalendar(); renderHistory();
-    });
-  });
+  list.querySelectorAll('.edel').forEach(b=>b.addEventListener('click',()=>{
+    if(!confirm('למחוק רשומה זו?')) return;
+    const logs=getLogs(); logs.splice(+b.dataset.i,1); saveLogs(logs);
+    renderDash();
+  }));
 }
 
-// ─── LOG MODAL ───
-document.getElementById('log-btn').addEventListener('click', () => {
-  const now = new Date();
-  const local = new Date(now - now.getTimezoneOffset()*60000).toISOString().slice(0,16);
-  document.getElementById('entry-datetime').value = local;
-  selectedMood = '';
-  document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('entry-note').value = '';
-  document.getElementById('modal').classList.add('open');
+// LOG MODAL
+g('log-btn').onclick=()=>{
+  const now=new Date();
+  const loc=new Date(now-now.getTimezoneOffset()*60000).toISOString().slice(0,16);
+  g('e-dt').value=loc; g('e-note').value='';
+  gs('.mood-btn').forEach(b=>b.classList.remove('active'));
+  selectedMood='';
+  g('modal-log').classList.add('open');
+};
+g('e-cancel').onclick=()=>g('modal-log').classList.remove('open');
+g('modal-log').onclick=function(e){if(e.target===this)this.classList.remove('open');};
+
+let selectedMood='';
+gs('.mood-btn').forEach(b=>b.addEventListener('click',()=>{
+  selectedMood=b.dataset.m;
+  gs('.mood-btn').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+}));
+
+g('e-save').onclick=()=>{
+  const dt=g('e-dt').value; if(!dt){alert('בחר תאריך');return;}
+  const logs=getLogs();
+  logs.unshift({dt:new Date(dt).toISOString(), mood:selectedMood, note:g('e-note').value.trim()});
+  logs.sort((a,b)=>new Date(b.dt)-new Date(a.dt));
+  saveLogs(logs);
+  g('modal-log').classList.remove('open');
+  renderDash();
+};
+
+// ──────────── CHAT ────────────
+function renderChat() {
+  const msgs = getMsgs(), box = g('chat-box');
+  g('chat-empty').style.display = msgs.length ? 'none' : 'block';
+  const existing = box.querySelectorAll('.bubble-wrap');
+  existing.forEach(e=>e.remove());
+  msgs.forEach(m => box.appendChild(makeBubble(m)));
+  scrollChat();
+}
+
+function makeBubble(m) {
+  const wrap = document.createElement('div');
+  wrap.className = 'bubble-wrap '+(m.who==='ilan'?'mine':'hers');
+  const d = new Date(m.ts);
+  const ts = d.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'})+' '+d.toLocaleDateString('he-IL',{day:'numeric',month:'numeric'});
+  wrap.innerHTML = `<div class="bubble">
+    <div class="bubble-sender">${m.who==='ilan'?'👨 אילן':'👩 אשתי'}</div>
+    <div>${m.text}</div>
+    <div class="bubble-time">${ts}</div>
+  </div>`;
+  return wrap;
+}
+
+function scrollChat() {
+  const box=g('chat-box'); box.scrollTop=box.scrollHeight;
+}
+
+gs('.who-btn').forEach(b=>b.addEventListener('click',()=>{
+  curWho=b.dataset.who;
+  gs('.who-btn').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+}));
+
+function sendMsg() {
+  const input=g('chat-input'), text=input.value.trim();
+  if(!text) return;
+  const msgs=getMsgs();
+  msgs.push({who:curWho, text, ts:new Date().toISOString()});
+  saveMsgs(msgs);
+  input.value='';
+  renderChat();
+}
+g('send-btn').onclick=sendMsg;
+g('chat-input').addEventListener('keydown',e=>{if(e.key==='Enter')sendMsg();});
+g('chat-clear').onclick=()=>{
+  if(!confirm('למחוק את כל השיחה?')) return;
+  saveMsgs([]); renderChat();
+};
+
+// ──────────── WISHLIST ────────────
+function renderWish() {
+  const wishes=getWish(), list=g('wish-list');
+  const filtered = curWCat==='הכל' ? wishes : wishes.filter(w=>w.cat===curWCat);
+  if(!filtered.length){list.innerHTML='<div class="empty">אין משאלות כאן עדיין ✨</div>';return;}
+  list.innerHTML=filtered.map((w,_)=>{
+    const ri=wishes.indexOf(w);
+    return `<div class="wish-card${w.done?' done':''}">
+      <div class="wish-check" data-ri="${ri}">✓</div>
+      <div style="flex:1">
+        <div class="wish-text">${w.text}</div>
+        <div class="wish-cat">${w.cat}</div>
+      </div>
+      <button class="wish-del" data-ri="${ri}">✕</button>
+    </div>`;
+  }).join('');
+  list.querySelectorAll('.wish-check').forEach(b=>b.addEventListener('click',()=>{
+    const wishes=getWish(); wishes[+b.dataset.ri].done=!wishes[+b.dataset.ri].done;
+    saveWish(wishes); renderWish();
+  }));
+  list.querySelectorAll('.wish-del').forEach(b=>b.addEventListener('click',()=>{
+    if(!confirm('למחוק?')) return;
+    const wishes=getWish(); wishes.splice(+b.dataset.ri,1); saveWish(wishes); renderWish();
+  }));
+}
+
+gs('.wcat-btn').forEach(b=>b.addEventListener('click',()=>{
+  curWCat=b.dataset.cat;
+  gs('.wcat-btn').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  renderWish();
+}));
+
+g('wish-add-btn').onclick=()=>{
+  const text=g('wish-input').value.trim();
+  if(!text) return;
+  pendingWish=text;
+  g('modal-wish').classList.add('open');
+};
+g('wish-input').addEventListener('keydown',e=>{
+  if(e.key==='Enter'){g('wish-add-btn').click();}
 });
 
-document.querySelectorAll('.mood-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    selectedMood = btn.dataset.mood;
-    document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-  });
-});
+gs('#wish-cat-pick button').forEach(b=>b.addEventListener('click',()=>{
+  const wishes=getWish();
+  wishes.push({text:pendingWish, cat:b.dataset.wc, done:false, ts:new Date().toISOString()});
+  saveWish(wishes);
+  g('wish-input').value=''; pendingWish='';
+  g('modal-wish').classList.remove('open');
+  renderWish();
+}));
+g('wc-cancel').onclick=()=>g('modal-wish').classList.remove('open');
+g('modal-wish').onclick=function(e){if(e.target===this){this.classList.remove('open');}};
 
-document.getElementById('cancel-btn').addEventListener('click', () => {
-  document.getElementById('modal').classList.remove('open');
-});
+// ──────────── PIN CHANGE ────────────
+g('change-pin-btn').onclick=()=>{
+  ['p-old','p-new','p-new2'].forEach(id=>g(id).value='');
+  g('pin-err2').textContent='';
+  g('modal-pin').classList.add('open');
+};
+g('p-cancel').onclick=()=>g('modal-pin').classList.remove('open');
+g('modal-pin').onclick=function(e){if(e.target===this)this.classList.remove('open');};
+g('p-save').onclick=()=>{
+  const old=g('p-old').value, n1=g('p-new').value, n2=g('p-new2').value, err=g('pin-err2');
+  if(old!==getPin()){err.textContent='PIN נוכחי שגוי';return;}
+  if(!/^\d{4}$/.test(n1)){err.textContent='חייב להיות 4 ספרות';return;}
+  if(n1!==n2){err.textContent='הקודים לא תואמים';return;}
+  localStorage.setItem(K_PIN,n1);
+  g('modal-pin').classList.remove('open');
+  alert('PIN שונה ✓');
+};
 
-document.getElementById('save-btn').addEventListener('click', () => {
-  const dt = document.getElementById('entry-datetime').value;
-  if (!dt) { alert('בחר תאריך ושעה'); return; }
-
-  const entry = {
-    dt: new Date(dt).toISOString(),
-    mood: selectedMood,
-    note: document.getElementById('entry-note').value.trim()
-  };
-
-  const entries = getEntries();
-  entries.unshift(entry);
-  entries.sort((a,b) => new Date(b.dt)-new Date(a.dt));
-  saveEntries(entries);
-
-  document.getElementById('modal').classList.remove('open');
-  renderStats(); renderCalendar(); renderHistory();
-});
-
-// ─── CHANGE PIN ───
-document.getElementById('change-pin-btn').addEventListener('click', () => {
-  document.getElementById('old-pin').value='';
-  document.getElementById('new-pin').value='';
-  document.getElementById('new-pin2').value='';
-  document.getElementById('pin-change-error').textContent='';
-  document.getElementById('change-pin-modal').classList.add('open');
-});
-
-document.getElementById('cancel-pin-btn').addEventListener('click', () => {
-  document.getElementById('change-pin-modal').classList.remove('open');
-});
-
-document.getElementById('save-pin-btn').addEventListener('click', () => {
-  const old = document.getElementById('old-pin').value;
-  const n1  = document.getElementById('new-pin').value;
-  const n2  = document.getElementById('new-pin2').value;
-  const err = document.getElementById('pin-change-error');
-
-  if (old !== getPin()) { err.textContent='PIN נוכחי שגוי'; return; }
-  if (!/^\d{4}$/.test(n1)) { err.textContent='PIN חייב להיות 4 ספרות'; return; }
-  if (n1 !== n2) { err.textContent='הקודים לא תואמים'; return; }
-
-  localStorage.setItem(KEY_PIN, n1);
-  document.getElementById('change-pin-modal').classList.remove('open');
-  alert('PIN שונה בהצלחה ✓');
-});
-
-// ─── LOCK ───
-document.getElementById('lock-btn').addEventListener('click', () => {
-  document.getElementById('app').style.display = 'none';
-  document.getElementById('pin-screen').style.display = 'flex';
-  pinInput = '';
-  updateDots();
-  document.getElementById('pin-error').textContent='';
-});
-
-// close modal on background click
-document.getElementById('modal').addEventListener('click', function(e){
-  if(e.target===this) this.classList.remove('open');
-});
-document.getElementById('change-pin-modal').addEventListener('click', function(e){
-  if(e.target===this) this.classList.remove('open');
-});
+// ──────────── LOCK ────────────
+g('lock-btn').onclick=()=>{
+  g('app').style.display='none';
+  g('pin-screen').style.display='flex';
+  pinBuf=''; updateDots(); g('pin-err').textContent='';
+};
 </script>
 </body>
 </html>
