@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>אילן לוי - עזרה ולימוד במחשב ובטלפון</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f9f9f9;
+            color: #333;
+            direction: rtl;
+        }
+
+        /* HEADER */
+        header {
+            background: linear-gradient(135deg, #1a73e8, #0d47a1);
+            color: white;
+            padding: 60px 20px 50px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.4rem;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .btn-whatsapp {
+            display: inline-block;
+            background: #25D366;
+            color: white;
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(37,211,102,0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-whatsapp:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37,211,102,0.5);
+        }
+
+        /* TRUST BAR */
+        .trust-bar {
+            background: #e8f0fe;
+            padding: 18px 20px;
+            text-align: center;
+            font-size: 1rem;
+            color: #1a73e8;
+            font-weight: 600;
+        }
+
+        /* SERVICES */
+        .section {
+            padding: 60px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section h2 {
+            font-size: 1.9rem;
+            color: #1a73e8;
+            margin-bottom: 35px;
+            text-align: center;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 12px;
+            padding: 28px 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            border-right: 4px solid #1a73e8;
+            transition: transform 0.2s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .service-card .icon {
+            font-size: 2.2rem;
+            margin-bottom: 14px;
+        }
+
+        .service-card h3 {
+            font-size: 1.15rem;
+            margin-bottom: 10px;
+            color: #222;
+        }
+
+        .service-card p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* PRICING */
+        .pricing-section {
+            background: white;
+            padding: 60px 20px;
+        }
+
+        .pricing-inner {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .pricing-inner h2 {
+            font-size: 1.9rem;
+            color: #1a73e8;
+            margin-bottom: 35px;
+            text-align: center;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .price-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 14px;
+            padding: 30px 24px;
+            text-align: center;
+            transition: border-color 0.2s;
+        }
+
+        .price-card.featured {
+            border-color: #1a73e8;
+            position: relative;
+        }
+
+        .price-card.featured::before {
+            content: "הכי משתלם";
+            position: absolute;
+            top: -14px;
+            right: 50%;
+            transform: translateX(50%);
+            background: #1a73e8;
+            color: white;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .price-card h3 {
+            font-size: 1.1rem;
+            color: #444;
+            margin-bottom: 12px;
+        }
+
+        .price-card .price {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #1a73e8;
+        }
+
+        .price-card .price span {
+            font-size: 1rem;
+            color: #888;
+        }
+
+        .price-card p {
+            font-size: 0.9rem;
+            color: #777;
+            margin-top: 10px;
+            line-height: 1.5;
+        }
+
+        /* WHO */
+        .who-section {
+            background: #f0f4ff;
+            padding: 60px 20px;
+        }
+
+        .who-inner {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .who-inner h2 {
+            font-size: 1.9rem;
+            color: #1a73e8;
+            margin-bottom: 20px;
+        }
+
+        .who-inner p {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        /* CTA */
+        .cta-section {
+            background: linear-gradient(135deg, #1a73e8, #0d47a1);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 1.9rem;
+            margin-bottom: 16px;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #222;
+            color: #aaa;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* MOBILE */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            header p { font-size: 1rem; }
+            .section h2, .pricing-inner h2, .who-inner h2, .cta-section h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <h1>אילן לוי</h1>
+        <p>עזרה, סדר והדרכה אישית במחשב ובטלפון<br>בסבלנות, בבית שלך או מרחוק</p>
+        <a href="https://wa.me/972528646446?text=שלום%20אילן%2C%20אני%20מעוניין%20בעזרה" class="btn-whatsapp">
+            📱 צור קשר עכשיו בוואטסאפ
+        </a>
+    </header>
+
+    <!-- TRUST BAR -->
+    <div class="trust-bar">
+        שירות אישי ✦ סבלנות אינסופית ✦ מגיע עד הבית ✦ גם מרחוק
+    </div>
+
+    <!-- SERVICES -->
+    <div class="section">
+        <h2>במה אני עוזר?</h2>
+        <div class="services-grid">
+
+            <div class="service-card">
+                <div class="icon">📱</div>
+                <h3>הגדרת טלפון ואייפון</h3>
+                <p>הגדרה, עדכונים, העברת תמונות, גיבוי - הכל בסדר ובלי בלבול</p>
+            </div>
+
+            <div class="service-card">
+                <div class="icon">💻</div>
+                <h3>סדר במחשב</h3>
+                <p>ניקוי, סדר בקבצים ותמונות, התקנת תוכנות, פתרון תקלות</p>
+            </div>
+
+            <div class="service-card">
+                <div class="icon">📧</div>
+                <h3>לימוד תוכנות יום-יום</h3>
+                <p>WhatsApp, Gmail, Facebook, Zoom - לומדים ביחד בקצב שלך</p>
+            </div>
+
+            <div class="service-card">
+                <div class="icon">☁️</div>
+                <h3>גיבוי ואבטחה</h3>
+                <p>גיבוי תמונות וקבצים, הגנה מנוכלים ומסרים מסוכנים</p>
+            </div>
+
+            <div class="service-card">
+                <div class="icon">🖥️</div>
+                <h3>הדרכה מרחוק</h3>
+                <p>נתחבר מרחוק ואפתור את הבעיה מבלי שתצטרך לזוז</p>
+            </div>
+
+            <div class="service-card">
+                <div class="icon">🏠</div>
+                <h3>ביקור בית</h3>
+                <p>מגיע אליך, יושב לידך, ומסביר הכל בשפה פשוטה ובלי למהר</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- PRICING -->
+    <div class="pricing-section">
+        <div class="pricing-inner">
+            <h2>מחירים ברורים - בלי הפתעות</h2>
+            <div class="pricing-grid">
+
+                <div class="price-card">
+                    <h3>הדרכה מרחוק</h3>
+                    <div class="price">150 <span>₪</span></div>
+                    <p>שעה שלמה • מהבית שלך • בלי נסיעה</p>
+                </div>
+
+                <div class="price-card featured">
+                    <h3>ביקור בית</h3>
+                    <div class="price">250 <span>₪</span></div>
+                    <p>עד שעתיים • מגיע אליך • פותרים הכל יחד</p>
+                </div>
+
+                <div class="price-card">
+                    <h3>חבילת 3 ביקורים</h3>
+                    <div class="price">650 <span>₪</span></div>
+                    <p>חיסכון של 100 ₪ • מתאים לקשישים ולמי שצריך ליווי קבוע</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- WHO -->
+    <div class="who-section">
+        <div class="who-inner">
+            <h2>מיועד במיוחד עבורך אם...</h2>
+            <p>
+                המחשב מפחיד אותך ואתה לא יודע מאיפה להתחיל ☑️<br>
+                הילדים עסוקים ואין מי שיעזור ☑️<br>
+                כבר שאלת פעם ולא הבנת את ההסבר ☑️<br>
+                אתה רוצה ללמוד ולא רק שיפתרו לך ☑️<br><br>
+                <strong>אני כאן בדיוק בשבילך. בסבלנות. בלי שיפוטיות. בלי מהירות.</strong>
+            </p>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section">
+        <h2>מוכן להתחיל?</h2>
+        <p>שלח הודעה ואחזור אליך תוך שעה</p>
+        <a href="https://wa.me/972528646446?text=שלום%20אילן%2C%20אני%20מעוניין%20בעזרה" class="btn-whatsapp">
+            📱 שלח הודעה בוואטסאפ
+        </a>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>אילן לוי • עזרה ולימוד במחשב ובטלפון • ilanailevi.com</p>
+    </footer>
+
+</body>
+</html>
