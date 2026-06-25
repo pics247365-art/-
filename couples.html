@@ -226,6 +226,107 @@ header p { color: var(--warm); font-size: .9rem; margin-top: .25rem; }
 .wish-del { background: transparent; border: none; color: var(--bdr); font-size: .95rem; cursor: pointer; }
 .wish-del:hover { color: var(--red); }
 
+/* ── GAME ── */
+#pg-game { padding-top: 1.2rem; }
+.game-header { text-align: center; padding: .5rem 0 1.2rem; }
+.game-header h2 { font-family: 'Frank Ruhl Libre', serif; font-size: 1.5rem; font-weight: 900; color: var(--gold); }
+.game-header p { font-size: .82rem; color: var(--warm); margin-top: .2rem; opacity: .7; }
+
+.level-tabs { display: flex; gap: .4rem; justify-content: center; margin-bottom: 1rem; }
+.lvl-btn {
+  flex: 1; padding: .45rem .2rem; border-radius: 20px;
+  border: 1px solid var(--bdr); background: transparent;
+  color: var(--warm); font-size: .8rem; cursor: pointer; transition: all .2s;
+  font-family: 'Assistant', sans-serif;
+}
+.lvl-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(196,154,42,.1); }
+.lvl-btn[data-lv="hot"].active { border-color: #c44; color: #c44; background: rgba(168,24,24,.1); }
+.lvl-btn[data-lv="wild"].active { border-color: #a840a8; color: #cc55cc; background: rgba(168,40,168,.1); }
+
+.type-tabs { display: flex; gap: .4rem; justify-content: center; margin-bottom: 1.4rem; }
+.type-btn {
+  flex: 1; padding: .4rem; border-radius: 8px;
+  border: 1px solid var(--bdr); background: transparent;
+  color: var(--warm); font-size: .85rem; cursor: pointer; transition: all .2s;
+  font-family: 'Assistant', sans-serif;
+}
+.type-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(196,154,42,.1); }
+
+/* card flip */
+.card-scene {
+  width: 100%; max-width: 340px; height: 220px;
+  margin: 0 auto 1.4rem; perspective: 900px;
+  cursor: pointer;
+}
+.card-3d {
+  width: 100%; height: 100%;
+  position: relative; transform-style: preserve-3d;
+  transition: transform .55s cubic-bezier(.4,0,.2,1);
+}
+.card-3d.flipped { transform: rotateY(180deg); }
+.card-face {
+  position: absolute; inset: 0;
+  border-radius: 16px; backface-visibility: hidden;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 1.5rem 1.2rem; text-align: center;
+}
+.card-front {
+  background: var(--surf);
+  border: 1px solid var(--bdr);
+}
+.card-front-icon { font-size: 3rem; line-height: 1; margin-bottom: .6rem; }
+.card-front-hint { font-size: .8rem; color: var(--warm); opacity: .6; }
+.card-back {
+  background: linear-gradient(135deg, #1a1208, #0f0a04);
+  border: 1px solid var(--gold);
+  transform: rotateY(180deg);
+}
+.card-type-badge {
+  font-size: .7rem; letter-spacing: .12em; text-transform: uppercase;
+  border-radius: 20px; padding: .2rem .7rem; margin-bottom: .8rem;
+  font-family: 'Assistant', sans-serif; font-weight: 600;
+}
+.badge-truth { background: rgba(196,154,42,.2); color: var(--gold); border: 1px solid rgba(196,154,42,.4); }
+.badge-dare  { background: rgba(168,24,24,.2);  color: #e05050;   border: 1px solid rgba(168,24,24,.4); }
+.card-text {
+  font-family: 'Frank Ruhl Libre', serif; font-size: 1.1rem;
+  font-weight: 700; color: var(--cream); line-height: 1.5;
+}
+.card-level-dot {
+  position: absolute; top: .7rem; left: .7rem;
+  width: 8px; height: 8px; border-radius: 50%;
+}
+
+.game-actions { display: flex; gap: .6rem; justify-content: center; margin-bottom: 1rem; }
+#next-card-btn {
+  flex: 1; max-width: 220px; padding: .85rem;
+  background: var(--gold); color: var(--bg); border: none;
+  border-radius: 12px; font-family: 'Frank Ruhl Libre', serif;
+  font-size: 1.05rem; font-weight: 900; cursor: pointer; transition: all .2s;
+}
+#next-card-btn:hover { background: var(--warm); }
+#skip-btn {
+  padding: .85rem 1rem; background: transparent; border: 1px solid var(--bdr);
+  color: var(--warm); border-radius: 12px; font-size: .85rem; cursor: pointer;
+  font-family: 'Assistant', sans-serif;
+}
+#skip-btn:hover { border-color: var(--warm); }
+
+.game-score {
+  display: flex; justify-content: center; gap: 2rem;
+  padding: .8rem; border-top: 1px solid var(--bdr); margin-top: .5rem;
+}
+.gscore { text-align: center; }
+.gscore-num { font-family: 'Frank Ruhl Libre', serif; font-size: 1.6rem; font-weight: 900; color: var(--gold); }
+.gscore-lbl { font-size: .7rem; color: var(--warm); opacity: .6; }
+.game-done-strip {
+  display: none; text-align: center; padding: 1rem;
+  background: rgba(196,154,42,.05); border: 1px solid rgba(196,154,42,.2);
+  border-radius: 12px; margin-bottom: 1rem; color: var(--warm); font-size: .9rem;
+}
+.game-done-strip.show { display: block; }
+
 /* ── SETTINGS MINI ── */
 #settings-bar {
   display: flex; gap: .5rem; justify-content: center; padding: .8rem 0;
@@ -379,11 +480,61 @@ header p { color: var(--warm); font-size: .9rem; margin-top: .25rem; }
     </div>
   </div>
 
+  <!-- ─ TAB: GAME ─ -->
+  <div class="page" id="pg-game">
+    <div class="game-header">
+      <h2>🃏 המשחק</h2>
+      <p>בחרו רמה, משכו כרטיס, תהנו</p>
+    </div>
+
+    <div class="level-tabs">
+      <button class="lvl-btn active" data-lv="soft">🕯️ רומנטי</button>
+      <button class="lvl-btn" data-lv="hot">🔥 חושני</button>
+      <button class="lvl-btn" data-lv="wild">💋 נועז</button>
+    </div>
+
+    <div class="type-tabs">
+      <button class="type-btn active" data-tp="mix">🎲 מעורב</button>
+      <button class="type-btn" data-tp="truth">❓ אמת</button>
+      <button class="type-btn" data-tp="dare">⚡ העזה</button>
+    </div>
+
+    <div class="card-scene" id="card-scene">
+      <div class="card-3d" id="card-3d">
+        <div class="card-face card-front">
+          <div class="card-front-icon">🃏</div>
+          <div class="card-front-hint">לחצו למשוך כרטיס</div>
+        </div>
+        <div class="card-face card-back">
+          <div class="card-level-dot" id="card-lvl-dot"></div>
+          <div class="card-type-badge badge-truth" id="card-badge">אמת</div>
+          <div class="card-text" id="card-text">...</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="game-done-strip" id="game-done">
+      🎉 עברתם על כל הכרטיסים! לחצו "הבא" להתחיל מחדש
+    </div>
+
+    <div class="game-actions">
+      <button id="skip-btn">דלג</button>
+      <button id="next-card-btn">משוך כרטיס</button>
+    </div>
+
+    <div class="game-score">
+      <div class="gscore"><div class="gscore-num" id="gs-round">0</div><div class="gscore-lbl">כרטיסים</div></div>
+      <div class="gscore"><div class="gscore-num" id="gs-truth">0</div><div class="gscore-lbl">אמת</div></div>
+      <div class="gscore"><div class="gscore-num" id="gs-dare">0</div><div class="gscore-lbl">העזה</div></div>
+    </div>
+  </div>
+
   <!-- TAB BAR -->
   <div class="tab-bar">
     <button class="tab-btn active" data-tab="dash"><span class="ico">📅</span>מעקב</button>
     <button class="tab-btn" data-tab="chat"><span class="ico">💬</span>צ'אט</button>
     <button class="tab-btn" data-tab="wish"><span class="ico">✨</span>משאלות</button>
+    <button class="tab-btn" data-tab="game"><span class="ico">🃏</span>משחק</button>
   </div>
 </div>
 
@@ -507,6 +658,7 @@ function initApp() {
   const now = new Date();
   calY = now.getFullYear(); calM = now.getMonth();
   renderDash(); renderChat(); renderWish();
+  resetGame();
 }
 
 // ──────────── DASHBOARD ────────────
@@ -722,6 +874,183 @@ g('p-save').onclick=()=>{
   g('modal-pin').classList.remove('open');
   alert('PIN שונה ✓');
 };
+
+// ──────────── GAME ────────────
+const CARDS = {
+  soft: {
+    truth: [
+      'מה הדבר הכי רומנטי שאי פעם עשיתי לך?',
+      'מתי הרגשת הכי קרוב/ה אלי?',
+      'מה הזיכרון הרומנטי האהוב עליך שלנו?',
+      'מה אתה/את הכי אוהב/ת שאני עושה לך?',
+      'לאן הכי בא לך שנסע ביחד?',
+      'מה הדבר שגורם לך להרגיש הכי אהוב/ה?',
+      'מה הייתה הדייט המושלמת שלך איתי?',
+      'מה אתה/את הכי אוהב/ת בגוף שלי?',
+      'איזה שיר מזכיר לך אותנו?',
+      'מה אתה/את מקווה שנעשה ביחד השנה?',
+    ],
+    dare: [
+      'תן/י לי נשיקה ארוכה בלי לעצור',
+      'לחש/י לי דבר שאתה/את אוהב/ת בי',
+      'תעשה/י לי עיסוי ידיים של 3 דקות',
+      'תחבק/י אותי חיבוק שלא ממהר לשחרר',
+      'ספר/י לי מה אהבת בפעם הראשונה שפגשנו',
+      'תכין/י לי משהו לשתות ותביא/י עם נשיקה',
+      'תשיר/י לי שורה מהשיר האהוב עליך',
+      'תספר/י לי את הדבר הכי יפה שאתה/את חושב/ת עלי',
+      'תרקד/י איתי לשיר אחד איטי',
+      'תכתוב/כתבי לי הודעה שתישמר לתמיד',
+    ],
+  },
+  hot: {
+    truth: [
+      'איפה הכי בא לך שאגע בך?',
+      'מה הדבר הכי חושני שאני עושה?',
+      'מה הפנטזיה שמעולם לא סיפרת לי?',
+      'איזה לבוש הכי מגרה עלי לפי דעתך?',
+      'מה הדבר שהכי בא לך שננסה?',
+      'מה הכי מגרה אותך בלי מגע?',
+      'מה אתה/את חושב/ת עלי כשאתה/את מרחוק?',
+      'מה הדבר שגורם לך להרגיש הכי מיני?',
+      'מה הייתה הרגע הכי חושני שלנו?',
+      'מה הסוד הכי קטן שלך שעוד לא סיפרת לי?',
+    ],
+    dare: [
+      'תנשק/י אותי בכל הצוואר',
+      'תעשה/י לי עיסוי גב של 5 דקות',
+      'תגיד/י לי בדיוק מה אתה/את רוצה שאעשה לך הלילה',
+      'שלח/י לי הודעת וואטסאפ מגרה ממש עכשיו',
+      'תרד/י בנשיקות מהצוואר לכתף',
+      'תגלה/י קצת יותר ממה שרגיל/ה',
+      'תעשה/י לי עיסוי כתפיים ותלחש/י לי משהו',
+      'תסתכל/י לי בעיניים חצי דקה בלי להסיט מבט',
+      'תנשק/י אותי על האוזן',
+      'תכתוב/כתבי על ידי שלי פנטזיה קטנה',
+    ],
+  },
+  wild: {
+    truth: [
+      'מה הפנטזיה הכי פרועה שלך?',
+      'מה הדבר שהכי בא לך שנעשה שעדיין לא עשינו?',
+      'מה המקום הכי לא צפוי שבא לך שנהיה בו אינטימיים?',
+      'מה ה"כן גדול" שלך שעדיין לא אמרת לי?',
+      'מה הדבר שגורם לך להרגיש הכי סקסי?',
+      'אם היינו לבד שבוע שלם בלי שום דאגה — מה היית רוצה שנעשה?',
+      'מה הפנטזיה שהכי בושה לך לספר לי?',
+      'מה הייתה הנשיקה הכי טובה שקיבלת?',
+      'מה הדבר שאני עושה שמשגע/ת אותך הכי הרבה?',
+      'מה הייתה הרגע הכי נועז שלנו?',
+    ],
+    dare: [
+      'הפתע/י אותי בנשיקה איפה שאתה/את בוחר/ת',
+      'תגלה/י לי פנטזיה אחת שעדיין לא סיפרת לי — בפירוט',
+      'תעשה/י לי משהו שיגרום לי לרצות אותך',
+      'תבחר/י מוזיקה מגרה ותרקד/י לידי',
+      'שלח/י לי תמונה שתגרום לי לרצות אותך',
+      'תתאר/י לי פנטזיה בזמן שאתה/את מסתכל/ת לי בעיניים',
+      'תנשק/י אותי 60 שניות בלי לעצור',
+      'תגיד/י לי בדיוק מה אתה/את רוצה שיקרה הלילה',
+      'תוריד/י בנשיקות מהצוואר לשכם ומשם',
+      'תבצע/י עיסוי של 10 דקות בלי לדבר — רק מגע',
+    ],
+  },
+};
+
+const LV_COLOR = { soft: '#c49a2a', hot: '#c44444', wild: '#cc55cc' };
+
+let gameLv = 'soft', gameTp = 'mix', gameIdx = -1, gameUsed = [];
+let gRound = 0, gTruth = 0, gDare = 0;
+
+function gamePool() {
+  const lv = CARDS[gameLv];
+  if (gameTp === 'truth') return lv.truth.map(t=>({t:'truth',q:t}));
+  if (gameTp === 'dare')  return lv.dare.map(t=>({t:'dare',q:t}));
+  return [...lv.truth.map(t=>({t:'truth',q:t})), ...lv.dare.map(t=>({t:'dare',q:t}))];
+}
+
+function shuffleArray(a) {
+  const arr = [...a];
+  for (let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}
+  return arr;
+}
+
+let gameShuffled = [];
+
+function resetGame() {
+  gameShuffled = shuffleArray(gamePool());
+  gameIdx = -1;
+  g('game-done').classList.remove('show');
+  // reset card to front
+  g('card-3d').classList.remove('flipped');
+}
+
+function drawCard() {
+  gameIdx++;
+  if (gameIdx >= gameShuffled.length) {
+    gameShuffled = shuffleArray(gamePool());
+    gameIdx = 0;
+    g('game-done').classList.remove('show');
+  }
+  const card = gameShuffled[gameIdx];
+  g('card-text').textContent = card.q;
+  const badge = g('card-badge');
+  badge.textContent = card.t === 'truth' ? 'אמת' : 'העזה';
+  badge.className = 'card-type-badge ' + (card.t==='truth'?'badge-truth':'badge-dare');
+  g('card-lvl-dot').style.background = LV_COLOR[gameLv];
+
+  gRound++;
+  if (card.t==='truth') gTruth++; else gDare++;
+  g('gs-round').textContent = gRound;
+  g('gs-truth').textContent = gTruth;
+  g('gs-dare').textContent  = gDare;
+
+  if (gameIdx === gameShuffled.length - 1) g('game-done').classList.add('show');
+}
+
+function flipCard(draw) {
+  const card3d = g('card-3d');
+  if (!card3d.classList.contains('flipped')) {
+    drawCard();
+    card3d.classList.add('flipped');
+  } else {
+    card3d.classList.remove('flipped');
+    setTimeout(() => { if (draw) { drawCard(); card3d.classList.add('flipped'); } }, 300);
+  }
+}
+
+g('card-scene').addEventListener('click', () => flipCard(false));
+g('next-card-btn').addEventListener('click', () => {
+  const card3d = g('card-3d');
+  if (!card3d.classList.contains('flipped')) {
+    drawCard();
+    card3d.classList.add('flipped');
+  } else {
+    card3d.classList.remove('flipped');
+    setTimeout(() => { drawCard(); card3d.classList.add('flipped'); }, 320);
+  }
+});
+g('skip-btn').addEventListener('click', () => {
+  const card3d = g('card-3d');
+  card3d.classList.remove('flipped');
+  setTimeout(() => { drawCard(); card3d.classList.add('flipped'); }, 320);
+});
+
+gs('.lvl-btn').forEach(b => b.addEventListener('click', () => {
+  gameLv = b.dataset.lv;
+  gs('.lvl-btn').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  g('card-3d').classList.remove('flipped');
+  resetGame();
+}));
+
+gs('.type-btn').forEach(b => b.addEventListener('click', () => {
+  gameTp = b.dataset.tp;
+  gs('.type-btn').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  g('card-3d').classList.remove('flipped');
+  resetGame();
+}));
 
 // ──────────── LOCK ────────────
 g('lock-btn').onclick=()=>{
