@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARGILA — Clay Hair Styling</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700;900&family=Assistant:wght@300;400;600;700&family=Playfair+Display:ital,wght@1,400;1,700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --clay:    #b5541a;
+    --clay2:   #8b3d12;
+    --cream:   #f0e8d8;
+    --dark:    #0d0b09;
+    --gold:    #c49a2a;
+    --warm:    #d4a06a;
+    --white:   #ffffff;
+    --sand:    #e8d5b0;
+  }
+
+  html, body {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Assistant', sans-serif;
+  }
+
+  /* Vertical 9:16 container */
+  .stage {
+    width: 390px;
+    height: 844px;
+    position: relative;
+    overflow: hidden;
+    background: var(--dark);
+  }
+
+  /* ---- GRAIN TEXTURE overlay ---- */
+  .grain {
+    position: absolute;
+    inset: 0;
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 150px;
+  }
+
+  /* ---- SCENES ---- */
+  .scene {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Scene timing — total 45s loop */
+  /* S1: 0–9s   S2: 9–18s   S3: 18–27s   S4: 27–36s   S5: 36–45s */
+
+  .s1 { animation: scene1 45s linear infinite; }
+  .s2 { animation: scene2 45s linear infinite; }
+  .s3 { animation: scene3 45s linear infinite; }
+  .s4 { animation: scene4 45s linear infinite; }
+  .s5 { animation: scene5 45s linear infinite; }
+
+  @keyframes scene1 {
+    0%    { opacity: 0; }
+    2%    { opacity: 1; }
+    18%   { opacity: 1; }
+    20%   { opacity: 0; }
+    100%  { opacity: 0; }
+  }
+  @keyframes scene2 {
+    0%    { opacity: 0; }
+    20%   { opacity: 0; }
+    22%   { opacity: 1; }
+    38%   { opacity: 1; }
+    40%   { opacity: 0; }
+    100%  { opacity: 0; }
+  }
+  @keyframes scene3 {
+    0%    { opacity: 0; }
+    40%   { opacity: 0; }
+    42%   { opacity: 1; }
+    58%   { opacity: 1; }
+    60%   { opacity: 0; }
+    100%  { opacity: 0; }
+  }
+  @keyframes scene4 {
+    0%    { opacity: 0; }
+    60%   { opacity: 0; }
+    62%   { opacity: 1; }
+    78%   { opacity: 1; }
+    80%   { opacity: 0; }
+    100%  { opacity: 0; }
+  }
+  @keyframes scene5 {
+    0%    { opacity: 0; }
+    80%   { opacity: 0; }
+    82%   { opacity: 1; }
+    98%   { opacity: 1; }
+    100%  { opacity: 0; }
+  }
+
+  /* ================================================
+     SCENE 1 — OPENING / BRAND REVEAL
+  ================================================ */
+  .s1 {
+    background: radial-gradient(ellipse at 50% 40%, #2a1505 0%, var(--dark) 70%);
+  }
+
+  .s1 .logo-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    animation: fadeUp 1.2s ease-out both;
+  }
+
+  .clay-icon {
+    width: 120px;
+    height: 120px;
+    background: linear-gradient(135deg, var(--clay) 0%, var(--clay2) 60%, #5a2808 100%);
+    border-radius: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 60px rgba(181,84,26,0.5), 0 0 120px rgba(181,84,26,0.2);
+    position: relative;
+    overflow: hidden;
+  }
+  .clay-icon::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%);
+    border-radius: 32px;
+  }
+  .clay-icon svg {
+    width: 70px;
+    height: 70px;
+    fill: var(--cream);
+    opacity: 0.95;
+    position: relative;
+    z-index: 1;
+  }
+
+  .brand-name {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 72px;
+    font-weight: 700;
+    color: var(--cream);
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  .brand-sub {
+    font-family: 'Assistant', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--gold);
+    letter-spacing: 6px;
+    text-transform: uppercase;
+  }
+
+  .divider-gold {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .tagline-s1 {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 22px;
+    color: var(--warm);
+    text-align: center;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 0 32px;
+    margin-top: 16px;
+  }
+
+  .bottom-line {
+    position: absolute;
+    bottom: 60px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+
+  /* ================================================
+     SCENE 2 — PRODUCT FEATURE
+  ================================================ */
+  .s2 {
+    background: linear-gradient(180deg, #1a0c03 0%, #0d0b09 50%, #0d0b09 100%);
+  }
+
+  .s2 .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    padding: 0 32px;
+    animation: fadeUp 0.8s ease-out both;
+  }
+
+  .product-visual {
+    width: 240px;
+    height: 240px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Jar / tin illustration via CSS */
+  .jar {
+    width: 180px;
+    height: 180px;
+    background: linear-gradient(160deg, #c87830 0%, #8b3d12 40%, #5a2808 100%);
+    border-radius: 50%;
+    position: relative;
+    box-shadow:
+      0 20px 60px rgba(181,84,26,0.4),
+      inset 0 -20px 40px rgba(0,0,0,0.4),
+      inset 0 20px 30px rgba(255,200,120,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .jar::after {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    width: 50px;
+    height: 25px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 50%;
+    transform: rotate(-20deg);
+  }
+  .jar-label {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 28px;
+    color: var(--cream);
+    font-weight: 700;
+    letter-spacing: 2px;
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  }
+  .jar-sublabel {
+    font-size: 10px;
+    color: rgba(240,232,216,0.7);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+    margin-top: 2px;
+  }
+
+  /* glow ring */
+  .glow-ring {
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    border: 1px solid rgba(196,154,42,0.3);
+    animation: pulse-ring 2s ease-in-out infinite;
+  }
+  .glow-ring2 {
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    border: 1px solid rgba(196,154,42,0.1);
+    animation: pulse-ring 2s ease-in-out infinite 0.5s;
+  }
+
+  @keyframes pulse-ring {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.05); opacity: 1; }
+  }
+
+  .feature-headline {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--cream);
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  .feature-desc {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--sand);
+    text-align: center;
+    line-height: 1.8;
+  }
+
+  .badge-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .badge {
+    background: rgba(181,84,26,0.15);
+    border: 1px solid rgba(181,84,26,0.4);
+    color: var(--warm);
+    font-size: 12px;
+    letter-spacing: 2px;
+    padding: 8px 16px;
+    border-radius: 24px;
+    text-transform: uppercase;
+  }
+
+  /* ================================================
+     SCENE 3 — BENEFITS
+  ================================================ */
+  .s3 {
+    background: var(--dark);
+  }
+
+  .s3 .content {
+    width: 100%;
+    padding: 0 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    animation: fadeUp 0.8s ease-out both;
+  }
+
+  .section-eyebrow {
+    font-size: 11px;
+    letter-spacing: 5px;
+    color: var(--gold);
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .benefits-headline {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--cream);
+    text-align: center;
+    line-height: 1.2;
+    margin-bottom: 48px;
+  }
+  .benefits-headline span {
+    color: var(--clay);
+  }
+
+  .benefit-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .benefit-item:last-child { border-bottom: none; }
+
+  .benefit-num {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 40px;
+    color: var(--clay);
+    opacity: 0.5;
+    line-height: 1;
+    min-width: 44px;
+  }
+
+  .benefit-text h3 {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 4px;
+  }
+  .benefit-text p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.6;
+  }
+
+  /* ================================================
+     SCENE 4 — BEFORE/AFTER FEEL
+  ================================================ */
+  .s4 {
+    background: linear-gradient(180deg, #0d0b09 0%, #1a0c03 50%, #0d0b09 100%);
+  }
+
+  .s4 .content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding: 60px 32px;
+    animation: fadeUp 0.8s ease-out both;
+  }
+
+  .big-quote {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 48px;
+    font-weight: 900;
+    color: var(--cream);
+    text-align: center;
+    line-height: 1.2;
+    position: relative;
+  }
+  .big-quote::before {
+    content: '"';
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 120px;
+    color: var(--clay);
+    opacity: 0.2;
+    position: absolute;
+    top: -40px;
+    right: -16px;
+    line-height: 1;
+  }
+
+  .big-quote em {
+    color: var(--clay);
+    font-style: normal;
+  }
+
+  .style-row {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .style-card {
+    flex: 1;
+    max-width: 140px;
+    aspect-ratio: 2/3;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .style-card .sc-bg {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 80px;
+  }
+
+  .style-card .sc-label {
+    position: relative;
+    z-index: 1;
+    padding: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--cream);
+    text-align: center;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    width: 100%;
+  }
+
+  .s4 .sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+    line-height: 1.8;
+  }
+
+  /* ================================================
+     SCENE 5 — CTA / CLOSING
+  ================================================ */
+  .s5 {
+    background: radial-gradient(ellipse at 50% 60%, #2a1505 0%, var(--dark) 70%);
+  }
+
+  .s5 .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    padding: 0 32px;
+    animation: fadeUp 0.8s ease-out both;
+  }
+
+  .closing-logo {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 56px;
+    font-weight: 700;
+    color: var(--cream);
+    letter-spacing: 6px;
+  }
+
+  .closing-line {
+    font-size: 15px;
+    color: var(--gold);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .cta-box {
+    background: linear-gradient(135deg, var(--clay) 0%, var(--clay2) 100%);
+    border-radius: 16px;
+    padding: 24px 48px;
+    text-align: center;
+    box-shadow: 0 16px 40px rgba(181,84,26,0.35);
+    width: 100%;
+  }
+  .cta-box .cta-main {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 24px;
+    font-weight: 900;
+    color: white;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .cta-box .cta-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 1px;
+  }
+
+  .availability {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+  }
+  .avail-dot {
+    width: 8px;
+    height: 8px;
+    background: #4ade80;
+    border-radius: 50%;
+    animation: blink 1.5s ease-in-out infinite;
+  }
+  .avail-text {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .bottom-brand {
+    position: absolute;
+    bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .bottom-brand .bb-name {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 20px;
+    color: var(--cream);
+    opacity: 0.6;
+    letter-spacing: 3px;
+  }
+  .bottom-brand .bb-tag {
+    font-size: 10px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+
+  /* ================================================
+     GLOBAL ANIMATIONS
+  ================================================ */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* Progress bar */
+  .progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--clay), var(--gold));
+    animation: progress 45s linear infinite;
+    z-index: 200;
+  }
+  @keyframes progress {
+    from { width: 0%; }
+    to   { width: 100%; }
+  }
+
+  /* SCENE BACKGROUND ELEMENTS */
+  .bg-circle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .s1 .bg-circle-1 {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(181,84,26,0.12) 0%, transparent 70%);
+    top: -100px; left: -100px;
+    animation: float 6s ease-in-out infinite;
+  }
+  .s1 .bg-circle-2 {
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(196,154,42,0.08) 0%, transparent 70%);
+    bottom: -50px; right: -80px;
+    animation: float 8s ease-in-out infinite reverse;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+
+  /* Clay texture strips - decorative */
+  .texture-strip {
+    position: absolute;
+    left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(181,84,26,0.3), rgba(196,154,42,0.2), transparent);
+  }
+
+  /* Floating particles */
+  .particles {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: var(--gold);
+    border-radius: 50%;
+    opacity: 0;
+  }
+  .particle:nth-child(1) { left: 20%; animation: particleUp 4s 0.5s ease-in infinite; }
+  .particle:nth-child(2) { left: 45%; animation: particleUp 5s 1s ease-in infinite; }
+  .particle:nth-child(3) { left: 70%; animation: particleUp 3.5s 0s ease-in infinite; }
+  .particle:nth-child(4) { left: 85%; animation: particleUp 4.5s 2s ease-in infinite; }
+  .particle:nth-child(5) { left: 30%; animation: particleUp 6s 1.5s ease-in infinite; }
+
+  @keyframes particleUp {
+    0%   { bottom: -10px; opacity: 0; }
+    10%  { opacity: 0.6; }
+    90%  { opacity: 0.2; }
+    100% { bottom: 100%; opacity: 0; }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="stage">
+
+  <!-- Progress bar -->
+  <div class="progress-bar"></div>
+
+  <!-- Grain overlay -->
+  <div class="grain"></div>
+
+  <!-- ========================
+       SCENE 1 — BRAND INTRO
+  ======================== -->
+  <div class="scene s1">
+    <div class="bg-circle bg-circle-1"></div>
+    <div class="bg-circle bg-circle-2"></div>
+
+    <div class="particles">
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+    </div>
+
+    <div class="logo-wrap">
+      <div class="clay-icon">
+        <!-- Fingerprint / clay texture SVG icon -->
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <path d="M50 15 C30 15, 15 30, 15 50 C15 70, 30 85, 50 85 C70 85, 85 70, 85 50 C85 30, 70 15, 50 15 Z M50 25 C65 25, 75 35, 75 50 C75 65, 65 75, 50 75 C35 75, 25 65, 25 50 C25 35, 35 25, 50 25 Z M50 33 C60 33, 67 41, 67 50 C67 59, 60 67, 50 67 C40 67, 33 59, 33 50 C33 41, 40 33, 50 33 Z M50 41 C55 41, 59 45, 59 50 C59 55, 55 59, 50 59 C45 59, 41 55, 41 50 C41 45, 45 41, 50 41 Z" opacity="0.8"/>
+        </svg>
+      </div>
+
+      <div class="brand-name">argila</div>
+      <div class="brand-sub">Clay Hair Styling</div>
+      <div class="divider-gold"></div>
+
+      <div class="tagline-s1">
+        חימר טבעי לעיצוב שיער<br>שמגדיר מחדש את הסטייל שלך
+      </div>
+    </div>
+
+    <div class="texture-strip" style="bottom: 120px;"></div>
+    <div class="bottom-line">Professional · Natural · Bold</div>
+  </div>
+
+  <!-- ========================
+       SCENE 2 — THE PRODUCT
+  ======================== -->
+  <div class="scene s2">
+    <div class="content">
+      <div class="product-visual">
+        <div class="glow-ring2"></div>
+        <div class="glow-ring"></div>
+        <div class="jar">
+          <div class="jar-label">argila</div>
+          <div class="jar-sublabel">CLAY · חימר</div>
+        </div>
+      </div>
+
+      <div class="feature-headline">
+        מוצר הסטיילינג<br>שאתה מחפש
+      </div>
+
+      <div class="feature-desc">
+        חימר טבעי בדרגת אחיזה גבוהה<br>
+        עם מראה מט ומשקל קל
+      </div>
+
+      <div class="badge-row">
+        <div class="badge">אחיזה חזקה</div>
+        <div class="badge">מראה מט</div>
+        <div class="badge">טבעי</div>
+        <div class="badge">נגמר בקלות</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================
+       SCENE 3 — BENEFITS
+  ======================== -->
+  <div class="scene s3">
+    <div class="content">
+      <div class="section-eyebrow">למה argila</div>
+      <div class="benefits-headline">
+        הסוד של<br><span>הספרים הטובים</span>
+      </div>
+
+      <div class="benefit-item">
+        <div class="benefit-num">01</div>
+        <div class="benefit-text">
+          <h3>אחיזה כל היום</h3>
+          <p>מחזיק את הסטייל משעות הבוקר ועד הערב, בלי מאמץ</p>
+        </div>
+      </div>
+
+      <div class="benefit-item">
+        <div class="benefit-num">02</div>
+        <div class="benefit-text">
+          <h3>מראה טבעי ומט</h3>
+          <p>לא נראה מלאכותי — נראה כאילו יצאת ככה</p>
+        </div>
+      </div>
+
+      <div class="benefit-item">
+        <div class="benefit-num">03</div>
+        <div class="benefit-text">
+          <h3>קל להסרה</h3>
+          <p>נשטף במים בקלות, ללא שאריות</p>
+        </div>
+      </div>
+
+      <div class="benefit-item">
+        <div class="benefit-num">04</div>
+        <div class="benefit-text">
+          <h3>מחזק את השיער</h3>
+          <p>רכיבי חימר טבעיים שמזינים ומחזקים</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================
+       SCENE 4 — STYLE
+  ======================== -->
+  <div class="scene s4">
+    <div class="content">
+      <div class="big-quote">
+        עיצוב שיער<br>שמתחיל<br><em>בך.</em>
+      </div>
+
+      <div class="style-row">
+        <div class="style-card">
+          <div class="sc-bg">✂️</div>
+          <div class="sc-label">קלאסי</div>
+        </div>
+        <div class="style-card">
+          <div class="sc-bg">💈</div>
+          <div class="sc-label">מודרני</div>
+        </div>
+        <div class="style-card">
+          <div class="sc-bg">🔥</div>
+          <div class="sc-label">בולד</div>
+        </div>
+      </div>
+
+      <div class="sub">
+        Argila מתאים לכל סגנון,<br>לכל אורך שיער, לכל יום.
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================
+       SCENE 5 — CLOSING CTA
+  ======================== -->
+  <div class="scene s5">
+    <div class="particles">
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+    </div>
+
+    <div class="content">
+      <div class="closing-logo">argila</div>
+
+      <div class="divider-gold" style="width: 60px;"></div>
+
+      <div class="closing-line">
+        Clay Hair Styling<br>זמין כאן, במספרה שלך
+      </div>
+
+      <div class="cta-box">
+        <div class="cta-main">תשאל את הספר שלך</div>
+        <div class="cta-sub">על מוצרי argila ← היום</div>
+      </div>
+
+      <div class="availability">
+        <div class="avail-dot"></div>
+        <div class="avail-text">זמין במספרה זו</div>
+      </div>
+
+      <div class="texture-strip" style="position: relative; width: 100%;"></div>
+
+      <div style="font-size: 11px; color: rgba(255,255,255,0.2); letter-spacing: 3px; text-align: center; text-transform: uppercase;">
+        Natural · Professional · Israeli Made
+      </div>
+    </div>
+
+    <div class="bottom-brand">
+      <div class="bb-name">argila</div>
+      <div class="bb-tag">Clay Hair Styling</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
