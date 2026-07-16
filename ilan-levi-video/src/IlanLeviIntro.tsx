@@ -5,6 +5,7 @@ import {
   interpolate,
   useCurrentFrame,
   Interactive,
+  random,
 } from "remotion";
 import { loadFonts, FRANK_RUHL, ASSISTANT, PLAYFAIR } from "./fonts";
 
@@ -13,43 +14,148 @@ loadFonts();
 const BG = "#0a0a0a";
 const CREAM = "#e8e0d0";
 const GOLD = "#c49a2a";
+const RED = "#a81818";
 const WARM = "#c8a97a";
 
-const GrainOverlay: React.FC = () => (
-  <AbsoluteFill style={{ pointerEvents: "none", opacity: 0.18, zIndex: 10 }}>
+// ── Vignette overlay ──────────────────────────────────────────
+const Vignette: React.FC = () => (
+  <AbsoluteFill
+    style={{
+      background:
+        "radial-gradient(ellipse at 50% 50%, transparent 45%, rgba(0,0,0,0.7) 80%, rgba(0,0,0,0.95) 100%)",
+      pointerEvents: "none",
+      zIndex: 15,
+    }}
+  />
+);
+
+// ── Scanlines overlay ─────────────────────────────────────────
+const Scanlines: React.FC = () => (
+  <AbsoluteFill
+    style={{
+      backgroundImage:
+        "repeating-linear-gradient(0deg, rgba(0,0,0,0.06) 0px, rgba(0,0,0,0.06) 1px, transparent 1px, transparent 4px)",
+      pointerEvents: "none",
+      zIndex: 14,
+    }}
+  />
+);
+
+// ── Grain overlay ─────────────────────────────────────────────
+const Grain: React.FC = () => (
+  <AbsoluteFill style={{ pointerEvents: "none", opacity: 0.2, zIndex: 13 }}>
     <svg width="100%" height="100%">
-      <filter id="grain">
-        <feTurbulence
-          type="fractalNoise"
-          baseFrequency="0.65"
-          numOctaves="3"
-          stitchTiles="stitch"
-        />
+      <filter id="grain3">
+        <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="4" stitchTiles="stitch" />
         <feColorMatrix type="saturate" values="0" />
       </filter>
-      <rect width="100%" height="100%" filter="url(#grain)" />
+      <rect width="100%" height="100%" filter="url(#grain3)" />
     </svg>
   </AbsoluteFill>
 );
 
-const DividerLine: React.FC = () => {
-  const frame = useCurrentFrame();
-  const width = interpolate(frame, [0, 40], ["0%", "60%"], {
-    extrapolateRight: "clamp",
-    easing: Easing.bezier(0.16, 1, 0.3, 1),
-  });
+// ── Chromatic aberration on text via layered shadows ───────────
+const GlitchName: React.FC<{ aberration: number; opacity: number; scale: number }> = ({
+  aberration,
+  opacity,
+  scale,
+}) => {
+  const ab = aberration;
   return (
-    <div style={{ width, height: 1, background: GOLD, margin: "0 auto" }} />
+    <div style={{ position: "relative", opacity, scale: String(scale), textAlign: "center" }}>
+      {/* Red channel — offset right */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          fontFamily: `${FRANK_RUHL}, serif`,
+          fontSize: 148,
+          fontWeight: 900,
+          color: "transparent",
+          textShadow: `${ab}px 0 0 rgba(200,30,30,0.7)`,
+          textAlign: "center",
+          userSelect: "none",
+        }}
+      >
+        אילן לוי
+      </div>
+      {/* Cyan channel — offset left */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          fontFamily: `${FRANK_RUHL}, serif`,
+          fontSize: 148,
+          fontWeight: 900,
+          color: "transparent",
+          textShadow: `${-ab / 2}px 0 0 rgba(30,200,200,0.45)`,
+          textAlign: "center",
+          userSelect: "none",
+        }}
+      >
+        אילן לוי
+      </div>
+      {/* Main gold text */}
+      <div
+        style={{
+          position: "relative",
+          fontFamily: `${FRANK_RUHL}, serif`,
+          fontSize: 148,
+          fontWeight: 900,
+          color: GOLD,
+          letterSpacing: "0.02em",
+          lineHeight: 1,
+          textAlign: "center",
+          textShadow:
+            ab > 1
+              ? `0 0 ${ab * 3}px rgba(196,154,42,0.35)`
+              : undefined,
+        }}
+      >
+        אילן לוי
+      </div>
+    </div>
   );
 };
 
-const ServiceItem: React.FC<{ text: string }> = ({ text }) => {
+// ── Random glitch bar ─────────────────────────────────────────
+const GlitchBars: React.FC<{ frame: number }> = ({ frame }) => {
+  if (random(`bars-${frame}`) >= 0.1) return null;
+  const y1 = Math.floor(random(`y1-${frame}`) * 1920);
+  const y2 = Math.floor(random(`y2-${frame}`) * 1920);
+  const w1 = `${15 + random(`w1-${frame}`) * 45}%`;
+  const w2 = `${8 + random(`w2-${frame}`) * 25}%`;
+  const color = random(`col-${frame}`) > 0.5 ? GOLD : RED;
+  return (
+    <>
+      <div style={{ position: "absolute", top: y1, left: 0, width: w1, height: 1, background: color, opacity: 0.55, zIndex: 9 }} />
+      <div style={{ position: "absolute", top: y2, right: 0, width: w2, height: 1, background: GOLD, opacity: 0.35, zIndex: 9 }} />
+    </>
+  );
+};
+
+// ── Divider line ──────────────────────────────────────────────
+const DividerLine: React.FC = () => {
   const frame = useCurrentFrame();
-  const opacity = interpolate(frame, [0, 30], [0, 1], {
+  const width = interpolate(frame, [0, 35], ["0%", "55%"], {
     extrapolateRight: "clamp",
     easing: Easing.bezier(0.16, 1, 0.3, 1),
   });
-  const translateY = interpolate(frame, [0, 30], [16, 0], {
+  return <div style={{ width, height: 1, background: GOLD, margin: "0 auto" }} />;
+};
+
+// ── Service item with varying size ────────────────────────────
+const ServiceItem: React.FC<{ text: string; size: number; color: string }> = ({
+  text,
+  size,
+  color,
+}) => {
+  const frame = useCurrentFrame();
+  const opacity = interpolate(frame, [0, 22], [0, 1], {
+    extrapolateRight: "clamp",
+    easing: Easing.bezier(0.16, 1, 0.3, 1),
+  });
+  const tx = interpolate(frame, [0, 22], [-24, 0], {
     extrapolateRight: "clamp",
     easing: Easing.bezier(0.16, 1, 0.3, 1),
   });
@@ -58,15 +164,14 @@ const ServiceItem: React.FC<{ text: string }> = ({ text }) => {
       name={`Service: ${text}`}
       style={{
         opacity,
-        translate: `0px ${translateY}px`,
+        translate: `${tx}px 0px`,
         fontFamily: `${ASSISTANT}, sans-serif`,
-        fontSize: 38,
-        color: CREAM,
-        fontWeight: 300,
-        letterSpacing: "0.08em",
-        textAlign: "center",
+        fontSize: size,
+        fontWeight: size > 44 ? 400 : 300,
+        color,
+        letterSpacing: size > 44 ? "0.04em" : "0.1em",
         direction: "rtl",
-        paddingBottom: 8,
+        lineHeight: 1.25,
       }}
     >
       {text}
@@ -74,149 +179,224 @@ const ServiceItem: React.FC<{ text: string }> = ({ text }) => {
   );
 };
 
+// ─────────────────────────────────────────────────────────────
 export const IlanLeviIntro: React.FC = () => {
   const frame = useCurrentFrame();
 
-  const bgOpacity = interpolate(frame, [0, 20], [0, 1], {
-    extrapolateRight: "clamp",
-  });
+  const bgOpacity = interpolate(frame, [0, 15], [0, 1], { extrapolateRight: "clamp" });
 
-  const accentHeight = interpolate(frame, [10, 60], ["0%", "30%"], {
+  // Name
+  const nameOpacity = interpolate(frame, [18, 60], [0, 1], {
+    extrapolateRight: "clamp",
+    easing: Easing.bezier(0.16, 1, 0.3, 1),
+  });
+  const nameScale = interpolate(frame, [18, 65], [1.1, 1], {
     extrapolateRight: "clamp",
     easing: Easing.bezier(0.16, 1, 0.3, 1),
   });
 
-  const titleOpacity = interpolate(frame, [30, 80], [0, 1], {
+  // Chromatic aberration: big on entry → settles → random spikes
+  const baseAb = interpolate(frame, [18, 75], [16, 0.2], {
     extrapolateRight: "clamp",
     easing: Easing.bezier(0.16, 1, 0.3, 1),
   });
-  const titleY = interpolate(frame, [30, 80], [40, 0], {
+  const spike = random(`sp-${frame}`) < 0.05 ? random(`amt-${frame}`) * 10 : 0;
+  const aberration = baseAb + spike;
+
+  // Tagline
+  const tagOpacity = interpolate(frame, [75, 108], [0, 1], {
     extrapolateRight: "clamp",
     easing: Easing.bezier(0.16, 1, 0.3, 1),
   });
 
-  const subtitleOpacity = interpolate(frame, [80, 120], [0, 1], {
+  // Label
+  const labelOpacity = interpolate(frame, [40, 75], [0, 1], { extrapolateRight: "clamp" });
+
+  // Accent bar
+  const accentH = interpolate(frame, [12, 68], ["0%", "26%"], {
     extrapolateRight: "clamp",
     easing: Easing.bezier(0.16, 1, 0.3, 1),
   });
 
-  const contactOpacity = interpolate(frame, [240, 280], [0, 1], {
+  // Contact
+  const contactOpacity = interpolate(frame, [238, 272], [0, 1], {
     extrapolateRight: "clamp",
     easing: Easing.bezier(0.16, 1, 0.3, 1),
   });
 
-  const services = ["ביקור בבית", "שיחה וקפה", "טיול ביחד", "משחק שחמט"];
+  const services = [
+    { text: "ביקור בבית", size: 54, color: CREAM },
+    { text: "שיחה וקפה", size: 36, color: WARM },
+    { text: "טיול ביחד", size: 48, color: CREAM },
+    { text: "משחק שחמט", size: 32, color: WARM },
+  ];
 
   return (
     <AbsoluteFill style={{ background: BG, opacity: bgOpacity }}>
-      <GrainOverlay />
+      <Grain />
+      <Scanlines />
+      <Vignette />
+      <GlitchBars frame={frame} />
 
-      {/* Gold accent bar */}
+      {/* Gold accent vertical bar */}
       <div
         style={{
           position: "absolute",
-          right: 60,
-          top: "35%",
+          right: 52,
+          top: "28%",
           width: 2,
-          height: accentHeight,
+          height: accentH,
           background: GOLD,
           transform: "translateY(-50%)",
+          zIndex: 8,
         }}
       />
 
+      {/* Small label — top left */}
+      <div
+        style={{
+          position: "absolute",
+          top: 80,
+          left: 60,
+          opacity: labelOpacity,
+          zIndex: 8,
+          fontFamily: `${ASSISTANT}, sans-serif`,
+          fontSize: 20,
+          color: GOLD,
+          letterSpacing: "0.22em",
+          direction: "ltr",
+          textTransform: "uppercase",
+        }}
+      >
+        personal accompaniment
+      </div>
+
+      {/* Index — top right */}
+      <div
+        style={{
+          position: "absolute",
+          top: 80,
+          right: 60,
+          opacity: labelOpacity * 0.35,
+          zIndex: 8,
+          fontFamily: `${FRANK_RUHL}, serif`,
+          fontWeight: 900,
+          fontSize: 22,
+          color: CREAM,
+          letterSpacing: "0.15em",
+          direction: "ltr",
+        }}
+      >
+        01
+      </div>
+
+      {/* ── MAIN CONTENT ── */}
       <AbsoluteFill
         style={{
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          padding: "0 80px",
+          padding: "0 72px",
           direction: "rtl",
+          zIndex: 8,
         }}
       >
-        {/* Name */}
-        <Interactive.Div
-          name="Main title"
-          style={{
-            opacity: titleOpacity,
-            translate: `0px ${titleY}px`,
-            fontFamily: `${FRANK_RUHL}, serif`,
-            fontSize: 130,
-            fontWeight: 900,
-            color: GOLD,
-            letterSpacing: "0.04em",
-            lineHeight: 1.1,
-            textAlign: "center",
-          }}
-        >
-          אילן לוי
-        </Interactive.Div>
+        {/* NAME with chromatic aberration */}
+        <GlitchName aberration={aberration} opacity={nameOpacity} scale={nameScale} />
 
         {/* Divider */}
-        <div style={{ marginTop: 24, marginBottom: 24, width: "100%" }}>
-          <Sequence name="Divider" from={90} layout="none">
+        <div style={{ marginTop: 30, marginBottom: 28, width: "100%" }}>
+          <Sequence name="Divider" from={78} layout="none">
             <DividerLine />
           </Sequence>
         </div>
 
-        {/* Tagline */}
+        {/* TAGLINE */}
         <Interactive.Div
           name="Tagline"
           style={{
-            opacity: subtitleOpacity,
+            opacity: tagOpacity,
             fontFamily: `${PLAYFAIR}, serif`,
             fontStyle: "italic",
-            fontSize: 46,
+            fontSize: 50,
             color: WARM,
-            letterSpacing: "0.06em",
+            letterSpacing: "0.05em",
             textAlign: "center",
-            marginBottom: 80,
+            lineHeight: 1.3,
+            marginBottom: 68,
           }}
         >
           ליווי אישי · קשר אנושי
         </Interactive.Div>
 
-        {/* Services */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 16, alignItems: "center" }}>
-          {services.map((service, i) => (
-            <Sequence key={service} name={`Service ${i + 1}`} from={140 + i * 22} layout="none">
-              <ServiceItem text={service} />
+        {/* SERVICES — varying sizes, right-aligned */}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-end",
+            gap: 12,
+            width: "100%",
+            paddingRight: 36,
+          }}
+        >
+          {services.map((s, i) => (
+            <Sequence key={s.text} name={`Service ${i + 1}`} from={128 + i * 20} layout="none">
+              <ServiceItem text={s.text} size={s.size} color={s.color} />
             </Sequence>
           ))}
         </div>
 
-        {/* Contact */}
+        {/* PHONE — glowing gold */}
         <Interactive.Div
           name="Phone"
           style={{
             opacity: contactOpacity,
-            marginTop: 90,
-            fontFamily: `${ASSISTANT}, sans-serif`,
-            fontSize: 36,
-            color: CREAM,
-            letterSpacing: "0.12em",
+            marginTop: 80,
+            fontFamily: `${FRANK_RUHL}, serif`,
+            fontWeight: 900,
+            fontSize: 56,
+            color: GOLD,
+            letterSpacing: "0.06em",
             textAlign: "center",
             direction: "ltr",
+            textShadow: `0 0 ${24 * contactOpacity}px rgba(196,154,42,0.6), 0 0 ${8 * contactOpacity}px rgba(196,154,42,0.8)`,
           }}
         >
-          050-000-0000
+          052-864-6446
         </Interactive.Div>
 
         <Interactive.Div
           name="Location"
           style={{
-            opacity: contactOpacity,
-            marginTop: 12,
+            opacity: contactOpacity * 0.75,
+            marginTop: 16,
             fontFamily: `${ASSISTANT}, sans-serif`,
-            fontSize: 30,
-            color: GOLD,
-            letterSpacing: "0.08em",
+            fontWeight: 300,
+            fontSize: 28,
+            color: CREAM,
+            letterSpacing: "0.14em",
             textAlign: "center",
           }}
         >
           רמת השרון והסביבה
         </Interactive.Div>
       </AbsoluteFill>
+
+      {/* Bottom gradient line */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: 88,
+          left: "18%",
+          right: "18%",
+          height: 1,
+          background: `linear-gradient(to right, transparent, ${GOLD}, transparent)`,
+          opacity: contactOpacity * 0.4,
+          zIndex: 8,
+        }}
+      />
     </AbsoluteFill>
   );
 };
