@@ -5,7 +5,7 @@ export const ASSISTANT = "Assistant";
 export const PLAYFAIR = "Playfair Display";
 
 export const loadFonts = () => {
-  const handle = delayRender("Loading fonts");
+  const handle = delayRender("Loading fonts", { timeoutInMilliseconds: 60000 });
 
   const fonts = [
     new FontFace(FRANK_RUHL, `url(${staticFile("fonts/frank-ruhl-900.ttf")})`, {
@@ -26,8 +26,14 @@ export const loadFonts = () => {
     }),
   ];
 
-  Promise.all(fonts.map((f) => f.load())).then((loaded) => {
-    loaded.forEach((f) => document.fonts.add(f));
-    continueRender(handle);
-  });
+  Promise.all(fonts.map((f) => f.load()))
+    .then((loaded) => {
+      loaded.forEach((f) => document.fonts.add(f));
+    })
+    .catch(() => {
+      // continue even if fonts fail to load
+    })
+    .finally(() => {
+      continueRender(handle);
+    });
 };
