@@ -118,6 +118,54 @@ const GlitchName: React.FC<{ aberration: number; opacity: number; scale: number 
   );
 };
 
+// ── Light sweep: moves right → left ──────────────────────────
+const LightSweep: React.FC<{ frame: number }> = ({ frame }) => {
+  // First sweep: frames 60–130
+  const x1 = interpolate(frame, [60, 130], [120, -30], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.bezier(0.4, 0, 0.6, 1),
+  });
+  const op1 = interpolate(frame, [60, 72, 118, 130], [0, 1, 1, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  // Second sweep: frames 200–255
+  const x2 = interpolate(frame, [200, 255], [120, -30], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.bezier(0.4, 0, 0.6, 1),
+  });
+  const op2 = interpolate(frame, [200, 210, 248, 255], [0, 0.7, 0.7, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  const sweepStyle = (xPercent: number, opacity: number): React.CSSProperties => ({
+    position: "absolute",
+    inset: 0,
+    opacity,
+    background: `linear-gradient(
+      105deg,
+      transparent ${xPercent - 12}%,
+      rgba(255,240,180,0.07) ${xPercent - 4}%,
+      rgba(255,240,180,0.22) ${xPercent}%,
+      rgba(255,240,180,0.07) ${xPercent + 4}%,
+      transparent ${xPercent + 12}%
+    )`,
+    pointerEvents: "none",
+    zIndex: 16,
+  });
+
+  return (
+    <>
+      {op1 > 0 && <div style={sweepStyle(x1, op1)} />}
+      {op2 > 0 && <div style={sweepStyle(x2, op2)} />}
+    </>
+  );
+};
+
 // ── Random glitch bar ─────────────────────────────────────────
 const GlitchBars: React.FC<{ frame: number }> = ({ frame }) => {
   if (random(`bars-${frame}`) >= 0.1) return null;
@@ -172,6 +220,7 @@ const ServiceItem: React.FC<{ text: string; size: number; color: string }> = ({
         letterSpacing: size > 44 ? "0.04em" : "0.1em",
         direction: "rtl",
         lineHeight: 1.25,
+        textAlign: "center",
       }}
     >
       {text}
@@ -236,6 +285,7 @@ export const IlanLeviIntro: React.FC = () => {
       <Grain />
       <Scanlines />
       <Vignette />
+      <LightSweep frame={frame} />
       <GlitchBars frame={frame} />
 
       {/* Gold accent vertical bar */}
@@ -330,15 +380,14 @@ export const IlanLeviIntro: React.FC = () => {
           ליווי אישי · קשר אנושי
         </Interactive.Div>
 
-        {/* SERVICES — varying sizes, right-aligned */}
+        {/* SERVICES — varying sizes, centered */}
         <div
           style={{
             display: "flex",
             flexDirection: "column",
-            alignItems: "flex-end",
+            alignItems: "center",
             gap: 12,
             width: "100%",
-            paddingRight: 36,
           }}
         >
           {services.map((s, i) => (
