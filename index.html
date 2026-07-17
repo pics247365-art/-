@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>אילן לוי — ליווי אישי וקשר אנושי</title>
 <meta name="description" content="אילן לוי — ליווי אישי, קשר אנושי, נוכחות אמיתית. רמת השרון והסביבה.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>י</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;700;900&family=Assistant:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
@@ -89,7 +90,7 @@ nav {
   gap: 2rem;
 }
 .nav-links a {
-  font-size: 0.6rem;
+  font-size: 0.72rem;
   font-weight: 400;
   letter-spacing: 0.18em;
   color: var(--muted);
@@ -113,13 +114,14 @@ nav {
 
 /* ── SHARED ── */
 .s-tag {
-  font-size: 0.44rem;
-  letter-spacing: 0.6em;
+  font-size: 0.62rem;
+  letter-spacing: 0.52em;
   color: var(--gold);
   text-transform: uppercase;
   direction: ltr;
   margin-bottom: 1.2rem;
   display: block;
+  position: relative;
 }
 .s-tag.red   { color: var(--red); }
 .s-tag.muted { color: var(--muted); }
@@ -149,7 +151,6 @@ section { scroll-margin-top: var(--nav-h); }
   object-position: center 25%;
   opacity: 0.22;
   filter: grayscale(12%) contrast(1.06);
-  transform: scale(1.04);
   animation: heroZoom 18s ease-out both;
 }
 @keyframes heroZoom {
@@ -204,12 +205,12 @@ section { scroll-margin-top: var(--nav-h); }
   flex-wrap: wrap;
 }
 .hero-tag {
-  font-size: 0.5rem;
-  letter-spacing: 0.38em;
+  font-size: 0.68rem;
+  letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--muted);
 }
-.hero-tag-dot { color: var(--gold); font-size: 0.32rem; }
+.hero-tag-dot { color: var(--gold); font-size: 0.48rem; }
 
 h1.hero-headline {
   font-family: 'Frank Ruhl Libre', serif;
@@ -302,8 +303,8 @@ h1.hero-headline em {
   animation: fadeIn 1s 1.2s ease both;
 }
 .hero-loc {
-  font-size: 0.48rem;
-  letter-spacing: 0.42em;
+  font-size: 0.65rem;
+  letter-spacing: 0.38em;
   color: var(--muted);
   text-transform: uppercase;
   direction: ltr;
@@ -312,8 +313,8 @@ h1.hero-headline em {
   display: flex;
   align-items: center;
   gap: 0.7rem;
-  font-size: 0.48rem;
-  letter-spacing: 0.32em;
+  font-size: 0.65rem;
+  letter-spacing: 0.28em;
   color: var(--muted);
   text-transform: uppercase;
   direction: ltr;
@@ -331,7 +332,7 @@ h1.hero-headline em {
   background: var(--ink);
   overflow: hidden;
   padding: 0.7rem 0;
-  border-bottom: 1px solid #1e1e1e;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
 }
 .ticker-inner {
   display: flex;
@@ -342,15 +343,15 @@ h1.hero-headline em {
   width: max-content;
 }
 .ticker-word {
-  font-size: 0.44rem;
-  letter-spacing: 0.44em;
+  font-size: 0.62rem;
+  letter-spacing: 0.4em;
   text-transform: uppercase;
   color: rgba(244,240,230,0.32);
   font-weight: 600;
   flex-shrink: 0;
 }
 .ticker-dot {
-  font-size: 0.32rem;
+  font-size: 0.48rem;
   color: var(--gold-lt);
   opacity: 0.5;
   flex-shrink: 0;
@@ -500,6 +501,7 @@ h1.hero-headline em {
   -ms-overflow-style: none;
   padding: 0 2.4rem;
   cursor: grab;
+  direction: ltr;
 }
 .photo-strip:active { cursor: grabbing; }
 .photo-strip::-webkit-scrollbar { display: none; }
@@ -511,7 +513,7 @@ h1.hero-headline em {
   aspect-ratio: 2 / 3;
   position: relative;
   overflow: hidden;
-  background: #c2b9a6;
+  background: var(--surface);
 }
 .photo-card img {
   width: 100%;
@@ -540,7 +542,7 @@ h1.hero-headline em {
   font-family: 'Frank Ruhl Libre', serif;
   font-weight: 900;
   font-size: 1.3rem;
-  color: #fff;
+  color: var(--bg);
   direction: rtl;
   letter-spacing: 0.01em;
 }
@@ -596,6 +598,7 @@ h1.hero-headline em {
   margin-top: 1.2rem;
   margin-bottom: 3rem;
   position: relative;
+  z-index: 1;
   letter-spacing: 0.06em;
 }
 .shegaon-desc {
@@ -674,12 +677,12 @@ h1.hero-headline em {
   transition: border-color 0.25s, background 0.25s;
 }
 .app-card:hover {
-  background: #e2dbc8;
+  background: var(--line);
   border-right-color: var(--gold);
 }
 .app-num {
-  font-size: 0.48rem;
-  letter-spacing: 0.38em;
+  font-size: 0.65rem;
+  letter-spacing: 0.34em;
   color: var(--gold);
   direction: ltr;
   margin-bottom: 0.8rem;
@@ -734,7 +737,7 @@ h1.hero-headline em {
 .gs-num {
   font-family: 'Playfair Display', serif;
   font-style: italic;
-  font-size: 0.66rem;
+  font-size: 0.78rem;
   color: var(--gold);
   min-width: 22px;
   flex-shrink: 0;
@@ -770,8 +773,8 @@ h1.hero-headline em {
   background: var(--ink);
 }
 .manifesto-eye {
-  font-size: 0.44rem;
-  letter-spacing: 0.6em;
+  font-size: 0.65rem;
+  letter-spacing: 0.52em;
   color: rgba(244,240,230,0.2);
   text-transform: uppercase;
   direction: ltr;
@@ -879,11 +882,12 @@ blockquote.manifesto-q {
 .contact-phone:hover { color: var(--dim); }
 .contact-area {
   margin-top: 7rem;
-  font-size: 0.44rem;
+  font-size: 0.62rem;
   color: var(--muted);
   letter-spacing: 0.44em;
   text-transform: uppercase;
   direction: ltr;
+  position: relative;
 }
 
 /* ── FOOTER ── */
@@ -896,8 +900,8 @@ footer {
   direction: ltr;
 }
 .footer-l, .footer-r {
-  font-size: 0.48rem;
-  letter-spacing: 0.32em;
+  font-size: 0.65rem;
+  letter-spacing: 0.28em;
   color: var(--muted);
   text-transform: uppercase;
 }
@@ -933,8 +937,8 @@ footer {
 @media (max-width: 520px) {
   :root { --nav-h: 52px; }
   nav { padding: 0 1.4rem; }
-  .nav-links { gap: 1.1rem; }
-  .nav-links a { font-size: 0.56rem; }
+  .nav-links { gap: 1.4rem; }
+  .nav-links a { font-size: 0.68rem; }
 
   .hero-content { padding: 0 1.4rem 4rem; }
   .hero-foot { padding: 1rem 1.4rem; }
@@ -959,10 +963,8 @@ footer {
 <nav>
   <a href="#hero" class="nav-logo">אילן <em>לוי</em></a>
   <div class="nav-links">
-    <a href="#worlds">עולמות</a>
-    <a href="#photography">צילום</a>
+    <a href="#guidance">שירותים</a>
     <a href="#shegaon">שגאון</a>
-    <a href="#ai-apps">אפליקציות</a>
     <a href="#contact" class="nav-cta">קשר</a>
   </div>
 </nav>
@@ -994,12 +996,12 @@ footer {
     <div class="hero-rule" aria-hidden="true"></div>
 
     <p class="hero-desc">
-      המרחב האישי של אילן לוי — מקום שבו ליווי אישי, יצירה, ואינטליגנציה מלאכותית נפגשים בשפה אנושית אחת.
+      המרחב האישי של אילן לוי — ליווי אישי, יצירה, וקשר אנושי אמיתי.
     </p>
 
     <div class="hero-actions">
       <a href="#contact" class="btn-gold">דברו איתי</a>
-      <a href="#worlds" class="btn-outline">מה אני מציע</a>
+      <a href="#guidance" class="btn-outline">מה אני מציע</a>
     </div>
   </div>
 
@@ -1053,7 +1055,7 @@ footer {
     <span class="world-num">02</span>
     <div class="world-body">
       <div class="world-name">שגאון</div>
-      <div class="world-sub">המרחב שבין דיכאון לשיגעון</div>
+      <div class="world-sub">המרחב שבין דיכאון לשגעון</div>
       <div class="world-en">Shegaon</div>
     </div>
     <span class="world-arrow">←</span>
@@ -1093,27 +1095,27 @@ footer {
 
   <div class="photo-strip" id="photoStrip">
     <div class="photo-card">
-      <img src="images/ilan-portrait.png" alt="נוכחות" style="object-position: center 20%;" loading="lazy">
+      <img src="images/ilan-portrait.png" alt="" style="object-position: center 20%;" loading="lazy">
       <div class="photo-overlay"></div>
       <div class="photo-label">נוכחות</div>
     </div>
     <div class="photo-card">
-      <img src="images/artwork-photography.jpg" alt="מסע" style="object-position: center 40%;" loading="lazy">
+      <img src="images/artwork-photography.jpg" alt="" style="object-position: center 40%;" loading="lazy">
       <div class="photo-overlay"></div>
       <div class="photo-label">מסע</div>
     </div>
     <div class="photo-card">
-      <img src="images/ai-mind.jpg" alt="תודעה" style="object-position: center center;" loading="lazy">
+      <img src="images/ai-mind.jpg" alt="" style="object-position: center center;" loading="lazy">
       <div class="photo-overlay"></div>
       <div class="photo-label">תודעה</div>
     </div>
     <div class="photo-card">
-      <img src="images/artwork-depression.jpg" alt="דיכאון" style="object-position: center 30%;" loading="lazy">
+      <img src="images/artwork-depression.jpg" alt="" style="object-position: center 30%;" loading="lazy">
       <div class="photo-overlay"></div>
       <div class="photo-label">דיכאון</div>
     </div>
     <div class="photo-card">
-      <img src="images/artwork-madness.jpg" alt="שגאון" style="object-position: center 25%;" loading="lazy">
+      <img src="images/artwork-madness.jpg" alt="" style="object-position: center 25%;" loading="lazy">
       <div class="photo-overlay"></div>
       <div class="photo-label">שגאון</div>
     </div>
@@ -1283,14 +1285,6 @@ strip.addEventListener('mousemove', e => {
   strip.scrollLeft = scrollL - (e.pageX - strip.offsetLeft - startX) * 1.7;
 });
 
-// Touch scroll for photo strip
-let touchStartX = 0;
-strip.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
-strip.addEventListener('touchmove', e => {
-  const dx = touchStartX - e.touches[0].clientX;
-  strip.scrollLeft += dx * 0.6;
-  touchStartX = e.touches[0].clientX;
-}, { passive: true });
 </script>
 
 </body>
