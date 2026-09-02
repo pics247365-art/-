@@ -1,5 +1,5 @@
 {
-  "next_index": 4,
+  "next_index": 5,
   "posted": [
     {
       "date": "2026-08-29T12:59:42.971824",
@@ -20,6 +20,11 @@
       "date": "2026-09-01T12:23:58.675477",
       "image": "dog_04_kalbim_anashim.png",
       "index": 3
+    },
+    {
+      "date": "2026-09-02T11:58:45.739547",
+      "image": "dog_05_aluf.png",
+      "index": 4
     }
   ]
 }
