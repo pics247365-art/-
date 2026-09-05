@@ -1,5 +1,5 @@
 {
-  "next_index": 1,
+  "next_index": 2,
   "posted": [
     {
       "date": "2026-08-29T12:59:42.971824",
@@ -35,6 +35,11 @@
       "date": "2026-09-04T12:00:10.356919",
       "image": "dog_01_gur_yad.png",
       "index": 0
+    },
+    {
+      "date": "2026-09-05T11:09:33.045137",
+      "image": "dog_02_gur_treat.png",
+      "index": 1
     }
   ]
 }
